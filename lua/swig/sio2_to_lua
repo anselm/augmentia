@@ -1,0 +1,2 @@
+#!/bin/bash
+./swig -lua -o ../sio2_wrap.c sio2.module

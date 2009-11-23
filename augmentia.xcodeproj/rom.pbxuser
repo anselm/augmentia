@@ -1,0 +1,391 @@
+// !$*UTF8*$!
+{
+	1D3623240D0F684500981E51 /* augmentiaAppDelegate.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {605, 585}}";
+			sepNavSelRange = "{260, 0}";
+			sepNavVisRange = "{0, 426}";
+		};
+	};
+	1D3623250D0F684500981E51 /* augmentiaAppDelegate.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {972, 896}}";
+			sepNavSelRange = "{1885, 0}";
+			sepNavVisRange = "{629, 1265}";
+		};
+	};
+	1D6058900D05DD3D006BFB54 /* augmentia */ = {
+		activeExec = 0;
+		executables = (
+			E0E30D520E5EA2D100F6D25F /* augmentia */,
+		);
+	};
+	28FD14FC0DC6FC130079059D /* EAGLView.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {714, 644}}";
+			sepNavSelRange = "{250, 33}";
+			sepNavVisRange = "{0, 1095}";
+			sepNavWindowFrame = "{{15, 0}, {889, 873}}";
+		};
+	};
+	28FD14FD0DC6FC130079059D /* EAGLView.mm */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {858, 3836}}";
+			sepNavSelRange = "{4978, 69}";
+			sepNavVisRange = "{4557, 696}";
+			sepNavWindowFrame = "{{264, -18}, {889, 873}}";
+		};
+	};
+	29B97313FDCFA39411CA2CEA /* Project object */ = {
+		activeBuildConfigurationName = Release;
+		activeExecutable = E0E30D520E5EA2D100F6D25F /* augmentia */;
+		activeSDKPreference = iphonesimulator3.0;
+		activeTarget = 1D6058900D05DD3D006BFB54 /* augmentia */;
+		addToTargets = (
+			1D6058900D05DD3D006BFB54 /* augmentia */,
+		);
+		breakpoints = (
+		);
+		codeSenseManager = E0E30D5D0E5EA2D400F6D25F /* Code sense */;
+		executables = (
+			E0E30D520E5EA2D100F6D25F /* augmentia */,
+		);
+		perUserDictionary = {
+			"PBXConfiguration.PBXBreakpointsDataSource.v1:1CA1AED706398EBD00589147" = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXBreakpointsDataSource_BreakpointID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					20,
+					198,
+					20,
+					99,
+					99,
+					29,
+					20,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXBreakpointsDataSource_ActionID,
+					PBXBreakpointsDataSource_TypeID,
+					PBXBreakpointsDataSource_BreakpointID,
+					PBXBreakpointsDataSource_UseID,
+					PBXBreakpointsDataSource_LocationID,
+					PBXBreakpointsDataSource_ConditionID,
+					PBXBreakpointsDataSource_IgnoreCountID,
+					PBXBreakpointsDataSource_ContinueID,
+				);
+			};
+			"PBXConfiguration.PBXBreakpointsDataSource.v1:1CA23EDF0692099D00951B8B" = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXBreakpointsDataSource_BreakpointID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					20,
+					235,
+					20,
+					134,
+					133,
+					61,
+					20,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXBreakpointsDataSource_ActionID,
+					PBXBreakpointsDataSource_TypeID,
+					PBXBreakpointsDataSource_BreakpointID,
+					PBXBreakpointsDataSource_UseID,
+					PBXBreakpointsDataSource_LocationID,
+					PBXBreakpointsDataSource_ConditionID,
+					PBXBreakpointsDataSource_IgnoreCountID,
+					PBXBreakpointsDataSource_ContinueID,
+				);
+			};
+			PBXConfiguration.PBXFileTableDataSource3.PBXFileTableDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					456,
+					20,
+					48,
+					43,
+					43,
+					20,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+					PBXFileDataSource_Target_ColumnID,
+				);
+			};
+			PBXConfiguration.PBXTargetDataSource.PBXTargetDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					453,
+					60,
+					20,
+					48.16259765625,
+					43,
+					43,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXTargetDataSource_PrimaryAttribute,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+				);
+			};
+			PBXPerProjectTemplateStateSaveDate = 270340117;
+			PBXWorkspaceStateSaveDate = 270340117;
+		};
+		perUserProjectItems = {
+			E0166D710E9EC0CE0042408D /* PlistBookmark */ = E0166D710E9EC0CE0042408D /* PlistBookmark */;
+			E022A735101D101A00695AF1 /* PlistBookmark */ = E022A735101D101A00695AF1 /* PlistBookmark */;
+			E0B651E21017EB1A00F71043 /* PlistBookmark */ = E0B651E21017EB1A00F71043 /* PlistBookmark */;
+		};
+		sourceControlManager = E0E30D5C0E5EA2D400F6D25F /* Source Control */;
+		userBuildSettings = {
+		};
+	};
+	29B97316FDCFA39411CA2CEA /* main.mm */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {929, 364}}";
+			sepNavSelRange = "{282, 0}";
+			sepNavVisRange = "{162, 276}";
+		};
+	};
+	32CA4F630368D1EE00C91783 /* augmentia_Prefix.pch */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {630, 610}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 177}";
+		};
+	};
+	E0166D710E9EC0CE0042408D /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = 8D1107310486CEB800E47090 /* Info.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+		);
+		name = /Users/rom/Desktop/SIO2_SDK_v1.2/augmentia/Info.plist;
+		rLen = 0;
+		rLoc = 2147483647;
+	};
+	E022A735101D101A00695AF1 /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = 8D1107310486CEB800E47090 /* Info.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+		);
+		name = /Users/rom/Desktop/SIO2_SDK_v1_4/augmentia/Info.plist;
+		rLen = 0;
+		rLoc = 2147483647;
+	};
+	E04BB9FE100D5B280078A39E /* sio2_action.cc */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {607, 3248}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 1551}";
+		};
+	};
+	E04BBA01100D5B280078A39E /* sio2_camera.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {609, 2702}}";
+			sepNavSelRange = "{6232, 529}";
+			sepNavVisRange = "{5772, 1046}";
+		};
+	};
+	E04BBA17100D5B280078A39E /* sio2_object.cc */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {954, 19040}}";
+			sepNavSelRange = "{30107, 0}";
+			sepNavVisRange = "{29188, 1216}";
+		};
+	};
+	E04BBA18100D5B280078A39E /* sio2_object.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {631, 4396}}";
+			sepNavSelRange = "{7189, 0}";
+			sepNavVisRange = "{6929, 599}";
+		};
+	};
+	E04BBA1D100D5B280078A39E /* sio2_resource.cc */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {634, 39886}}";
+			sepNavSelRange = "{50942, 0}";
+			sepNavVisRange = "{50572, 775}";
+		};
+	};
+	E04BBA29100D5B280078A39E /* sio2_state.cc */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {607, 10934}}";
+			sepNavSelRange = "{15014, 1034}";
+			sepNavVisRange = "{15498, 673}";
+		};
+	};
+	E04BBA33100D5B280078A39E /* sio2_transform.cc */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {609, 4788}}";
+			sepNavSelRange = "{8810, 15}";
+			sepNavVisRange = "{8406, 819}";
+		};
+	};
+	E04BBA41100D5B280078A39E /* sio2.cc */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {609, 7868}}";
+			sepNavSelRange = "{623, 0}";
+			sepNavVisRange = "{0, 1784}";
+		};
+	};
+	E0A9FAEF0EC420F10077F188 /* theoradec.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {559, 4410}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 1751}";
+		};
+	};
+	E0B651E21017EB1A00F71043 /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = 8D1107310486CEB800E47090 /* Info.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+		);
+		name = /Users/rom/Desktop/SIO2_SDK_v1_4/augmentia/Info.plist;
+		rLen = 0;
+		rLoc = 2147483647;
+	};
+	E0E30D520E5EA2D100F6D25F /* augmentia */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+		);
+		argumentStrings = (
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 0;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		dylibVariantSuffix = "";
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = augmentia;
+		savedGlobals = {
+		};
+		sourceDirectories = (
+		);
+		variableFormatDictionary = {
+		};
+	};
+	E0E30D5C0E5EA2D400F6D25F /* Source Control */ = {
+		isa = PBXSourceControlManager;
+		fallbackIsa = XCSourceControlManager;
+		isSCMEnabled = 0;
+		scmConfiguration = {
+		};
+	};
+	E0E30D5D0E5EA2D400F6D25F /* Code sense */ = {
+		isa = PBXCodeSenseManager;
+		indexTemplatePath = "";
+	};
+	E0E310860E5EA3C300F6D25F /* main.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {605, 562}}";
+			sepNavSelRange = "{223, 0}";
+			sepNavVisRange = "{0, 224}";
+		};
+	};
+	E0E310870E5EA40200F6D25F /* augmentia.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {605, 634}}";
+			sepNavSelRange = "{429, 0}";
+			sepNavVisRange = "{0, 438}";
+		};
+	};
+	E0E310880E5EA40200F6D25F /* augmentia.mm */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {756, 7378}}";
+			sepNavSelRange = "{13816, 0}";
+			sepNavVisRange = "{13200, 935}";
+		};
+	};
+	E0E310DF0E5EA54900F6D25F /* zconf.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {605, 4410}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 1587}";
+		};
+	};
+	E0E310F90E5EA54900F6D25F /* adler32.c */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {665, 1974}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 1567}";
+		};
+	};
+	E0E310FB0E5EA54900F6D25F /* window.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {665, 549}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 1143}";
+		};
+	};
+	E0E311000E5EA54900F6D25F /* vorbisfile.c */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {605, 31472}}";
+			sepNavSelRange = "{51855, 0}";
+			sepNavVisRange = "{51423, 812}";
+		};
+	};
+	E0E311130E5EA54900F6D25F /* lookup_data.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {709, 2506}}";
+			sepNavSelRange = "{6246, 0}";
+			sepNavVisRange = "{4702, 1936}";
+		};
+	};
+	E0E311180E5EA54900F6D25F /* lsp.c */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {605, 6188}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 1894}";
+		};
+	};
+	E0E3111D0E5EA54900F6D25F /* floor0.c */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {627, 3570}}";
+			sepNavSelRange = "{1665, 10}";
+			sepNavVisRange = "{1255, 733}";
+		};
+	};
+	E0E311840E5EA54900F6D25F /* jversion.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {665, 549}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 275}";
+		};
+	};
+	E0FCD3BF0F0DB35F00C9E6A7 /* lapi.c */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {605, 15232}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 628}";
+		};
+	};
+}

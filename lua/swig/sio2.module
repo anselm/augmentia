@@ -1,0 +1,3918 @@
+%module SIO2
+%{
+	#include <OpenGLES/ES1/gl.h>
+	#include <OpenAL/al.h>
+	#include "sio2.h"
+%}
+
+
+#define	SIO2_MAX_CHAR				64
+#define SIO2_MAX_PATH				256
+
+#define SIO2_PI						3.141593f
+#define SIO2_DEG_TO_RAD				0.017453f
+#define SIO2_RAD_TO_DEG				57.29577f
+
+#define SIO2_CLIP_PLANE				6
+#define SIO2_ARCHIVE_TYPE			8
+#define SIO2_LAMP_MAX				8
+
+#define SIO2_SOCKET_BUFFER_SIZE		4096
+
+#define SIO2_SOUND_BUFFER			4
+#define SIO2_SOUND_BUFFER_SIZE		8092
+
+#define SIO2_VIDEO_BUFFER			2
+#define SIO2_VIDEO_BUFFER_BITS		3
+#define SIO2_VIDEO_BUFFER_SIZE		8092
+
+#define SIO2_THREAD_TIMEOUT			1
+
+#define SIO2_BUFFER_OFFSET( i )( ( char * )NULL + ( i ) )
+
+#define SIO2_CLAMP( x, low, high ) ( ( x > high ) ? high : ( ( x < low ) ? low : x ) )
+
+
+
+typedef struct
+{
+	char				app_path[ SIO2_MAX_PATH ];
+	char				app_name[ SIO2_MAX_CHAR ];
+
+	unsigned int		i_time;
+	
+	unsigned int		wid[ 2 ];
+
+	unsigned char		tfilter;
+	unsigned char		afilter;
+	
+	int					cpu_mhz;
+	int					bus_mhz;
+	
+	char				sys[ SIO2_MAX_CHAR ];
+
+	ALCdevice			*device;
+	ALCcontext			*context;
+	
+	ov_callbacks		 _ov_callbacks;
+
+	lua_State			*_lua_State;
+
+	SIO2state			*_SIO2state;
+
+	SIO2window			*_SIO2window;
+	SIO2camera			*_SIO2camera;
+	SIO2resource		*_SIO2resource;
+	SIO2physic			*_SIO2physic;
+	SIO2object			*_SIO2object;
+	SIO2lamp			*_SIO2lamp;
+	SIO2vertexgroup		*_SIO2vertexgroup;
+	SIO2material		*_SIO2material;
+	SIO2image			*_SIO2image[ SIO2_MATERIAL_NCHANNEL ];
+	SIO2font			*_SIO2font;
+	SIO2ipo				*_SIO2ipo;
+	SIO2ipocurve		*_SIO2ipocurve;
+	SIO2action			*_SIO2action;
+	
+} SIO2;
+
+extern SIO2 *sio2;
+
+void sio2InitGL( void );
+
+void sio2InitAL( void );
+
+void sio2ShutdownAL( void );
+
+void sio2InitLUA( void );
+
+int sio2ExecLUA( char * );
+
+void sio2ShutdownLUA( void );
+
+void sio2ResetLUA( void );
+
+void sio2InitWidget( void );
+
+void sio2ShutdownWidget( void );
+
+void sio2ErrorGL( const char *, const char *, unsigned int );
+
+void sio2ErrorAL( const char *, const char *, unsigned int );
+
+void sio2Error( const char *, const char *, unsigned int, char * );
+
+void sio2ResetState( void );
+
+void sio2ResetListener( void );
+
+bool sio2PhysicCollisionCallback( btManifoldPoint &, const btCollisionObject *, int, int, const btCollisionObject *, int, int );
+
+size_t sio2OggRead( void *, size_t, size_t, void * );
+
+int sio2OggSeek( void *, ogg_int64_t, int );
+
+static inline long sio2OggTell( void *_SIO2stream );
+
+static inline int sio2OggClose( void *_SIO2stream );
+
+static inline void sio2PngRead( png_structp _png_structp, png_bytep	_png_bytep, png_size_t  _png_size_t );
+
+
+
+
+
+
+
+
+
+typedef struct
+{
+	char				name[ SIO2_MAX_CHAR ];
+	
+	unsigned int		n_frame;
+	
+	unsigned int		s_frame;
+	
+	SIO2frame			**_SIO2frame;
+
+} SIO2action;
+
+
+SIO2action *sio2ActionInit( char * );
+
+SIO2action *sio2ActionFree( SIO2action * );
+
+unsigned char sio2ActionLoad( char *, char *, char * );
+
+
+
+
+
+
+
+
+
+
+
+typedef struct
+{
+	char			name[ SIO2_MAX_CHAR ];
+
+	float			fov;
+	float			cstart;
+	float			cend;
+	
+	float			frustum[ SIO2_CLIP_PLANE ][ 4 ];
+	float			*mat_modelview;
+	float			*mat_projection;
+	
+    float			height;
+	float			rad;
+	float			mass;
+	float			friction;
+	float			restitution;
+
+	btRigidBody		*_btRigidBody;
+
+	char			iponame[ SIO2_MAX_CHAR ];
+	SIO2ipo			*_SIO2ipo;
+
+	SIO2transform	*_SIO2transform;
+	
+	void			*userdata;
+
+} SIO2camera;
+
+
+SIO2camera *sio2CameraInit( char * );
+
+SIO2camera *sio2CameraFree( SIO2camera * );
+
+unsigned char sio2CameraLoad( char *, char *, char * );
+
+void sio2CameraUpdateFrustum( SIO2camera * );
+
+void sio2CameraGetProjectionMatrix( SIO2camera * );
+
+void sio2CameraGetModelviewMatrix( SIO2camera * );
+
+void sio2CameraRender( SIO2camera * );
+
+float sio2CameraSphereDistInFrustum( SIO2camera *, vec3 *, float );
+									 
+unsigned char sio2CameraPointInFrustum( SIO2camera *, vec3 * );
+
+unsigned char sio2CameraSphereInFrustum( SIO2camera *, vec3 *, float );
+
+unsigned char sio2CameraCubeInFrustum( SIO2camera *, vec3 *, vec3 * );
+
+unsigned char sio2CameraCubeIntersectFrustum( SIO2camera *, vec3 *, vec3 * );
+
+unsigned char sio2CameraSphereIntersectFrustum( SIO2camera *, vec3 *, float );
+
+unsigned char sio2CameraGeometryInFrustum( SIO2camera *, unsigned int, float * );
+
+void sio2CameraUpdateListener( SIO2camera * );
+
+
+
+
+
+void sio2Init( int *, char ** );
+
+SIO2 *sio2Shutdown( void );
+
+
+
+
+
+
+
+typedef struct
+{
+	char					name[ SIO2_MAX_CHAR ];
+
+	float					rad;
+	float					dst;
+	
+	vec3					*att;	
+	
+	unsigned int			maxp;
+	
+	float					sync_time;
+	float					pps;
+
+	unsigned char			state;
+	
+	unsigned int			n_particle;	
+	SIO2particle			**_SIO2particle;
+	
+	SIO2material			*_SIO2material;
+	
+	SIO2particlecreation	*_SIO2particlecreation;
+	SIO2particlerender		*_SIO2particlerender;
+	
+	SIO2ipo					*_SIO2ipo;
+
+	SIO2transform			*_SIO2transform;
+	
+	void					*userdata;
+	
+} SIO2emitter;
+
+
+SIO2emitter *sio2EmitterInit( char * );
+
+SIO2emitter *sio2EmitterFree( SIO2emitter * );
+
+void sio2EmitterCreate( SIO2emitter *, SIO2material *, SIO2particlecreation *, SIO2particlerender *, vec3 *, vec3 *, vec3 *, unsigned int, float, float );
+
+void sio2EmitterSetupParticles( SIO2emitter * );
+
+void sio2EmitterResetParticles( SIO2emitter * );
+
+void sio2EmitterRender( SIO2emitter *, SIO2window *, unsigned char );
+
+void sio2EmitterReset( void );
+
+void sio2EmitterPlay( SIO2emitter * );
+
+void sio2EmitterPause( SIO2emitter * );
+
+void sio2EmitterStop( SIO2emitter * );
+
+
+
+
+
+
+
+
+typedef struct
+{
+	char			name[ SIO2_MAX_CHAR ];
+
+	unsigned int	vbo;
+	
+	unsigned int	boffset;
+
+	unsigned char	n_char;
+	unsigned char	c_offset;
+	
+	float			size;
+	float			space;
+	float			line;
+	
+	SIO2transform	*_SIO2transform;
+	
+	SIO2material	*_SIO2material;
+	
+	void			*userdata;
+
+} SIO2font;
+
+
+SIO2font *sio2FontInit( const char * );
+
+SIO2font *sio2FontFree( SIO2font * );
+
+void sio2FontCreate( SIO2font *, SIO2material *, unsigned char, unsigned char, float, float );
+
+void sio2FontBuild( SIO2font * );
+
+unsigned char sio2FontPrint( SIO2font *, unsigned char, const char *, ... );
+
+void sio2FontReset( void );
+
+static inline float sio2FontGetPxWidth( SIO2font *_SIO2font, char *_str );
+
+
+static inline float sio2FontGetHalfPxWidth( SIO2font *_SIO2font, char *_str );
+
+
+
+
+
+
+
+
+
+typedef void( SIO2framecallback( void * ) );
+
+
+typedef struct
+{
+	unsigned int		frame;
+	
+	unsigned char		*buf;
+	
+	unsigned char		type;
+	SIO2framecallback	*_SIO2framecallback;
+
+} SIO2frame;
+
+
+SIO2frame *sio2FrameInit( unsigned int, unsigned int );
+
+SIO2frame *sio2FrameFree( SIO2frame * );
+
+void sio2FrameSetCallback( SIO2frame *, SIO2framecallback * );
+
+
+
+
+
+
+
+
+
+
+
+
+typedef enum
+{
+	SIO2_IMAGE_MIPMAP = ( 1 << 0 ),
+	SIO2_IMAGE_CLAMP  = ( 1 << 1 )
+	
+} SIO2_IMAGE_FLAG;
+
+
+typedef enum
+{
+	SIO2_IMAGE_BILINEAR = 0,
+	SIO2_IMAGE_TRILINEAR,
+	SIO2_IMAGE_QUADLINEAR
+	
+} SIO2_IMAGE_FILTERING_TYPE;
+
+
+typedef enum
+{
+	SIO2_IMAGE_ISOTROPIC = 0,
+	SIO2_IMAGE_ANISOTROPIC_1X,
+	SIO2_IMAGE_ANISOTROPIC_2X
+	
+} SIO2_IMAGE_ANISOTROPIC_TYPE;
+
+
+typedef void( SIO2imagebind( void *, unsigned char ) );
+
+typedef void( SIO2imageunbind( void *, unsigned char ) );
+
+
+typedef struct
+{
+	char			name[ SIO2_MAX_CHAR ];
+
+	unsigned int	width;
+	unsigned int	height;
+	unsigned char	bits;
+
+	unsigned int	flags;
+	
+	unsigned char	*tex;
+	
+	unsigned int	tid;
+	
+	float			filter;
+	
+	SIO2imagebind	*_SIO2imagebind;
+	SIO2imageunbind	*_SIO2imageunbind; 
+	
+	void			*userdata;
+	
+} SIO2image;
+
+
+SIO2image *sio2ImageInit( const char * );
+
+SIO2image *sio2ImageFree( SIO2image * );
+
+void sio2ImageLoad( SIO2image *, SIO2stream * );
+
+void sio2ImageLoadJPEG( SIO2image *, SIO2stream * );
+
+void sio2ImageLoadTGA( SIO2image *, SIO2stream * );
+
+void sio2ImageLoadPNG( SIO2image *, SIO2stream * );
+
+void sio2ImageGenId( SIO2image *, unsigned int, float  );
+
+void sio2ImageScale( SIO2image *, unsigned int, unsigned int );
+
+void sio2ImageFlip( SIO2image * );
+
+void sio2ImageSetAlpha( SIO2image *, SIO2image * );
+						
+void sio2ImageRGBAtoBGRA( SIO2image * );
+
+void sio2ImageRender( SIO2image * );
+
+void sio2ImageBlur( SIO2image * );
+
+
+
+
+
+
+
+
+
+
+
+
+
+typedef struct
+{
+	char			name[ SIO2_MAX_CHAR ];
+
+	SIO2ipocurve	*locx;
+	SIO2ipocurve	*locy;
+	SIO2ipocurve	*locz;
+
+	SIO2ipocurve	*rotx;
+	SIO2ipocurve	*roty;
+	SIO2ipocurve	*rotz;
+	
+	SIO2ipocurve	*sclx;
+	SIO2ipocurve	*scly;
+	SIO2ipocurve	*sclz;
+
+	SIO2transform	*_SIO2transform;
+	
+	unsigned char	state;
+
+} SIO2ipo;
+
+
+SIO2ipo *sio2IpoInit( char * );
+
+SIO2ipo *sio2IpoFree( SIO2ipo * );
+
+unsigned char sio2IpoLoad( char *, char *, char * );
+
+void sio2IpoRender( SIO2ipo *, SIO2window * );
+
+void sio2IpoPlay( SIO2ipo * );
+
+void sio2IpoPause( SIO2ipo * );
+
+void sio2IpoStop( SIO2ipo *, SIO2transform * );
+
+void sio2IpoReset( SIO2ipo *, SIO2transform * );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+typedef enum
+{
+	SIO2_IPO_CURVE_INTERPOLATION_CONSTANT = 0,
+	SIO2_IPO_CURVE_INTERPOLATION_LINEAR,
+	SIO2_IPO_CURVE_INTERPOLATION_BEZIER
+
+} SIO2_IPO_CURVE_INTERPOLATION_TYPE;
+
+
+typedef enum
+{
+	SIO2_IPO_CURVE_EXTRAPOLATION_CONSTANT = 0,
+	SIO2_IPO_CURVE_EXTRAPOLATION_EXTRAPOLATION,
+	SIO2_IPO_CURVE_EXTRAPOLATION_CYCLIC,
+	SIO2_IPO_CURVE_EXTRAPOLATION_CYCLIC_EXTRAPOLATION
+
+} SIO2_IPO_CURVE_EXTRAPOLATION_TYPE;
+
+
+typedef void( SIO2pointcallback( void * ) );
+
+
+typedef struct
+{
+	unsigned int		curr_point;
+
+	float				t_ratio;
+	float				v_ratio;
+	float				tv_ratio;
+	
+	float				d_time;
+	float				value;
+
+	unsigned char		interpolation;
+	unsigned char		extrapolation;
+	
+	unsigned int		n_point;
+	bez3				*point;
+	
+	unsigned int		point_callback;
+	SIO2pointcallback	*_SIO2pointcallback;
+	
+	void				*userdata;
+	
+} SIO2ipocurve;
+
+
+SIO2ipocurve *sio2IpoCurveInit( void );
+
+SIO2ipocurve *sio2IpoCurveFree( SIO2ipocurve * );
+
+float sio2IpoCurveRender( SIO2ipocurve *, SIO2window * );
+
+float sio2IpoCurveReset( SIO2ipocurve * );
+
+void sio2IpoCurveGetRatio( SIO2ipocurve * );
+
+void sio2IpoCurveSetPointCallback( SIO2ipocurve *, SIO2pointcallback *, unsigned int );
+
+
+
+
+
+
+
+
+
+
+
+typedef enum
+{
+	SIO2_LAMP_NO_DIFFUSE  = ( 1 << 0 ),
+	SIO2_LAMP_NO_SPECULAR = ( 1 << 1 )	
+
+} SIO2_LAMP_FLAGS;
+
+
+typedef enum
+{
+	SIO2_LAMP_LAMP = 0,
+	SIO2_LAMP_SUN,
+	SIO2_LAMP_SPOT,
+	SIO2_LAMP_HEMI,
+	SIO2_LAMP_AREA
+
+} SIO2_LAMP_TYPE;
+
+
+typedef struct
+{
+	char			name[ SIO2_MAX_CHAR ];
+	
+	unsigned int	index;
+	
+	unsigned char	type;
+	unsigned char	vis;
+	
+	unsigned int	flags;
+	
+	SIO2transform	*_SIO2transform;
+
+	vec4			*col;
+
+	float			nrg;
+	float			dst;
+	float			fov;
+	float			sblend;
+	float			att1;
+	float			att2;
+	
+	char			iponame[ SIO2_MAX_CHAR ];
+	SIO2ipo			*_SIO2ipo;
+	
+	void			*userdata;
+
+} SIO2lamp;
+
+
+SIO2lamp *sio2LampInit( char * );
+
+SIO2lamp *sio2LampFree( SIO2lamp * );
+
+unsigned char sio2LampLoad( char *, char *, char * );
+
+unsigned char sio2LampRender( SIO2lamp *, unsigned char );
+
+void sio2LampReset( void );
+
+void sio2LampSetAmbient( vec4 * );
+
+void sio2LampEnableLight( void );
+
+void sio2LampResetLight( void );
+
+
+
+
+
+
+
+
+typedef enum
+{
+	SIO2_MATERIAL_MIX = 0,
+	SIO2_MATERIAL_MULTIPLY,
+	SIO2_MATERIAL_ADD,
+	SIO2_MATERIAL_SUBTRACT,
+	SIO2_MATERIAL_DIVIDE,
+	SIO2_MATERIAL_DARKEN,
+	SIO2_MATERIAL_DIFFERENCE,
+	SIO2_MATERIAL_LIGHTEN,
+	SIO2_MATERIAL_SCREEN,
+	SIO2_MATERIAL_OVERLAY,
+	SIO2_MATERIAL_HUE,
+	SIO2_MATERIAL_SATURATION,
+	SIO2_MATERIAL_VALUE,
+	SIO2_MATERIAL_COLOR
+
+} SIO2_MATERIAL_BLEND;
+
+
+typedef enum
+{
+	SIO2_MATERIAL_CHANNEL0 = 0,
+	SIO2_MATERIAL_CHANNEL1,
+	
+	SIO2_MATERIAL_NCHANNEL
+
+} SIO2_MATERIAL_CHANNEL;
+
+
+typedef void( SIO2vertexshader( vec3 *, vec3 *, col4 *, vec2 *, vec2 *, void * ) );
+
+
+typedef struct
+{
+	char				name[ SIO2_MAX_CHAR ];
+	
+	vec4				*diffuse;	
+	vec4				*specular;
+	
+	float				alpha;
+	float				shininess;
+	
+	float				friction;
+	float				restitution;
+	
+	float				alvl;
+	
+	unsigned char		blend;
+	
+	char				tname [ SIO2_MATERIAL_NCHANNEL ][ SIO2_MAX_CHAR ];
+	
+	unsigned int		tflags[ SIO2_MATERIAL_NCHANNEL ];
+	
+	float				tfilter[ SIO2_MATERIAL_NCHANNEL ];
+	
+	SIO2image			*_SIO2image[ SIO2_MATERIAL_NCHANNEL ];
+	
+	char				sbname[ SIO2_MAX_CHAR ];
+	
+	unsigned int		sflags;
+	
+	SIO2soundbuffer		*_SIO2soundbuffer;
+	
+	SIO2vertexshader	*_SIO2vertexshader;
+	
+	void				*userdata;
+
+} SIO2material;
+
+
+SIO2material *sio2MaterialInit( const char * );
+
+SIO2material *sio2MaterialFree( SIO2material * );
+
+unsigned char sio2MaterialLoad( char *, char *, char * );
+
+void sio2MaterialResetImages( SIO2material * );
+
+void sio2MaterialRender( SIO2material * );
+
+void sio2MaterialReset( void );
+
+
+
+
+
+
+
+
+
+
+
+
+
+typedef struct
+{
+	char		name[ SIO2_MAX_CHAR ];
+	
+	vec4		*col;
+	
+	float		dens;
+
+	float		mode;	
+	
+	float		cstart;
+	float		cend;
+	
+	void		*userdata;
+
+} SIO2mist;
+
+
+SIO2mist *sio2MistInit( char * );
+
+SIO2mist *sio2MistFree( SIO2mist * );
+
+void sio2MistCreate( SIO2mist *, vec4 *, float, float, float, float );
+
+void sio2MistRender( SIO2mist * );
+
+void sio2MistReset( void );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+typedef enum
+{
+	SIO2_OBJECT_SOLID			= ( 1 << 0 ),
+	SIO2_OBJECT_TRANSPARENT		= ( 1 << 1 ),
+	SIO2_OBJECT_ALPHA_TESTED	= ( 1 << 2 )
+
+} SIO2_OBJECT_TYPE;
+
+
+typedef enum
+{
+	SIO2_OBJECT_ACTOR		 = ( 1 << 0  ),
+	SIO2_OBJECT_GHOST		 = ( 1 << 1  ),	
+	SIO2_OBJECT_DYNAMIC		 = ( 1 << 2  ),
+	SIO2_OBJECT_RIGIDBODY	 = ( 1 << 3  ),
+	SIO2_OBJECT_SOFTBODY	 = ( 1 << 4  ),
+	SIO2_OBJECT_BILLBOARD	 = ( 1 << 5  ),
+	SIO2_OBJECT_HALO		 = ( 1 << 6  ),
+	SIO2_OBJECT_TWOSIDE		 = ( 1 << 7  ),
+	SIO2_OBJECT_NOSLEEPING	 = ( 1 << 8  ),
+	SIO2_OBJECT_SHADOW		 = ( 1 << 9  ),
+	SIO2_OBJECT_DYNAMIC_DRAW = ( 1 << 10 ),
+	SIO2_OBJECT_INVISIBLE	 = ( 1 << 11 )
+	
+} SIO2_OBJECT_FLAGS;
+
+
+typedef enum
+{
+	SIO2_OBJECT_SIZE = 0,
+	SIO2_OBJECT_NORMALS,
+	SIO2_OBJECT_VCOLOR,	
+	SIO2_OBJECT_TEXUV0,
+	SIO2_OBJECT_TEXUV1,
+	
+	SIO2_OBJECT_NVBO_OFFSET
+	
+} SIO2_OBJECT_VBO_OFFSET;
+
+
+typedef struct
+{
+	unsigned char		bounds;
+	
+	float				mass;
+	float				damp;
+	float				rotdamp;
+	float				margin;
+	
+	float				linstiff;
+	float				shapematch;
+	
+	unsigned char		citeration;
+	unsigned char		piteration;
+	
+	btTriangleMesh		*_btTriangleMesh;
+	
+	btRigidBody			*_btRigidBody;
+
+	btSoftBody			*_btSoftBody;
+
+} SIO2objectphysic;
+
+
+typedef struct
+{
+	unsigned char		loop;
+	
+	unsigned char		next_action;
+	
+	float				t_ratio;
+	float				d_time;
+	float				interp;
+	float				fps;
+	
+	SIO2action			*_SIO2action;
+	SIO2frame			*_SIO2frame1;
+	SIO2frame			*_SIO2frame2;
+
+	unsigned int		curr_frame;
+	unsigned int		next_frame;
+
+	unsigned char		state;
+	
+} SIO2objectanimation;
+
+
+typedef struct
+{
+	char				name[ SIO2_MAX_CHAR ];
+
+	col4				*col;
+
+	float				rad;
+	float				dst;
+
+	unsigned int		vbo;
+	unsigned char		*buf;
+		
+	unsigned int		vbo_offset[ SIO2_OBJECT_NVBO_OFFSET ];
+	
+	unsigned int		flags;
+	unsigned int		type;	
+
+	vec3				*dim;
+
+	char				iponame[ SIO2_MAX_CHAR ];
+	SIO2ipo				*_SIO2ipo;
+
+	char				instname[ SIO2_MAX_CHAR ];
+	void				*_SIO2instance;
+	
+	unsigned int		n_vgroup;
+	SIO2vertexgroup		**_SIO2vertexgroup;
+
+	unsigned int		n_sound;
+	SIO2sound			**_SIO2sound;
+	
+	SIO2transform		*_SIO2transform;
+
+	SIO2objectphysic	*_SIO2objectphysic;
+	
+	SIO2objectanimation *_SIO2objectanimation;
+	
+	void				*userdata;
+
+} SIO2object;
+
+
+SIO2object *sio2ObjectInit( char * );
+
+SIO2object *sio2ObjectFree( SIO2object * );
+
+unsigned char sio2ObjectLoad( char *, char *, char * );
+
+void sio2ObjectGenId( SIO2object * );
+
+void sio2ObjectBindSound( SIO2object * );
+
+unsigned char sio2ObjectRender( SIO2object *, SIO2window *, SIO2camera *, unsigned char, unsigned char );
+
+void sio2ObjectBindVBO( SIO2object *, unsigned char );
+
+void sio2ObjectReset( void );
+
+void sio2ObjectBillboard( SIO2object *, vec3 * );
+
+unsigned int sio2ObjectGetNumVert( SIO2object * );
+
+SIO2object *sio2ObjectSoftCopy( SIO2object *, char * );
+
+SIO2object *sio2ObjectHardCopy( SIO2object *, char * );
+
+void sio2ObjectEnableObjectCollisionCallback( SIO2object * );
+
+void sio2ObjectDisableObjectCollisionCallback( SIO2object * );
+
+void sio2ObjectUpdateType( SIO2object * );
+
+void sio2ObjectPlay( SIO2object *, unsigned char );
+
+void sio2ObjectPause( SIO2object * );
+
+void sio2ObjectStop( SIO2object * );
+
+unsigned char sio2ObjectSetAction( SIO2object *, SIO2action *, float, float );
+
+unsigned char sio2ObjectNextAction( SIO2object *, SIO2action *, float, float );
+
+void sio2ObjectUpdateTimeRatio( SIO2object * );
+
+void sio2ObjectRenderAction( SIO2object *, SIO2window * );
+
+unsigned char sio2ObjectSetFrame( SIO2object *, unsigned int );
+
+void sio2ObjectInitPhysicAttributes( SIO2object * );
+
+void sio2ObjectCopyPhysicAttributes( SIO2object *, SIO2object * );
+
+void sio2ObjectInitAnimationAttributes( SIO2object * );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+typedef struct
+{
+	vec3	*loc;
+	vec4	*col;
+	
+	float	size;
+	float	lifetime;
+	float	speed;
+	float	angle;
+	
+	void	*userdata;
+
+} SIO2particle;
+
+
+typedef void( SIO2particlecreation( void *, SIO2particle * ) );
+
+typedef void( SIO2particlerender( void *, SIO2particle * ) );
+
+SIO2particle *sio2ParticleInit( void );
+
+SIO2particle *sio2ParticleFree( SIO2particle * );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+typedef enum
+{
+	SIO2_PHYSIC_BOX = 0,
+	SIO2_PHYSIC_SPHERE,
+	SIO2_PHYSIC_CYLINDER,
+	SIO2_PHYSIC_CONE,
+	SIO2_PHYSIC_TRIANGLEMESH,
+	SIO2_PHYSIC_CONVEXHULL,
+	SIO2_PHYSIC_CAPSULE
+
+} SIO2_PHYSIC_BOUNDS;
+
+
+typedef struct
+{
+	char name[ SIO2_MAX_CHAR ];
+
+	unsigned char state;
+	
+	btSoftBodyRigidBodyCollisionConfiguration	*_btSoftBodyRigidBodyCollisionConfiguration;
+	btCollisionDispatcher						*_btCollisionDispatcher;
+	btBroadphaseInterface						*_btBroadphaseInterface;
+	btConstraintSolver							*_btConstraintSolver;
+	btSoftRigidDynamicsWorld					*_btSoftRigidDynamicsWorld;
+	btSoftBodyWorldInfo							 _btSoftBodyWorldInfo;
+	
+	void										*userdata;
+	
+} SIO2physic;
+
+
+SIO2physic *sio2PhysicInit( char * );
+
+SIO2physic *sio2PhysicFree( SIO2physic * );
+
+void sio2PhysicAddObject( SIO2physic *, SIO2object * );
+
+void sio2PhysicAddRigidBody( SIO2physic *, SIO2object * );
+
+void sio2PhysicAddSoftBody( SIO2physic *, SIO2object * );
+
+void sio2PhysicAddCamera( SIO2physic *, SIO2camera * );
+
+void sio2PhysicRemoveObject( SIO2physic *, SIO2object * );
+
+void sio2PhysicRemoveAllObjects( SIO2physic * );
+
+void sio2PhysicRemoveCamera( SIO2physic *, SIO2camera * );
+
+void sio2PhysicSetGravity( SIO2physic *, vec3 * );
+
+void sio2PhysicResetObject( SIO2physic *, SIO2object * );
+
+void sio2PhysicResetCamera( SIO2physic *, SIO2camera * );
+
+void sio2PhysicResetRigidBody( SIO2physic *, btRigidBody *, btCollisionObject * );
+
+void sio2PhysicResetAll( SIO2physic * );
+
+void sio2PhysicPlay( SIO2physic * );
+
+void sio2PhysicPause( SIO2physic * );
+
+void sio2PhysicStop( SIO2physic * );
+
+void sio2PhysicRender( SIO2physic *, float, int );
+
+
+static inline void sio2PhysicOptimize( SIO2physic *_SIO2physic );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+typedef enum
+{
+	// .sio2
+	SIO2_OBJECT = 0,
+	SIO2_MATERIAL,
+	SIO2_LAMP,	
+	SIO2_CAMERA,	
+	SIO2_IMAGE,
+	SIO2_SOUNDBUFFER,
+	SIO2_SCRIPT,
+	SIO2_IPO,
+	
+	// misc.
+	SIO2_ACTION,	
+	SIO2_VIDEO,	
+	SIO2_SOUND,
+	SIO2_WIDGET,
+	SIO2_PHYSIC,
+	SIO2_SENSOR,
+	SIO2_EMITTER,
+	SIO2_MIST,
+	SIO2_FONT,
+	SIO2_TIMER,
+	
+	SIO2_RESOURCE_ALL
+	
+} SIO2_RESOURCE_TYPE;
+
+
+typedef enum
+{
+	SIO2_RENDER_SOLID_OBJECT		= ( 1 << 0  ),
+	SIO2_RENDER_TRANSPARENT_OBJECT	= ( 1 << 1  ),
+	SIO2_RENDER_ALPHA_TESTED_OBJECT	= ( 1 << 2  ),
+	SIO2_RENDER_NO_MATERIAL			= ( 1 << 3  ),
+	SIO2_RENDER_NO_MATRIX			= ( 1 << 4  ),	
+	SIO2_RENDER_CLIPPED_OBJECT		= ( 1 << 5  ),
+	SIO2_RENDER_LAMP				= ( 1 << 6  ),
+	SIO2_RENDER_EMITTER				= ( 1 << 7  ),
+	SIO2_RENDER_IPO					= ( 1 << 8  ),
+	SIO2_EVALUATE_SENSOR			= ( 1 << 9 ),
+	SIO2_EVALUATE_TIMER				= ( 1 << 10 ),
+	SIO2_UPDATE_SOUND_STREAM		= ( 1 << 11 )
+
+} SIO2_RESOURCE_MASK;
+
+
+typedef void( SIO2resourcecustomload( SIO2stream * ) );
+
+
+typedef struct
+{
+	char					name[ SIO2_MAX_CHAR ];
+
+	unzFile					uf;
+	unz_global_info			gi;
+
+	unsigned int			n_image;
+	void					**_SIO2image;
+	
+	unsigned int			n_widget;
+	void					**_SIO2widget;
+
+	unsigned int			n_camera;
+	void					**_SIO2camera;
+
+	unsigned int			n_material;
+	void					**_SIO2material;
+
+	unsigned int			n_soundbuffer;
+	void					**_SIO2soundbuffer;
+
+	unsigned int			n_sound;
+	void					**_SIO2sound;
+	
+	unsigned int			n_video;
+	void					**_SIO2video;
+
+	unsigned int			n_object;
+	void					**_SIO2object;
+	
+	unsigned int			n_physic;
+	void					**_SIO2physic;
+
+	unsigned int			n_sensor;
+	void					**_SIO2sensor;
+
+	unsigned int			n_emitter;
+	void					**_SIO2emitter;
+	
+	unsigned int			n_mist;
+	void					**_SIO2mist;
+
+	unsigned int			n_font;
+	void					**_SIO2font;
+	
+	unsigned int			n_lamp;
+	void					**_SIO2lamp;
+
+	unsigned int			n_script;
+	void					**_SIO2script;
+
+	unsigned int			n_ipo;
+	void					**_SIO2ipo;
+	
+	unsigned int			n_action;
+	void					**_SIO2action;
+
+	unsigned int			n_timer;
+	void					**_SIO2timer;
+	
+	unsigned int			n_entry;
+	SIO2entry				*_SIO2entry;
+
+	SIO2resourcecustomload	*_SIO2resourcecustomload;
+
+	void					*userdata;
+
+} SIO2resource;
+
+
+SIO2resource *sio2ResourceInit( char * );
+
+SIO2resource *sio2ResourceFree( SIO2resource * );
+
+unsigned int sio2ResourceGetVRAMSize( SIO2resource * );
+
+void sio2ResourceAdd( SIO2resource *, unsigned char, void * );
+
+void sio2ResourceDel( SIO2resource *, unsigned char, void * );
+
+void sio2ResourceUnload( SIO2resource *, unsigned char );
+
+void sio2ResourceUnloadAll( SIO2resource * );
+
+void sio2ResourceUpdateAllWidgetBoundaries( SIO2resource *, SIO2window * );
+
+void sio2ResourceDispatchEvents( SIO2resource *, SIO2window *, unsigned char, unsigned char );
+								  
+void *sio2ResourceGet( SIO2resource *, unsigned char, char * );
+
+unsigned char sio2ResourceOpen( SIO2resource *, const char *, unsigned char );
+
+void sio2ResourceClose( SIO2resource * );
+
+void sio2ResourceCreateDictionary( SIO2resource * );
+
+void sio2ResourceAddEntry( SIO2resource *, const char *, SIO2parsercallback *, SIO2parsercallback * );
+
+unsigned char sio2ResourceExtractFile( SIO2resource *, SIO2stream *, const char *, char * );
+							  
+void sio2ResourceExtract( SIO2resource *, char * );
+
+SIO2stream *sio2ResourceDispatchStream( SIO2resource *, SIO2stream * );
+
+void sio2ResourceBindAllImages( SIO2resource * );
+
+void sio2ResourceBindImage( SIO2resource *, SIO2material * );
+
+void sio2ResourceBindObjectIpo( SIO2resource *, SIO2object * );
+
+void sio2ResourceBindCameraIpo( SIO2resource *, SIO2camera * );
+
+void sio2ResourceBindLampIpo( SIO2resource *, SIO2lamp * );
+
+void sio2ResourceBindAllIpos( SIO2resource * );
+
+void sio2ResourceBindAllSoundBuffers( SIO2resource * );
+
+void sio2ResourceBindSoundBuffer( SIO2resource *, SIO2material * );
+
+void sio2ResourceBindAllMaterials( SIO2resource *_SIO2resource );
+
+void sio2ResourceBindMaterial( SIO2resource *, SIO2object * );
+
+void sio2ResourceBindAllInstances( SIO2resource * );
+
+void sio2ResourceBindAllMatrix( SIO2resource * );
+
+void sio2ResourceBindInstance( SIO2resource *, SIO2object * );
+
+void sio2ResourceBindAllPhysicObjects( SIO2resource *, SIO2physic * );
+
+void sio2ResourceGenId( SIO2resource * );
+
+void sio2ResourceBindAllSounds( SIO2resource * );
+
+void sio2ResourceRender( SIO2resource *, SIO2window *, SIO2camera *, int );
+
+SIO2object *sio2ResourceSelect3D( SIO2resource *, SIO2camera *, SIO2window *, vec2 * );
+
+void sio2ResourceSetAmbientVolume( SIO2resource *, SIO2window * );
+								   
+void sio2ResourceSetFxVolume( SIO2resource *, SIO2window * );
+
+void sio2ResourceCull( SIO2resource *, SIO2camera * );
+
+SIO2image *sio2ResourceGetImage( SIO2resource *, char * );
+
+SIO2widget *sio2ResourceGetWidget( SIO2resource *, char * );
+
+SIO2camera *sio2ResourceGetCamera( SIO2resource *, char * );
+
+SIO2material *sio2ResourceGetMaterial( SIO2resource *, char * );
+
+SIO2soundbuffer *sio2ResourceGetSoundBuffer( SIO2resource *, char * );
+
+SIO2sound *sio2ResourceGetSound( SIO2resource *, char * );
+
+SIO2video *sio2ResourceGetVideo( SIO2resource *, char * );
+
+SIO2object *sio2ResourceGetObject( SIO2resource *, char * );
+
+SIO2physic *sio2ResourceGetPhysic( SIO2resource *, char * );
+
+SIO2sensor *sio2ResourceGetSensor( SIO2resource *, char * );
+
+SIO2emitter *sio2ResourceGetEmitter( SIO2resource *, char * );
+
+SIO2mist *sio2ResourceGetMist( SIO2resource *, char * );
+
+SIO2font *sio2ResourceGetFont( SIO2resource *, char * );
+
+SIO2lamp *sio2ResourceGetLamp( SIO2resource *, char * );
+
+SIO2script *sio2ResourceGetScript( SIO2resource *, char * );
+
+SIO2ipo *sio2ResourceGetIpo( SIO2resource *, char * );
+
+SIO2action *sio2ResourceGetAction( SIO2resource *, char * );
+
+SIO2timer *sio2ResourceGetTimer( SIO2resource *, char * );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+typedef struct
+{
+	char				name[ SIO2_MAX_CHAR ];
+
+	unsigned char		*code;
+	
+	int					error_code;	
+	char				error_msg[ SIO2_MAX_PATH ];
+	
+	char				compiled;
+	
+	void				*userdata;
+
+} SIO2script;
+
+
+SIO2script *sio2ScriptInit( char * );
+
+SIO2script *sio2ScriptFree( SIO2script * );
+
+unsigned char sio2ScriptLoad( SIO2script *, SIO2stream * );
+
+unsigned char sio2ScriptCompile( SIO2script * );
+
+void sio2ScriptGetError( SIO2script * );
+
+
+
+
+
+
+
+
+
+
+
+
+
+typedef void( SIO2sensordistance( void * ,float ) );
+typedef void( SIO2sensorray( void *, vec3 * ) );
+typedef void( SIO2sensorcollision( void * ) );
+typedef void( SIO2sensorcontact( void * ) );
+
+typedef struct
+{
+	char					name[ SIO2_MAX_CHAR ];
+
+	SIO2object				*_SIO2object0;
+	SIO2object				*_SIO2object1;
+
+	vec3					*ray;
+	vec3					*from;
+	vec3					*to;
+	
+	float					dist;
+	float					threshold;
+
+	SIO2sensordistance		*_SIO2sensordistance;
+	SIO2sensorray			*_SIO2sensorray;
+	SIO2sensorcollision		*_SIO2sensorcollision;
+	SIO2sensorcontact		*_SIO2sensorcontact;
+			
+	SIO2physic				*_SIO2physic;
+	
+	void					*userdata;
+
+} SIO2sensor;
+
+
+SIO2sensor *sio2SensorInitDistance( char *, SIO2object *, SIO2object *, float, SIO2sensordistance * );
+
+SIO2sensor *sio2SensorInitRay( char	*, vec3 *, vec3 *, SIO2physic *, SIO2sensorray * );
+
+SIO2sensor *sio2SensorInitCollision( char *, SIO2object *, SIO2object *, SIO2sensorcollision * );
+
+SIO2sensor *sio2SensorInitContact( char *, SIO2sensorcontact * );
+
+SIO2sensor *sio2SensorFree( SIO2sensor * );
+
+void sio2SensorEvaluate( SIO2sensor * );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+typedef struct
+{
+	int					sck;
+	
+	struct sockaddr_in 	sck_addr;
+
+	unsigned char		*buf;
+
+} SIO2socket;
+
+
+SIO2socket *sio2SocketInit( void );
+
+SIO2socket *sio2SocketFree( SIO2socket * );
+
+unsigned char sio2SocketListen( SIO2socket *, unsigned short, unsigned short );
+
+unsigned char sio2SocketConnect( SIO2socket *, char *, unsigned short );
+
+void sio2SocketDisconnect( SIO2socket * );
+
+unsigned char sio2SocketSend( SIO2socket *, char * );
+
+int sio2SocketReceive( SIO2socket * );
+
+int sio2SocketAccept( SIO2socket * );
+
+void sio2SocketSetOpt( SIO2socket * );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+typedef enum
+{
+	SIO2_SOUND_AUTOPLAY = ( 1 << 0 ),
+	SIO2_SOUND_LOOP		= ( 1 << 1 ),
+	SIO2_SOUND_AMBIENT	= ( 1 << 2 ),
+	SIO2_SOUND_FX		= ( 1 << 3 ),
+	SIO2_SOUND_STREAM   = ( 1 << 4 )
+		
+} SIO2_SOUND_FLAG;
+
+
+typedef struct
+{
+	char			name[ SIO2_MAX_CHAR ];
+
+	unsigned int	sid;
+
+	unsigned int	flags;
+	
+	unsigned char	state;
+	
+	SIO2soundbuffer	*_SIO2soundbuffer;
+	
+	void			*userdata;
+
+} SIO2sound;
+
+
+SIO2sound *sio2SoundInit( char * );
+
+SIO2sound *sio2SoundFree( SIO2sound * );
+					   
+void sio2SoundGenId( SIO2sound *, SIO2soundbuffer *, unsigned int );
+
+void sio2SoundSetAmbient( SIO2sound	* );
+
+void sio2SoundSetFx( SIO2sound *, vec3 *, float );
+
+void sio2SoundSetDefault( SIO2sound * );
+
+void sio2SoundPlay( SIO2sound * );
+
+void sio2SoundPause( SIO2sound * );
+
+void sio2SoundStop( SIO2sound * );
+
+void sio2SoundSetSpeed( SIO2sound *, float );
+						
+void sio2SoundSetVolume( SIO2sound *, float );
+
+void sio2SoundRewind( SIO2sound * );
+
+void sio2SoundUpdateState( SIO2sound * );
+
+void sio2SoundUpdateStream( SIO2sound * );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+typedef struct
+{
+	char			name[ SIO2_MAX_CHAR ];
+
+	unsigned int	bid[ SIO2_SOUND_BUFFER ];
+	
+	unsigned int	curr;
+
+	unsigned int	format;
+	
+	unsigned int	size;
+	unsigned int	rate;
+	
+	char			*data;
+	
+	OggVorbis_File  _OggVorbis_File;
+	
+	SIO2stream		*_SIO2stream;
+	
+	void			*userdata;
+
+} SIO2soundbuffer;
+
+
+SIO2soundbuffer *sio2SoundBufferInit( char * );
+
+SIO2soundbuffer *sio2SoundBufferFree( SIO2soundbuffer * );
+
+void sio2SoundBufferLoad( SIO2soundbuffer *, SIO2stream * );
+
+SIO2stream *sio2SoundBufferGenId( SIO2soundbuffer *, unsigned char );
+
+unsigned char sio2SoundBufferStream( SIO2soundbuffer *, unsigned int );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+typedef enum
+{
+	SIO2_FOG					= ( 1 << 0  ),
+	SIO2_BLEND					= ( 1 << 1  ),
+	SIO2_ALPHA_TEST				= ( 1 << 2  ),
+	SIO2_TEXTURE_2D0			= ( 1 << 3  ),
+	SIO2_TEXTURE_2D1			= ( 1 << 4  ),
+	SIO2_COLOR_MATERIAL			= ( 1 << 5  ),
+	SIO2_LIGHTING				= ( 1 << 6  ),
+	SIO2_NORMALIZE				= ( 1 << 7  ),
+	SIO2_POINT_SPRITE			= ( 1 << 8  ),
+	SIO2_POINT_SIZE_ARRAY		= ( 1 << 9  ),
+	SIO2_VERTEX_ARRAY			= ( 1 << 10 ),
+	SIO2_COLOR_ARRAY			= ( 1 << 11 ),
+	SIO2_NORMAL_ARRAY			= ( 1 << 12 ),
+	SIO2_TEXTURE_COORD_ARRAY0	= ( 1 << 13 ),
+	SIO2_TEXTURE_COORD_ARRAY1	= ( 1 << 14 ),
+	SIO2_DEPTH_TEST				= ( 1 << 15 ),
+	SIO2_CULL_FACE				= ( 1 << 16 )
+
+} SIO2_STATE_FLAGS;
+
+
+typedef struct
+{
+	unsigned int	flags;
+
+	int				a_texture;
+	
+	int				c_texture;
+	
+	unsigned char	blend;
+	
+	float			alpha_value;
+	
+	vec4			color;
+	
+} SIO2state;
+ 
+ 
+SIO2state *sio2StateInit( void );
+
+SIO2state *sio2StateFree( SIO2state * );
+
+unsigned char sio2StateEnable( SIO2state *, unsigned int );
+
+unsigned char sio2StateDisable( SIO2state *, unsigned int );
+
+unsigned char sio2StateSetActiveTexture( SIO2state *, int );
+
+unsigned char sio2StateSetClientActiveTexture( SIO2state *, int );
+
+void sio2StateSetBlendMode( SIO2state *, unsigned char );
+
+void sio2StateSetAlphaFunc( SIO2state *, float );
+
+void sio2StateSetColor( SIO2state *, vec4 * );
+
+
+
+
+
+
+
+
+
+
+
+
+typedef unsigned char( SIO2parsercallback( char *, char *, char * ) );
+
+
+typedef struct
+{
+	char str[ SIO2_MAX_CHAR ];
+	
+	SIO2parsercallback *root;
+	SIO2parsercallback *custom;
+
+} SIO2entry;
+
+
+typedef struct
+{
+	char			fname[ SIO2_MAX_PATH ];
+
+	unsigned int	pos;
+	unsigned int	size;
+	
+	unsigned char	*buf;
+	unsigned char	*cur;
+	
+	void			*userdata;
+
+} SIO2stream;
+
+
+SIO2stream *sio2StreamInit( const char * );
+
+SIO2stream *sio2StreamOpen( char *, unsigned char );
+
+SIO2stream *sio2StreamOpenText( char *, unsigned char );
+
+SIO2stream *sio2StreamClose( SIO2stream * );
+
+unsigned int sio2StreamRead( SIO2stream *, void *, unsigned int );
+
+void *sio2StreamReadPtr( SIO2stream *, unsigned int );
+
+unsigned char sio2StreamEOF( SIO2stream * );
+
+void sio2StreamParse( SIO2stream *, unsigned int, SIO2entry * );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+int sio2StringScanf( char *, const char *, ... );
+
+static inline unsigned int sio2StringLen( const char *_str );
+
+static inline int sio2StringCmp( const char *_str1, const char *_str2 );
+
+static inline void sio2StringCpy( char *_str1, const char *_str2 );
+
+static inline char *sio2StringChr( char *_str1, char _str2 );
+
+static inline char *sio2StringTok( char *_str1, char *_str2 );
+
+static inline void sio2StringToUpper( char *_str );
+
+static inline unsigned int sio2StringGetLines( char *_str );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+typedef enum
+{
+	SIO2_THREAD_PRIORITY_VERY_LOW  = 15,
+	SIO2_THREAD_PRIORITY_LOW       = 23,
+	SIO2_THREAD_PRIORITY_NORMAL    = 31,	
+	SIO2_THREAD_PRIORITY_HIGH 	   = 39,
+	SIO2_THREAD_PRIORITY_VERY_HIGH = 47
+	
+} SIO2_THREAD_PRIORITY;
+
+
+typedef void( SIO2threadcallback( void * ) );
+
+
+typedef struct
+{
+	unsigned char			state;
+	
+	int						priority;
+
+	pthread_t				thread;
+	unsigned int			thread_hdl;
+	
+	SIO2threadcallback		*_SIO2threadcallback;
+
+	void					*userdata;
+
+} SIO2thread;
+
+
+SIO2thread *sio2ThreadInit( void );
+
+SIO2thread *sio2ThreadFree( SIO2thread * );
+
+void sio2ThreadCreate( SIO2thread *, SIO2threadcallback *, void	*, int );
+
+void sio2ThreadPlay( SIO2thread * );
+
+void sio2ThreadPause( SIO2thread * );
+
+void sio2ThreadStop( SIO2thread * );
+
+void *sio2ThreadRun( void * );
+
+
+
+
+
+
+
+
+
+
+
+typedef void( SIO2timercallback( void * ) );
+
+
+typedef struct
+{
+	char				name[ SIO2_MAX_CHAR ];
+	
+	unsigned char		state;
+	
+	unsigned int		interval;
+	
+	unsigned int		tstart;
+	unsigned int		tpause;
+
+	SIO2timercallback	*_SIO2timercallback;
+	
+	SIO2window			*_SIO2window;
+
+	void				*userdata;
+	
+} SIO2timer;
+
+
+SIO2timer *sio2TimerInit( char * );
+
+SIO2timer *sio2TimerFree( SIO2timer * );
+
+void sio2TimerCreate( SIO2timer *, SIO2window *, SIO2timercallback *, unsigned int );
+
+void sio2TimerPlay( SIO2timer * );
+
+void sio2TimerPause( SIO2timer * );
+
+void sio2TimerStop( SIO2timer * );
+
+void sio2TimerEvaluate( SIO2timer * );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+typedef enum
+{
+	SIO2_TRANSFORM_MATRIX_NONE = 0,
+	SIO2_TRANSFORM_MATRIX_BIND,
+	SIO2_TRANSFORM_MATRIX_APPLY
+
+} SIO2_TRANSFORM_MATRIX_TYPE;
+
+
+typedef struct
+{
+	vec3	*loc;
+	vec3	*rot;
+	vec3	*scl;
+	vec3	*dir;
+	
+	float	*mat;
+	
+	void	*_SIO2parent;
+
+} SIO2transform;
+
+
+SIO2transform *sio2TransformInit( void );
+
+SIO2transform *sio2TransformFree( SIO2transform * );
+
+void sio2TransformSetLoc( SIO2transform *, vec3 * );
+
+void sio2TransformSetRot( SIO2transform *, vec3 * );
+
+void sio2TransformSetScl( SIO2transform *, vec3 * );
+
+void sio2TransformSetDir( SIO2transform *, vec3 * );
+
+void sio2TransformSetMatrix( SIO2transform *, float * );
+
+void sio2TransformBindMatrix( SIO2transform * );
+
+void sio2TransformRender( SIO2transform * );
+
+void sio2TransformApply( SIO2transform * );
+
+void sio2TransformRotateX( SIO2transform *, float );
+
+void sio2TransformRotateZ( SIO2transform *, float );
+
+void sio2TransformCopy( SIO2transform *, SIO2transform * );
+
+static inline void sio2TransformGetRotFromMatrix( SIO2transform *_SIO2transform );
+
+static inline void sio2TransformGetLocFromMatrix( SIO2transform *_SIO2transform );
+
+
+
+
+
+
+
+
+
+
+
+typedef enum
+{
+	SIO2_STOP = 0,
+	SIO2_PLAY,
+	SIO2_PAUSE
+	
+} SIO2_STATE;
+
+
+unsigned int sio2GetElapsedTime( void );
+
+void sio2ExtractPath( char *, char *, char * );
+
+float sio2RoundAngle( float );
+						 
+unsigned char sio2Project( float , float, float, float[ 16 ], float[ 16 ], int[ 4 ], float *, float *, float * );
+					   
+unsigned char sio2UnProject( float , float , float, float[ 16 ], float[ 16 ], int[ 4 ], float *, float *, float * );	
+
+unsigned char sio2IsPow2( int );
+
+void sio2Sleep( unsigned int );
+
+unsigned int sio2Randomui( unsigned int );
+
+void sio2GenColorIndex( unsigned int, col4 * );
+
+unsigned int sio2GetNextPow2( unsigned int );
+
+float sio2CubicBezier( float, float, float, float, float );
+
+void *sio2MapBuffer( unsigned int, int );
+
+void *sio2UnmapBuffer( unsigned int, int );
+
+void sio2LookAt( vec3 *, vec3 *, vec3 * );
+
+float sio2RGBtoFloat( unsigned char );
+
+float sio2GetAngleX( vec3 * );
+
+float sio2GetAngleZ( vec3 * );
+
+void sio2Rotate3D( vec3 *, float, float, float, vec3 * );
+
+void sio2Perspective( float, float, float, float );
+
+static inline float sio2RoundFloat( float _v );
+
+static inline void sio2EnableState( unsigned int *_var, unsigned int  _state );
+
+static inline void sio2DisableState( unsigned int *_var, unsigned int  _state );
+
+static inline unsigned char sio2IsStateEnabled( unsigned int _var, unsigned int _state );
+
+
+
+
+
+
+
+
+
+
+
+
+
+typedef struct
+{
+	float x;
+	float y;
+
+} vec2;
+
+
+typedef struct
+{
+	float x;
+	float y;
+	float z;
+
+} vec3;
+
+
+typedef struct
+{
+	float x;
+	float y;
+	float z;
+	float w;
+
+} vec4;
+
+
+typedef struct
+{
+	unsigned char r;
+	unsigned char g;
+	unsigned char b;
+	unsigned char a;
+ 
+} col4;
+
+
+typedef struct
+{
+	unsigned short x;
+	unsigned short y;
+	unsigned short z;
+	
+} ind3;
+
+
+typedef struct
+{
+	float	hdl1;
+	vec2	knot;
+	float	hdl2;
+	
+} bez3;
+
+
+vec2 *sio2Vec2Init( void );
+
+vec2 *sio2Vec2Free( vec2 * );
+
+vec3 *sio2Vec3Init( void );
+
+vec3 *sio2Vec3Free( vec3 * );
+
+vec4 *sio2Vec4Init( void );
+
+vec4 *sio2Vec4Free( vec4 * );
+
+col4 *sio2Col4Init( void );
+
+col4 *sio2Col4Free( col4 * );
+
+static inline void sio2Vec2Diff( vec2 *_v1, vec2 *_v2, vec2 *_v3 );
+
+static inline void sio2Vec3Add( vec3 *_v1, vec3 *_v2, vec3 *_v3 );
+
+static inline void sio2Vec3Diff( vec3 *_v1, vec3 *_v2, vec3 *_v3 );
+
+static inline float sio2Magnitude( vec3 *_v1 );
+
+static inline float sio2Distance( vec3 *_v1, vec3 *_v2 );
+
+static inline float sio2Normalize( vec3 *_v1, vec3 *_v2 );
+
+static inline float sio2DotProduct( vec3 *_v1, vec3 *_v2 );
+
+static inline float sio2DotProductToDeg( vec3 *_v1, vec3 *_v2 );
+
+static inline void sio2CrossProduct( vec3 *_v1, vec3 *_v2, vec3 *_v3 );
+
+
+
+
+
+
+
+
+
+
+
+
+typedef struct
+{
+	char			name[ SIO2_MAX_CHAR ];
+	
+	unsigned int	mode;
+
+	unsigned int	vbo;
+	
+	unsigned int	n_ind;
+	unsigned short	*ind;
+	
+	char			mname[ SIO2_MAX_CHAR ];
+	SIO2material	*_SIO2material;
+
+} SIO2vertexgroup;
+
+
+SIO2vertexgroup *sio2VertexGroupInit( char * );
+
+SIO2vertexgroup *sio2VertexGroupFree( SIO2vertexgroup * );
+
+void sio2VertexGroupLoad( SIO2vertexgroup *, SIO2stream * );
+
+void sio2VertexGroupGenId( SIO2vertexgroup * );
+
+void sio2VertexGroupRender( SIO2vertexgroup *, unsigned char );
+
+
+
+
+
+
+
+
+
+
+
+
+typedef struct
+{
+	char				name[ SIO2_MAX_CHAR ];
+
+	ogg_sync_state		oy;
+	ogg_page			og;
+	ogg_packet			op;
+	
+	ogg_stream_state	os;
+	
+	theora_info			ti;
+	theora_comment		tc;
+	theora_state		td;
+
+	int					lvl_max;
+	int					lvl;
+	int					inc;
+	int					theora_p;
+	int					flags;
+	int					ready;
+	
+	int					v_time;
+	int					v_frame;
+
+	float				d_time;
+	float				t_ratio;
+		
+	float				u_time;
+	float				u_ratio;
+
+	SIO2stream			*_SIO2stream;
+	unsigned char		*buf[ SIO2_VIDEO_BUFFER ];
+
+	int					b0[ SIO2_MAX_PATH ];
+	int					b1[ SIO2_MAX_PATH ];
+	int					b2[ SIO2_MAX_PATH ];
+	int					b3[ SIO2_MAX_PATH ];
+	
+	unsigned char		loop;
+	unsigned char		state;
+	
+	void				*userdata;
+	
+} SIO2video;
+
+
+SIO2video *sio2VideoInit( char * );
+
+SIO2video *sio2VideoFree( SIO2video * );
+
+void sio2VideoLoad( SIO2video *, SIO2stream * );
+
+unsigned char sio2VideoGetImage( SIO2video *, SIO2image *, int, float );
+
+void sio2VideoQueueBuffers( SIO2video * );
+
+unsigned char *sio2VideoBufferStream( SIO2video * );
+
+void sio2VideoPlay( SIO2video *, unsigned char );
+
+void sio2VideoPause( SIO2video * );
+
+void sio2VideoStop( SIO2video * );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+typedef enum
+{
+	SIO2_WIDGET_VISIBLE		  = ( 1 << 0 ),
+	SIO2_WIDGET_ENABLED		  = ( 1 << 1 ),
+	SIO2_WIDGET_ALIGNV		  = ( 1 << 2 ),
+	SIO2_WIDGET_ALIGNH		  = ( 1 << 3 ),
+	SIO2_WIDGET_CENTERED	  = ( 1 << 4 ),
+	SIO2_WIDGET_FOCUSED		  = ( 1 << 5 ),
+	SIO2_WIDGET_LOCKED		  = ( 1 << 6 ),
+	SIO2_WIDGET_VALIDATE_LOCK = ( 1 << 7 )
+
+} SIO2_WIDGET_FLAG;
+
+
+typedef void( SIO2widgettapdown( void *, void *, vec2 * ) );
+
+typedef void( SIO2widgettapup( void *, void *, vec2 * ) );
+
+typedef void( SIO2widgettouchmove( void *, void *, vec2 * ) );
+
+
+typedef struct
+{
+	char						name[ SIO2_MAX_CHAR ];
+	
+	SIO2transform				*_SIO2transform;
+	
+	vec2						*area;
+	vec2						*bl;
+	vec2						*tr;
+	
+	unsigned int				flags;
+	
+	SIO2widgettapdown			*_SIO2widgettapdown;
+	SIO2widgettapup				*_SIO2widgettapup;	
+	SIO2widgettouchmove			*_SIO2widgettouchmove;
+	
+	SIO2material				*_SIO2material;
+	
+	void						*userdata;
+
+} SIO2widget;
+
+
+SIO2widget *sio2WidgetInit( char * );
+
+SIO2widget *sio2WidgetFree( SIO2widget * );
+
+unsigned char sio2WidgetRender( SIO2widget *, SIO2window *, unsigned char );
+
+unsigned char sio2WidgetUpdateBoundary( SIO2widget *, SIO2window * );
+
+void sio2WidgetDebug( SIO2widget * );
+
+void sio2WidgetReset( void );
+
+
+
+
+
+
+
+
+
+
+
+
+
+typedef enum
+{
+	SIO2_WINDOW_NONE = 0,
+	SIO2_WINDOW_TAP,
+	SIO2_WINDOW_TOUCH_MOVE,
+	SIO2_WINDOW_ACCELEROMETER
+
+} SIO2_WINDOW_EVENT;
+
+
+typedef enum
+{
+	SIO2_WINDOW_TAP_NONE = 0,
+	SIO2_WINDOW_TAP_UP,
+	SIO2_WINDOW_TAP_DOWN
+
+} SIO2_WINDOW_TAP_STATE;
+
+
+typedef void( SIO2windowrender( void ) );
+
+typedef void( SIO2windowtap( void *, unsigned char ) );
+
+typedef void( SIO2windowtouchmove( void * ) );
+
+typedef void( SIO2windowaccelerometer( void * ) );
+
+typedef void( SIO2windowshutdown( void ) );
+
+
+typedef struct
+{
+	int							n_tap;
+	
+	int							n_touch;
+	vec2						**touch;
+	
+	vec2						*loc;
+	vec2						*scl;
+	
+	vec3						*accel;
+	float						accel_smooth;
+	
+	int							*mat_viewport;
+
+	unsigned int				curr_time;
+	unsigned int				last_sync;
+	
+	float						fra;
+	float						fps;
+
+	float						d_time;
+	float						sync_time;
+	
+	float						volume;
+	float						fx_volume;
+
+	SIO2windowrender			*_SIO2windowrender;
+	SIO2windowtap				*_SIO2windowtap;
+	SIO2windowtouchmove			*_SIO2windowtouchmove;
+	SIO2windowaccelerometer		*_SIO2windowaccelerometer;
+	SIO2windowshutdown			*_SIO2windowshutdown;
+	
+	void						*userdata;
+
+} SIO2window;
+
+
+SIO2window *sio2WindowInit( void );
+
+SIO2window *sio2WindowFree( SIO2window * );
+
+void sio2WindowShutdown( SIO2window	*, SIO2windowshutdown * );
+
+void sio2WindowGetViewportMatrix( SIO2window * );
+
+void sio2WindowUpdateViewport( SIO2window *, int, int, int, int );
+
+void sio2WindowSwapBuffers( SIO2window * );
+
+void sio2WindowDebugTouch( SIO2window * );
+
+void sio2WindowEnter2D( SIO2window *, float, float );
+
+void sio2WindowLeave2D( void );
+
+void sio2WindowEnterLandscape3D( void );
+
+void sio2WindowLeaveLandscape3D( void );
+
+void sio2WindowEnterLandscape2D( SIO2window * );
+
+void sio2WindowLeaveLandscape2D( SIO2window * );
+
+void sio2WindowSetAccelerometerSensitivity( SIO2window *, float );
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+** License Applicability. Except to the extent portions of this file are
+** made subject to an alternative license as permitted in the SGI Free
+** Software License B, Version 1.0 (the "License"), the contents of this
+** file are subject only to the provisions of the License. You may not use
+** this file except in compliance with the License. You may obtain a copy
+** of the License at Silicon Graphics, Inc., attn: Legal Services, 1600
+** Amphitheatre Parkway, Mountain View, CA 94043-1351, or at:
+**
+** http://oss.sgi.com/projects/FreeB
+**
+** Note that, as provided in the License, the Software is distributed on an
+** "AS IS" basis, with ALL EXPRESS AND IMPLIED WARRANTIES AND CONDITIONS
+** DISCLAIMED, INCLUDING, WITHOUT LIMITATION, ANY IMPLIED WARRANTIES AND
+** CONDITIONS OF MERCHANTABILITY, SATISFACTORY QUALITY, FITNESS FOR A
+** PARTICULAR PURPOSE, AND NON-INFRINGEMENT.
+**
+** Original Code. The Original Code is: OpenGL Sample Implementation,
+** Version 1.2.1, released January 26, 2000, developed by Silicon Graphics,
+** Inc. The Original Code is Copyright (c) 1991-2000 Silicon Graphics, Inc.
+** Copyright in any portions created by third parties is as indicated
+** elsewhere herein. All Rights Reserved.
+**
+** Additional Notice Provisions: The application programming interfaces
+** established by SGI in conjunction with the Original Code are The
+** OpenGL(R) Graphics System: A Specification (Version 1.2.1), released
+** April 1, 1999; The OpenGL(R) Graphics System Utility Library (Version
+** 1.3), released November 4, 1998; and OpenGL(R) Graphics with the X
+** Window System(R) (Version 1.3), released October 19, 1998. This software
+** was created using the OpenGL(R) version 1.2.1 Sample Implementation
+** published by SGI, but has not been independently verified as being
+** compliant with the OpenGL(R) version 1.2.1 Specification.
+*/
+
+#define GL_APIENTRY
+#define GL_API extern
+
+typedef unsigned int    GLenum;
+typedef unsigned char   GLboolean;
+typedef unsigned int    GLbitfield;
+typedef signed char     GLbyte;
+typedef short           GLshort;
+typedef int             GLint;
+typedef int             GLsizei;
+typedef unsigned char   GLubyte;
+typedef unsigned short  GLushort;
+typedef unsigned int    GLuint;
+typedef float           GLfloat;
+typedef float           GLclampf;
+typedef void            GLvoid;
+typedef int             GLfixed;
+typedef int             GLclampx;
+
+typedef int             GLintptr;
+typedef int             GLsizeiptr;
+
+
+/*************************************************************/
+
+/* OpenGL ES core versions */
+#define GL_VERSION_ES_CM_1_0		1
+#define GL_VERSION_ES_CL_1_0		1
+#define GL_VERSION_ES_CM_1_1		1
+#define GL_VERSION_ES_CL_1_1		1
+
+/* Legacy core versions */
+#define GL_OES_VERSION_1_0			1
+#define GL_OES_VERSION_1_1			1
+
+/* Extensions */
+#define GL_OES_byte_coordinates           1
+#define GL_OES_compressed_paletted_texture 1
+#define GL_OES_draw_texture               1
+#define GL_OES_fixed_point                1
+#define GL_OES_matrix_get                 1
+#define GL_OES_matrix_palette             1
+#define GL_OES_point_size_array           1
+#define GL_OES_point_sprite               1
+#define GL_OES_read_format                1
+#define GL_OES_single_precision           1
+
+/* ClearBufferMask */
+#define GL_DEPTH_BUFFER_BIT               0x00000100
+#define GL_STENCIL_BUFFER_BIT             0x00000400
+#define GL_COLOR_BUFFER_BIT               0x00004000
+
+/* Boolean */
+#define GL_FALSE                          0
+#define GL_TRUE                           1
+
+/* BeginMode */
+#define GL_POINTS                         0x0000
+#define GL_LINES                          0x0001
+#define GL_LINE_LOOP                      0x0002
+#define GL_LINE_STRIP                     0x0003
+#define GL_TRIANGLES                      0x0004
+#define GL_TRIANGLE_STRIP                 0x0005
+#define GL_TRIANGLE_FAN                   0x0006
+
+/* AlphaFunction */
+#define GL_NEVER                          0x0200
+#define GL_LESS                           0x0201
+#define GL_EQUAL                          0x0202
+#define GL_LEQUAL                         0x0203
+#define GL_GREATER                        0x0204
+#define GL_NOTEQUAL                       0x0205
+#define GL_GEQUAL                         0x0206
+#define GL_ALWAYS                         0x0207
+
+/* BlendingFactorDest */
+#define GL_ZERO                           0
+#define GL_ONE                            1
+#define GL_SRC_COLOR                      0x0300
+#define GL_ONE_MINUS_SRC_COLOR            0x0301
+#define GL_SRC_ALPHA                      0x0302
+#define GL_ONE_MINUS_SRC_ALPHA            0x0303
+#define GL_DST_ALPHA                      0x0304
+#define GL_ONE_MINUS_DST_ALPHA            0x0305
+
+/* BlendingFactorSrc */
+/*      GL_ZERO */
+/*      GL_ONE */
+#define GL_DST_COLOR                      0x0306
+#define GL_ONE_MINUS_DST_COLOR            0x0307
+#define GL_SRC_ALPHA_SATURATE             0x0308
+/*      GL_SRC_ALPHA */
+/*      GL_ONE_MINUS_SRC_ALPHA */
+/*      GL_DST_ALPHA */
+/*      GL_ONE_MINUS_DST_ALPHA */
+
+/* ClipPlaneName */
+#define GL_CLIP_PLANE0                    0x3000
+#define GL_CLIP_PLANE1                    0x3001
+#define GL_CLIP_PLANE2                    0x3002
+#define GL_CLIP_PLANE3                    0x3003
+#define GL_CLIP_PLANE4                    0x3004
+#define GL_CLIP_PLANE5                    0x3005
+
+/* ColorMaterialFace */
+/*      GL_FRONT_AND_BACK */
+
+/* ColorMaterialParameter */
+/*      GL_AMBIENT_AND_DIFFUSE */
+
+/* ColorPointerType */
+/*      GL_UNSIGNED_BYTE */
+/*      GL_FLOAT */
+/*      GL_FIXED */
+
+/* CullFaceMode */
+#define GL_FRONT                          0x0404
+#define GL_BACK                           0x0405
+#define GL_FRONT_AND_BACK                 0x0408
+
+/* DepthFunction */
+/*      GL_NEVER */
+/*      GL_LESS */
+/*      GL_EQUAL */
+/*      GL_LEQUAL */
+/*      GL_GREATER */
+/*      GL_NOTEQUAL */
+/*      GL_GEQUAL */
+/*      GL_ALWAYS */
+
+/* EnableCap */
+#define GL_FOG                            0x0B60
+#define GL_LIGHTING                       0x0B50
+#define GL_TEXTURE_2D                     0x0DE1
+#define GL_CULL_FACE                      0x0B44
+#define GL_ALPHA_TEST                     0x0BC0
+#define GL_BLEND                          0x0BE2
+#define GL_COLOR_LOGIC_OP                 0x0BF2
+#define GL_DITHER                         0x0BD0
+#define GL_STENCIL_TEST                   0x0B90
+#define GL_DEPTH_TEST                     0x0B71
+/*      GL_LIGHT0 */
+/*      GL_LIGHT1 */
+/*      GL_LIGHT2 */
+/*      GL_LIGHT3 */
+/*      GL_LIGHT4 */
+/*      GL_LIGHT5 */
+/*      GL_LIGHT6 */
+/*      GL_LIGHT7 */
+#define GL_POINT_SMOOTH                   0x0B10
+#define GL_LINE_SMOOTH                    0x0B20
+#define GL_SCISSOR_TEST                   0x0C11
+#define GL_COLOR_MATERIAL                 0x0B57
+#define GL_NORMALIZE                      0x0BA1
+#define GL_RESCALE_NORMAL                 0x803A
+#define GL_POLYGON_OFFSET_FILL            0x8037
+#define GL_VERTEX_ARRAY                   0x8074
+#define GL_NORMAL_ARRAY                   0x8075
+#define GL_COLOR_ARRAY                    0x8076
+#define GL_TEXTURE_COORD_ARRAY            0x8078
+#define GL_MULTISAMPLE                    0x809D
+#define GL_SAMPLE_ALPHA_TO_COVERAGE       0x809E
+#define GL_SAMPLE_ALPHA_TO_ONE            0x809F
+#define GL_SAMPLE_COVERAGE                0x80A0
+
+/* ErrorCode */
+#define GL_NO_ERROR                       0
+#define GL_INVALID_ENUM                   0x0500
+#define GL_INVALID_VALUE                  0x0501
+#define GL_INVALID_OPERATION              0x0502
+#define GL_STACK_OVERFLOW                 0x0503
+#define GL_STACK_UNDERFLOW                0x0504
+#define GL_OUT_OF_MEMORY                  0x0505
+
+/* FogMode */
+/*      GL_LINEAR */
+#define GL_EXP                            0x0800
+#define GL_EXP2                           0x0801
+
+/* FogParameter */
+#define GL_FOG_DENSITY                    0x0B62
+#define GL_FOG_START                      0x0B63
+#define GL_FOG_END                        0x0B64
+#define GL_FOG_MODE                       0x0B65
+#define GL_FOG_COLOR                      0x0B66
+
+/* FrontFaceDirection */
+#define GL_CW                             0x0900
+#define GL_CCW                            0x0901
+
+/* GetPName */
+#define GL_CURRENT_COLOR                  0x0B00
+#define GL_CURRENT_NORMAL                 0x0B02
+#define GL_CURRENT_TEXTURE_COORDS         0x0B03
+#define GL_POINT_SIZE                     0x0B11
+#define GL_POINT_SIZE_MIN                 0x8126
+#define GL_POINT_SIZE_MAX                 0x8127
+#define GL_POINT_FADE_THRESHOLD_SIZE      0x8128
+#define GL_POINT_DISTANCE_ATTENUATION     0x8129
+#define GL_SMOOTH_POINT_SIZE_RANGE        0x0B12
+#define GL_LINE_WIDTH                     0x0B21
+#define GL_SMOOTH_LINE_WIDTH_RANGE        0x0B22
+#define GL_ALIASED_POINT_SIZE_RANGE       0x846D
+#define GL_ALIASED_LINE_WIDTH_RANGE       0x846E
+#define GL_CULL_FACE_MODE                 0x0B45
+#define GL_FRONT_FACE                     0x0B46
+#define GL_SHADE_MODEL                    0x0B54
+#define GL_DEPTH_RANGE                    0x0B70
+#define GL_DEPTH_WRITEMASK                0x0B72
+#define GL_DEPTH_CLEAR_VALUE              0x0B73
+#define GL_DEPTH_FUNC                     0x0B74
+#define GL_STENCIL_CLEAR_VALUE            0x0B91
+#define GL_STENCIL_FUNC                   0x0B92
+#define GL_STENCIL_VALUE_MASK             0x0B93
+#define GL_STENCIL_FAIL                   0x0B94
+#define GL_STENCIL_PASS_DEPTH_FAIL        0x0B95
+#define GL_STENCIL_PASS_DEPTH_PASS        0x0B96
+#define GL_STENCIL_REF                    0x0B97
+#define GL_STENCIL_WRITEMASK              0x0B98
+#define GL_MATRIX_MODE                    0x0BA0
+#define GL_VIEWPORT                       0x0BA2
+#define GL_MODELVIEW_STACK_DEPTH          0x0BA3
+#define GL_PROJECTION_STACK_DEPTH         0x0BA4
+#define GL_TEXTURE_STACK_DEPTH            0x0BA5
+#define GL_MODELVIEW_MATRIX               0x0BA6
+#define GL_PROJECTION_MATRIX              0x0BA7
+#define GL_TEXTURE_MATRIX                 0x0BA8
+#define GL_ALPHA_TEST_FUNC                0x0BC1
+#define GL_ALPHA_TEST_REF                 0x0BC2
+#define GL_BLEND_DST                      0x0BE0
+#define GL_BLEND_SRC                      0x0BE1
+#define GL_LOGIC_OP_MODE                  0x0BF0
+#define GL_SCISSOR_BOX                    0x0C10
+#define GL_SCISSOR_TEST                   0x0C11
+#define GL_COLOR_CLEAR_VALUE              0x0C22
+#define GL_COLOR_WRITEMASK                0x0C23
+#define GL_UNPACK_ALIGNMENT               0x0CF5
+#define GL_PACK_ALIGNMENT                 0x0D05
+#define GL_MAX_LIGHTS                     0x0D31
+#define GL_MAX_CLIP_PLANES                0x0D32
+#define GL_MAX_TEXTURE_SIZE               0x0D33
+#define GL_MAX_MODELVIEW_STACK_DEPTH      0x0D36
+#define GL_MAX_PROJECTION_STACK_DEPTH     0x0D38
+#define GL_MAX_TEXTURE_STACK_DEPTH        0x0D39
+#define GL_MAX_VIEWPORT_DIMS              0x0D3A
+#define GL_MAX_TEXTURE_UNITS              0x84E2
+#define GL_SUBPIXEL_BITS                  0x0D50
+#define GL_RED_BITS                       0x0D52
+#define GL_GREEN_BITS                     0x0D53
+#define GL_BLUE_BITS                      0x0D54
+#define GL_ALPHA_BITS                     0x0D55
+#define GL_DEPTH_BITS                     0x0D56
+#define GL_STENCIL_BITS                   0x0D57
+#define GL_POLYGON_OFFSET_UNITS           0x2A00
+#define GL_POLYGON_OFFSET_FILL            0x8037
+#define GL_POLYGON_OFFSET_FACTOR          0x8038
+#define GL_TEXTURE_BINDING_2D             0x8069
+#define GL_VERTEX_ARRAY_SIZE              0x807A
+#define GL_VERTEX_ARRAY_TYPE              0x807B
+#define GL_VERTEX_ARRAY_STRIDE            0x807C
+#define GL_NORMAL_ARRAY_TYPE              0x807E
+#define GL_NORMAL_ARRAY_STRIDE            0x807F
+#define GL_COLOR_ARRAY_SIZE               0x8081
+#define GL_COLOR_ARRAY_TYPE               0x8082
+#define GL_COLOR_ARRAY_STRIDE             0x8083
+#define GL_TEXTURE_COORD_ARRAY_SIZE       0x8088
+#define GL_TEXTURE_COORD_ARRAY_TYPE       0x8089
+#define GL_TEXTURE_COORD_ARRAY_STRIDE     0x808A
+#define GL_VERTEX_ARRAY_POINTER           0x808E
+#define GL_NORMAL_ARRAY_POINTER           0x808F
+#define GL_COLOR_ARRAY_POINTER            0x8090
+#define GL_TEXTURE_COORD_ARRAY_POINTER    0x8092
+#define GL_SAMPLE_BUFFERS                 0x80A8
+#define GL_SAMPLES                        0x80A9
+#define GL_SAMPLE_COVERAGE_VALUE          0x80AA
+#define GL_SAMPLE_COVERAGE_INVERT         0x80AB
+
+/* GetTextureParameter */
+/*      GL_TEXTURE_MAG_FILTER */
+/*      GL_TEXTURE_MIN_FILTER */
+/*      GL_TEXTURE_WRAP_S */
+/*      GL_TEXTURE_WRAP_T */
+
+#define GL_IMPLEMENTATION_COLOR_READ_TYPE_OES   0x8B9A
+#define GL_IMPLEMENTATION_COLOR_READ_FORMAT_OES 0x8B9B
+#define GL_NUM_COMPRESSED_TEXTURE_FORMATS       0x86A2
+#define GL_COMPRESSED_TEXTURE_FORMATS           0x86A3
+
+/* HintMode */
+#define GL_DONT_CARE                      0x1100
+#define GL_FASTEST                        0x1101
+#define GL_NICEST                         0x1102
+
+/* HintTarget */
+#define GL_PERSPECTIVE_CORRECTION_HINT    0x0C50
+#define GL_POINT_SMOOTH_HINT              0x0C51
+#define GL_LINE_SMOOTH_HINT               0x0C52
+#define GL_FOG_HINT                       0x0C54
+#define GL_GENERATE_MIPMAP_HINT           0x8192
+
+/* LightModelParameter */
+#define GL_LIGHT_MODEL_AMBIENT            0x0B53
+#define GL_LIGHT_MODEL_TWO_SIDE           0x0B52
+
+/* LightParameter */
+#define GL_AMBIENT                        0x1200
+#define GL_DIFFUSE                        0x1201
+#define GL_SPECULAR                       0x1202
+#define GL_POSITION                       0x1203
+#define GL_SPOT_DIRECTION                 0x1204
+#define GL_SPOT_EXPONENT                  0x1205
+#define GL_SPOT_CUTOFF                    0x1206
+#define GL_CONSTANT_ATTENUATION           0x1207
+#define GL_LINEAR_ATTENUATION             0x1208
+#define GL_QUADRATIC_ATTENUATION          0x1209
+
+/* DataType */
+#define GL_BYTE                           0x1400
+#define GL_UNSIGNED_BYTE                  0x1401
+#define GL_SHORT                          0x1402
+#define GL_UNSIGNED_SHORT                 0x1403
+#define GL_FLOAT                          0x1406
+#define GL_FIXED                          0x140C
+
+/* LogicOp */
+#define GL_CLEAR                          0x1500
+#define GL_AND                            0x1501
+#define GL_AND_REVERSE                    0x1502
+#define GL_COPY                           0x1503
+#define GL_AND_INVERTED                   0x1504
+#define GL_NOOP                           0x1505
+#define GL_XOR                            0x1506
+#define GL_OR                             0x1507
+#define GL_NOR                            0x1508
+#define GL_EQUIV                          0x1509
+#define GL_INVERT                         0x150A
+#define GL_OR_REVERSE                     0x150B
+#define GL_COPY_INVERTED                  0x150C
+#define GL_OR_INVERTED                    0x150D
+#define GL_NAND                           0x150E
+#define GL_SET                            0x150F
+
+/* MaterialFace */
+/*      GL_FRONT_AND_BACK */
+
+/* MaterialParameter */
+#define GL_EMISSION                       0x1600
+#define GL_SHININESS                      0x1601
+#define GL_AMBIENT_AND_DIFFUSE            0x1602
+/*      GL_AMBIENT */
+/*      GL_DIFFUSE */
+/*      GL_SPECULAR */
+
+/* MatrixMode */
+#define GL_MODELVIEW                      0x1700
+#define GL_PROJECTION                     0x1701
+#define GL_TEXTURE                        0x1702
+
+/* NormalPointerType */
+/*      GL_BYTE */
+/*      GL_SHORT */
+/*      GL_FLOAT */
+/*      GL_FIXED */
+
+/* PixelFormat */
+#define GL_ALPHA                          0x1906
+#define GL_RGB                            0x1907
+#define GL_RGBA                           0x1908
+#define GL_LUMINANCE                      0x1909
+#define GL_LUMINANCE_ALPHA                0x190A
+
+/* PixelStoreParameter */
+#define GL_UNPACK_ALIGNMENT               0x0CF5
+#define GL_PACK_ALIGNMENT                 0x0D05
+
+/* PixelType */
+/*      GL_UNSIGNED_BYTE */
+#define GL_UNSIGNED_SHORT_4_4_4_4         0x8033
+#define GL_UNSIGNED_SHORT_5_5_5_1         0x8034
+#define GL_UNSIGNED_SHORT_5_6_5           0x8363
+
+/* ShadingModel */
+#define GL_FLAT                           0x1D00
+#define GL_SMOOTH                         0x1D01
+
+/* StencilFunction */
+/*      GL_NEVER */
+/*      GL_LESS */
+/*      GL_EQUAL */
+/*      GL_LEQUAL */
+/*      GL_GREATER */
+/*      GL_NOTEQUAL */
+/*      GL_GEQUAL */
+/*      GL_ALWAYS */
+
+/* StencilOp */
+/*      GL_ZERO */
+#define GL_KEEP                           0x1E00
+#define GL_REPLACE                        0x1E01
+#define GL_INCR                           0x1E02
+#define GL_DECR                           0x1E03
+/*      GL_INVERT */
+
+/* StringName */
+#define GL_VENDOR                         0x1F00
+#define GL_RENDERER                       0x1F01
+#define GL_VERSION                        0x1F02
+#define GL_EXTENSIONS                     0x1F03
+
+/* TexCoordPointerType */
+/*      GL_SHORT */
+/*      GL_FLOAT */
+/*      GL_FIXED */
+/*      GL_BYTE */
+
+/* TextureEnvMode */
+#define GL_MODULATE                       0x2100
+#define GL_DECAL                          0x2101
+/*      GL_BLEND */
+#define GL_ADD                            0x0104
+/*      GL_REPLACE */
+
+/* TextureEnvParameter */
+#define GL_TEXTURE_ENV_MODE               0x2200
+#define GL_TEXTURE_ENV_COLOR              0x2201
+
+/* TextureEnvTarget */
+#define GL_TEXTURE_ENV                    0x2300
+
+/* TextureMagFilter */
+#define GL_NEAREST                        0x2600
+#define GL_LINEAR                         0x2601
+
+/* TextureMinFilter */
+/*      GL_NEAREST */
+/*      GL_LINEAR */
+#define GL_NEAREST_MIPMAP_NEAREST         0x2700
+#define GL_LINEAR_MIPMAP_NEAREST          0x2701
+#define GL_NEAREST_MIPMAP_LINEAR          0x2702
+#define GL_LINEAR_MIPMAP_LINEAR           0x2703
+
+/* TextureParameterName */
+#define GL_TEXTURE_MAG_FILTER             0x2800
+#define GL_TEXTURE_MIN_FILTER             0x2801
+#define GL_TEXTURE_WRAP_S                 0x2802
+#define GL_TEXTURE_WRAP_T                 0x2803
+#define GL_GENERATE_MIPMAP                0x8191
+
+/* TextureTarget */
+/*      GL_TEXTURE_2D */
+
+/* TextureUnit */
+#define GL_TEXTURE0                       0x84C0
+#define GL_TEXTURE1                       0x84C1
+#define GL_TEXTURE2                       0x84C2
+#define GL_TEXTURE3                       0x84C3
+#define GL_TEXTURE4                       0x84C4
+#define GL_TEXTURE5                       0x84C5
+#define GL_TEXTURE6                       0x84C6
+#define GL_TEXTURE7                       0x84C7
+#define GL_TEXTURE8                       0x84C8
+#define GL_TEXTURE9                       0x84C9
+#define GL_TEXTURE10                      0x84CA
+#define GL_TEXTURE11                      0x84CB
+#define GL_TEXTURE12                      0x84CC
+#define GL_TEXTURE13                      0x84CD
+#define GL_TEXTURE14                      0x84CE
+#define GL_TEXTURE15                      0x84CF
+#define GL_TEXTURE16                      0x84D0
+#define GL_TEXTURE17                      0x84D1
+#define GL_TEXTURE18                      0x84D2
+#define GL_TEXTURE19                      0x84D3
+#define GL_TEXTURE20                      0x84D4
+#define GL_TEXTURE21                      0x84D5
+#define GL_TEXTURE22                      0x84D6
+#define GL_TEXTURE23                      0x84D7
+#define GL_TEXTURE24                      0x84D8
+#define GL_TEXTURE25                      0x84D9
+#define GL_TEXTURE26                      0x84DA
+#define GL_TEXTURE27                      0x84DB
+#define GL_TEXTURE28                      0x84DC
+#define GL_TEXTURE29                      0x84DD
+#define GL_TEXTURE30                      0x84DE
+#define GL_TEXTURE31                      0x84DF
+#define GL_ACTIVE_TEXTURE                 0x84E0
+#define GL_CLIENT_ACTIVE_TEXTURE          0x84E1
+
+/* TextureWrapMode */
+#define GL_REPEAT                         0x2901
+#define GL_CLAMP_TO_EDGE                  0x812F
+
+/* PixelInternalFormat */
+#define GL_PALETTE4_RGB8_OES              0x8B90
+#define GL_PALETTE4_RGBA8_OES             0x8B91
+#define GL_PALETTE4_R5_G6_B5_OES          0x8B92
+#define GL_PALETTE4_RGBA4_OES             0x8B93
+#define GL_PALETTE4_RGB5_A1_OES           0x8B94
+#define GL_PALETTE8_RGB8_OES              0x8B95
+#define GL_PALETTE8_RGBA8_OES             0x8B96
+#define GL_PALETTE8_R5_G6_B5_OES          0x8B97
+#define GL_PALETTE8_RGBA4_OES             0x8B98
+#define GL_PALETTE8_RGB5_A1_OES           0x8B99
+
+/* VertexPointerType */
+/*      GL_SHORT */
+/*      GL_FLOAT */
+/*      GL_FIXED */
+/*      GL_BYTE */
+
+/* LightName */
+#define GL_LIGHT0                         0x4000
+#define GL_LIGHT1                         0x4001
+#define GL_LIGHT2                         0x4002
+#define GL_LIGHT3                         0x4003
+#define GL_LIGHT4                         0x4004
+#define GL_LIGHT5                         0x4005
+#define GL_LIGHT6                         0x4006
+#define GL_LIGHT7                         0x4007
+
+/* Buffer Objects */
+#define GL_ARRAY_BUFFER                   0x8892
+#define GL_ELEMENT_ARRAY_BUFFER           0x8893
+
+#define GL_ARRAY_BUFFER_BINDING           0x8894
+#define GL_ELEMENT_ARRAY_BUFFER_BINDING   0x8895
+#define GL_VERTEX_ARRAY_BUFFER_BINDING    0x8896
+#define GL_NORMAL_ARRAY_BUFFER_BINDING    0x8897
+#define GL_COLOR_ARRAY_BUFFER_BINDING     0x8898
+#define GL_TEXTURE_COORD_ARRAY_BUFFER_BINDING 0x889A
+
+#define GL_STATIC_DRAW                    0x88E4
+#define GL_DYNAMIC_DRAW                   0x88E8
+
+#define GL_BUFFER_SIZE                    0x8764
+#define GL_BUFFER_USAGE                   0x8765
+
+/* Texture combine + dot3 */
+#define GL_SUBTRACT                       0x84E7
+#define GL_COMBINE                        0x8570
+#define GL_COMBINE_RGB                    0x8571
+#define GL_COMBINE_ALPHA                  0x8572
+#define GL_RGB_SCALE                      0x8573
+#define GL_ADD_SIGNED                     0x8574
+#define GL_INTERPOLATE                    0x8575
+#define GL_CONSTANT                       0x8576
+#define GL_PRIMARY_COLOR                  0x8577
+#define GL_PREVIOUS                       0x8578
+#define GL_OPERAND0_RGB                   0x8590
+#define GL_OPERAND1_RGB                   0x8591
+#define GL_OPERAND2_RGB                   0x8592
+#define GL_OPERAND0_ALPHA                 0x8598
+#define GL_OPERAND1_ALPHA                 0x8599
+#define GL_OPERAND2_ALPHA                 0x859A
+
+#define GL_ALPHA_SCALE                    0x0D1C
+
+#define GL_SRC0_RGB                       0x8580
+#define GL_SRC1_RGB                       0x8581
+#define GL_SRC2_RGB                       0x8582
+#define GL_SRC0_ALPHA                     0x8588
+#define GL_SRC1_ALPHA                     0x8589
+#define GL_SRC2_ALPHA                     0x858A
+
+#define GL_DOT3_RGB                       0x86AE
+#define GL_DOT3_RGBA                      0x86AF
+
+/*****************************************************************************************/
+/*                                 OES extension functions                               */
+/*****************************************************************************************/
+
+/* OES_draw_texture */
+#define GL_TEXTURE_CROP_RECT_OES          0x8B9D
+
+/* OES_matrix_get */
+#define GL_MODELVIEW_MATRIX_FLOAT_AS_INT_BITS_OES   0x898D
+#define GL_PROJECTION_MATRIX_FLOAT_AS_INT_BITS_OES  0x898E
+#define GL_TEXTURE_MATRIX_FLOAT_AS_INT_BITS_OES     0x898F
+
+/* OES_matrix_palette */
+#define GL_MAX_VERTEX_UNITS_OES           0x86A4
+#define GL_MAX_PALETTE_MATRICES_OES       0x8842
+#define GL_MATRIX_PALETTE_OES             0x8840
+#define GL_MATRIX_INDEX_ARRAY_OES         0x8844
+#define GL_WEIGHT_ARRAY_OES               0x86AD
+#define GL_CURRENT_PALETTE_MATRIX_OES     0x8843
+
+#define GL_MATRIX_INDEX_ARRAY_SIZE_OES    0x8846
+#define GL_MATRIX_INDEX_ARRAY_TYPE_OES    0x8847
+#define GL_MATRIX_INDEX_ARRAY_STRIDE_OES  0x8848
+#define GL_MATRIX_INDEX_ARRAY_POINTER_OES 0x8849
+#define GL_MATRIX_INDEX_ARRAY_BUFFER_BINDING_OES 0x8B9E
+
+#define GL_WEIGHT_ARRAY_SIZE_OES          0x86AB
+#define GL_WEIGHT_ARRAY_TYPE_OES          0x86A9
+#define GL_WEIGHT_ARRAY_STRIDE_OES        0x86AA
+#define GL_WEIGHT_ARRAY_POINTER_OES       0x86AC
+#define GL_WEIGHT_ARRAY_BUFFER_BINDING_OES 0x889E
+
+/* OES_point_size_array */
+#define GL_POINT_SIZE_ARRAY_OES           0x8B9C
+#define GL_POINT_SIZE_ARRAY_TYPE_OES      0x898A
+#define GL_POINT_SIZE_ARRAY_STRIDE_OES    0x898B
+#define GL_POINT_SIZE_ARRAY_POINTER_OES   0x898C
+#define GL_POINT_SIZE_ARRAY_BUFFER_BINDING_OES 0x8B9F
+
+/* OES_point_sprite */
+#define GL_POINT_SPRITE_OES               0x8861
+#define GL_COORD_REPLACE_OES              0x8862
+
+
+/*************************************************************/
+
+GL_API void GL_APIENTRY glAlphaFunc (GLenum func, GLclampf ref);
+GL_API void GL_APIENTRY glClearColor (GLclampf red, GLclampf green, GLclampf blue, GLclampf alpha);
+GL_API void GL_APIENTRY glClearDepthf (GLclampf depth);
+GL_API void GL_APIENTRY glClipPlanef (GLenum plane, const GLfloat *equation);
+GL_API void GL_APIENTRY glColor4f (GLfloat red, GLfloat green, GLfloat blue, GLfloat alpha);
+GL_API void GL_APIENTRY glDepthRangef (GLclampf zNear, GLclampf zFar);
+GL_API void GL_APIENTRY glFogf (GLenum pname, GLfloat param);
+GL_API void GL_APIENTRY glFogfv (GLenum pname, const GLfloat *params);
+GL_API void GL_APIENTRY glFrustumf (GLfloat left, GLfloat right, GLfloat bottom, GLfloat top, GLfloat zNear, GLfloat zFar);
+GL_API void GL_APIENTRY glGetClipPlanef (GLenum pname, GLfloat *equation);
+GL_API void GL_APIENTRY glGetFloatv (GLenum pname, GLfloat *params);
+GL_API void GL_APIENTRY glGetLightfv (GLenum light, GLenum pname, GLfloat *params);
+GL_API void GL_APIENTRY glGetMaterialfv (GLenum face, GLenum pname, GLfloat *params);
+GL_API void GL_APIENTRY glGetTexEnvfv (GLenum env, GLenum pname, GLfloat *params);
+GL_API void GL_APIENTRY glGetTexParameterfv (GLenum target, GLenum pname, GLfloat *params);
+GL_API void GL_APIENTRY glLightModelf (GLenum pname, GLfloat param);
+GL_API void GL_APIENTRY glLightModelfv (GLenum pname, const GLfloat *params);
+GL_API void GL_APIENTRY glLightf (GLenum light, GLenum pname, GLfloat param);
+GL_API void GL_APIENTRY glLightfv (GLenum light, GLenum pname, const GLfloat *params);
+GL_API void GL_APIENTRY glLineWidth (GLfloat width);
+GL_API void GL_APIENTRY glLoadMatrixf (const GLfloat *m);
+GL_API void GL_APIENTRY glMaterialf (GLenum face, GLenum pname, GLfloat param);
+GL_API void GL_APIENTRY glMaterialfv (GLenum face, GLenum pname, const GLfloat *params);
+GL_API void GL_APIENTRY glMultMatrixf (const GLfloat *m);
+GL_API void GL_APIENTRY glMultiTexCoord4f (GLenum target, GLfloat s, GLfloat t, GLfloat r, GLfloat q);
+GL_API void GL_APIENTRY glNormal3f (GLfloat nx, GLfloat ny, GLfloat nz);
+GL_API void GL_APIENTRY glOrthof (GLfloat left, GLfloat right, GLfloat bottom, GLfloat top, GLfloat zNear, GLfloat zFar);
+GL_API void GL_APIENTRY glPointParameterf (GLenum pname, GLfloat param);
+GL_API void GL_APIENTRY glPointParameterfv (GLenum pname, const GLfloat *params);
+GL_API void GL_APIENTRY glPointSize (GLfloat size);
+GL_API void GL_APIENTRY glPolygonOffset (GLfloat factor, GLfloat units);
+GL_API void GL_APIENTRY glRotatef (GLfloat angle, GLfloat x, GLfloat y, GLfloat z);
+GL_API void GL_APIENTRY glScalef (GLfloat x, GLfloat y, GLfloat z);
+GL_API void GL_APIENTRY glTexEnvf (GLenum target, GLenum pname, GLfloat param);
+GL_API void GL_APIENTRY glTexEnvfv (GLenum target, GLenum pname, const GLfloat *params);
+GL_API void GL_APIENTRY glTexParameterf (GLenum target, GLenum pname, GLfloat param);
+GL_API void GL_APIENTRY glTexParameterfv (GLenum target, GLenum pname, const GLfloat *params);
+GL_API void GL_APIENTRY glTranslatef (GLfloat x, GLfloat y, GLfloat z);
+
+GL_API void GL_APIENTRY glActiveTexture (GLenum texture);
+GL_API void GL_APIENTRY glAlphaFuncx (GLenum func, GLclampx ref);
+GL_API void GL_APIENTRY glBindBuffer (GLenum target, GLuint buffer);
+GL_API void GL_APIENTRY glBindTexture (GLenum target, GLuint texture);
+GL_API void GL_APIENTRY glBlendFunc (GLenum sfactor, GLenum dfactor);
+GL_API void GL_APIENTRY glBufferData (GLenum target, GLsizeiptr size, const GLvoid *data, GLenum usage);
+GL_API void GL_APIENTRY glBufferSubData (GLenum target, GLintptr offset, GLsizeiptr size, const GLvoid *data);
+GL_API void GL_APIENTRY glClear (GLbitfield mask);
+GL_API void GL_APIENTRY glClearColorx (GLclampx red, GLclampx green, GLclampx blue, GLclampx alpha);
+GL_API void GL_APIENTRY glClearDepthx (GLclampx depth);
+GL_API void GL_APIENTRY glClearStencil (GLint s);
+GL_API void GL_APIENTRY glClientActiveTexture (GLenum texture);
+GL_API void GL_APIENTRY glClipPlanex (GLenum plane, const GLfixed *equation);
+GL_API void GL_APIENTRY glColor4ub (GLubyte red, GLubyte green, GLubyte blue, GLubyte alpha);
+GL_API void GL_APIENTRY glColor4x (GLfixed red, GLfixed green, GLfixed blue, GLfixed alpha);
+GL_API void GL_APIENTRY glColorMask (GLboolean red, GLboolean green, GLboolean blue, GLboolean alpha);
+GL_API void GL_APIENTRY glColorPointer (GLint size, GLenum type, GLsizei stride, const GLvoid *pointer);
+GL_API void GL_APIENTRY glCompressedTexImage2D (GLenum target, GLint level, GLenum internalformat, GLsizei width, GLsizei height, GLint border, GLsizei imageSize, const GLvoid *data);
+GL_API void GL_APIENTRY glCompressedTexSubImage2D (GLenum target, GLint level, GLint xoffset, GLint yoffset, GLsizei width, GLsizei height, GLenum format, GLsizei imageSize, const GLvoid *data);
+GL_API void GL_APIENTRY glCopyTexImage2D (GLenum target, GLint level, GLenum internalformat, GLint x, GLint y, GLsizei width, GLsizei height, GLint border);
+GL_API void GL_APIENTRY glCopyTexSubImage2D (GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint x, GLint y, GLsizei width, GLsizei height);
+GL_API void GL_APIENTRY glCullFace (GLenum mode);
+GL_API void GL_APIENTRY glDeleteBuffers (GLsizei n, const GLuint *buffers);
+GL_API void GL_APIENTRY glDeleteTextures (GLsizei n, const GLuint *textures);
+GL_API void GL_APIENTRY glDepthFunc (GLenum func);
+GL_API void GL_APIENTRY glDepthMask (GLboolean flag);
+GL_API void GL_APIENTRY glDepthRangex (GLclampx zNear, GLclampx zFar);
+GL_API void GL_APIENTRY glDisable (GLenum cap);
+GL_API void GL_APIENTRY glDisableClientState (GLenum array);
+GL_API void GL_APIENTRY glDrawArrays (GLenum mode, GLint first, GLsizei count);
+GL_API void GL_APIENTRY glDrawElements (GLenum mode, GLsizei count, GLenum type, const GLvoid *indices);
+GL_API void GL_APIENTRY glEnable (GLenum cap);
+GL_API void GL_APIENTRY glEnableClientState (GLenum array);
+GL_API void GL_APIENTRY glFinish (void);
+GL_API void GL_APIENTRY glFlush (void);
+GL_API void GL_APIENTRY glFogx (GLenum pname, GLfixed param);
+GL_API void GL_APIENTRY glFogxv (GLenum pname, const GLfixed *params);
+GL_API void GL_APIENTRY glFrontFace (GLenum mode);
+GL_API void GL_APIENTRY glFrustumx (GLfixed left, GLfixed right, GLfixed bottom, GLfixed top, GLfixed zNear, GLfixed zFar);
+GL_API void GL_APIENTRY glGetBooleanv (GLenum pname, GLboolean *params);
+GL_API void GL_APIENTRY glGetBufferParameteriv (GLenum target, GLenum pname, GLint *params);
+GL_API void GL_APIENTRY glGetClipPlanex (GLenum pname, GLfixed eqn[4]);
+GL_API void GL_APIENTRY glGenBuffers (GLsizei n, GLuint *buffers);
+GL_API void GL_APIENTRY glGenTextures (GLsizei n, GLuint *textures);
+GL_API GLenum GL_APIENTRY glGetError (void);
+GL_API void GL_APIENTRY glGetFixedv (GLenum pname, GLfixed *params);
+GL_API void GL_APIENTRY glGetIntegerv (GLenum pname, GLint *params);
+GL_API void GL_APIENTRY glGetLightxv (GLenum light, GLenum pname, GLfixed *params);
+GL_API void GL_APIENTRY glGetMaterialxv (GLenum face, GLenum pname, GLfixed *params);
+GL_API void GL_APIENTRY glGetPointerv (GLenum pname, void **params);
+GL_API const GLubyte * GL_APIENTRY glGetString (GLenum name);
+GL_API void GL_APIENTRY glGetTexEnviv (GLenum env, GLenum pname, GLint *params);
+GL_API void GL_APIENTRY glGetTexEnvxv (GLenum env, GLenum pname, GLfixed *params);
+GL_API void GL_APIENTRY glGetTexParameteriv (GLenum target, GLenum pname, GLint *params);
+GL_API void GL_APIENTRY glGetTexParameterxv (GLenum target, GLenum pname, GLfixed *params);
+GL_API void GL_APIENTRY glHint (GLenum target, GLenum mode);
+GL_API GLboolean GL_APIENTRY glIsBuffer (GLuint buffer);
+GL_API GLboolean GL_APIENTRY glIsEnabled (GLenum cap);
+GL_API GLboolean GL_APIENTRY glIsTexture (GLuint texture);
+GL_API void GL_APIENTRY glLightModelx (GLenum pname, GLfixed param);
+GL_API void GL_APIENTRY glLightModelxv (GLenum pname, const GLfixed *params);
+GL_API void GL_APIENTRY glLightx (GLenum light, GLenum pname, GLfixed param);
+GL_API void GL_APIENTRY glLightxv (GLenum light, GLenum pname, const GLfixed *params);
+GL_API void GL_APIENTRY glLineWidthx (GLfixed width);
+GL_API void GL_APIENTRY glLoadIdentity (void);
+GL_API void GL_APIENTRY glLoadMatrixx (const GLfixed *m);
+GL_API void GL_APIENTRY glLogicOp (GLenum opcode);
+GL_API void GL_APIENTRY glMaterialx (GLenum face, GLenum pname, GLfixed param);
+GL_API void GL_APIENTRY glMaterialxv (GLenum face, GLenum pname, const GLfixed *params);
+GL_API void GL_APIENTRY glMatrixMode (GLenum mode);
+GL_API void GL_APIENTRY glMultMatrixx (const GLfixed *m);
+GL_API void GL_APIENTRY glMultiTexCoord4x (GLenum target, GLfixed s, GLfixed t, GLfixed r, GLfixed q);
+GL_API void GL_APIENTRY glNormal3x (GLfixed nx, GLfixed ny, GLfixed nz);
+GL_API void GL_APIENTRY glNormalPointer (GLenum type, GLsizei stride, const GLvoid *pointer);
+GL_API void GL_APIENTRY glOrthox (GLfixed left, GLfixed right, GLfixed bottom, GLfixed top, GLfixed zNear, GLfixed zFar);
+GL_API void GL_APIENTRY glPixelStorei (GLenum pname, GLint param);
+GL_API void GL_APIENTRY glPointParameterx (GLenum pname, GLfixed param);
+GL_API void GL_APIENTRY glPointParameterxv (GLenum pname, const GLfixed *params);
+GL_API void GL_APIENTRY glPointSizex (GLfixed size);
+GL_API void GL_APIENTRY glPolygonOffsetx (GLfixed factor, GLfixed units);
+GL_API void GL_APIENTRY glPopMatrix (void);
+GL_API void GL_APIENTRY glPushMatrix (void);
+GL_API void GL_APIENTRY glReadPixels (GLint x, GLint y, GLsizei width, GLsizei height, GLenum format, GLenum type, GLvoid *pixels);
+GL_API void GL_APIENTRY glRotatex (GLfixed angle, GLfixed x, GLfixed y, GLfixed z);
+GL_API void GL_APIENTRY glSampleCoverage (GLclampf value, GLboolean invert);
+GL_API void GL_APIENTRY glSampleCoveragex (GLclampx value, GLboolean invert);
+GL_API void GL_APIENTRY glScalex (GLfixed x, GLfixed y, GLfixed z);
+GL_API void GL_APIENTRY glScissor (GLint x, GLint y, GLsizei width, GLsizei height);
+GL_API void GL_APIENTRY glShadeModel (GLenum mode);
+GL_API void GL_APIENTRY glStencilFunc (GLenum func, GLint ref, GLuint mask);
+GL_API void GL_APIENTRY glStencilMask (GLuint mask);
+GL_API void GL_APIENTRY glStencilOp (GLenum fail, GLenum zfail, GLenum zpass);
+GL_API void GL_APIENTRY glTexCoordPointer (GLint size, GLenum type, GLsizei stride, const GLvoid *pointer);
+GL_API void GL_APIENTRY glTexEnvi (GLenum target, GLenum pname, GLint param);
+GL_API void GL_APIENTRY glTexEnvx (GLenum target, GLenum pname, GLfixed param);
+GL_API void GL_APIENTRY glTexEnviv (GLenum target, GLenum pname, const GLint *params);
+GL_API void GL_APIENTRY glTexEnvxv (GLenum target, GLenum pname, const GLfixed *params);
+GL_API void GL_APIENTRY glTexImage2D (GLenum target, GLint level, GLint internalformat, GLsizei width, GLsizei height, GLint border, GLenum format, GLenum type, const GLvoid *pixels);
+GL_API void GL_APIENTRY glTexParameteri (GLenum target, GLenum pname, GLint param);
+GL_API void GL_APIENTRY glTexParameterx (GLenum target, GLenum pname, GLfixed param);
+GL_API void GL_APIENTRY glTexParameteriv (GLenum target, GLenum pname, const GLint *params);
+GL_API void GL_APIENTRY glTexParameterxv (GLenum target, GLenum pname, const GLfixed *params);
+GL_API void GL_APIENTRY glTexSubImage2D (GLenum target, GLint level, GLint xoffset, GLint yoffset, GLsizei width, GLsizei height, GLenum format, GLenum type, const GLvoid *pixels);
+GL_API void GL_APIENTRY glTranslatex (GLfixed x, GLfixed y, GLfixed z);
+GL_API void GL_APIENTRY glVertexPointer (GLint size, GLenum type, GLsizei stride, const GLvoid *pointer);
+GL_API void GL_APIENTRY glViewport (GLint x, GLint y, GLsizei width, GLsizei height);
+
+/*****************************************************************************************/
+/*                                 OES extension functions                               */
+/*****************************************************************************************/
+/* OES_matrix_palette */
+GL_API void GL_APIENTRY glCurrentPaletteMatrixOES (GLuint matrixpaletteindex);
+GL_API void GL_APIENTRY glLoadPaletteFromModelViewMatrixOES (void);
+GL_API void GL_APIENTRY glMatrixIndexPointerOES (GLint size, GLenum type, GLsizei stride, const GLvoid *pointer);
+GL_API void GL_APIENTRY glWeightPointerOES (GLint size, GLenum type, GLsizei stride, const GLvoid *pointer);
+
+/* OES_point_size_array */
+GL_API void GL_APIENTRY glPointSizePointerOES (GLenum type, GLsizei stride, const GLvoid *pointer);
+
+/* OES_draw_texture */
+GL_API void GL_APIENTRY glDrawTexsOES (GLshort x, GLshort y, GLshort z, GLshort width, GLshort height);
+GL_API void GL_APIENTRY glDrawTexiOES (GLint x, GLint y, GLint z, GLint width, GLint height);
+GL_API void GL_APIENTRY glDrawTexxOES (GLfixed x, GLfixed y, GLfixed z, GLfixed width, GLfixed height);
+
+GL_API void GL_APIENTRY glDrawTexsvOES (const GLshort *coords);
+GL_API void GL_APIENTRY glDrawTexivOES (const GLint *coords);
+GL_API void GL_APIENTRY glDrawTexxvOES (const GLfixed *coords);
+
+GL_API void GL_APIENTRY glDrawTexfOES (GLfloat x, GLfloat y, GLfloat z, GLfloat width, GLfloat height);
+GL_API void GL_APIENTRY glDrawTexfvOES (const GLfloat *coords);
+
+
+
+
+
+
+
+
+
+
+#define AL_API extern
+#define AL_APIENTRY
+
+/*
+ * The OPENAL, ALAPI, ALAPIENTRY, AL_INVALID, AL_ILLEGAL_ENUM, and
+ * AL_ILLEGAL_COMMAND macros are deprecated, but are included for
+ * applications porting code from AL 1.0
+ */
+#define OPENAL
+#define ALAPI AL_API
+#define ALAPIENTRY AL_APIENTRY
+#define AL_INVALID                                (-1)
+#define AL_ILLEGAL_ENUM                           AL_INVALID_ENUM
+#define AL_ILLEGAL_COMMAND                        AL_INVALID_OPERATION
+
+#define AL_VERSION_1_0
+#define AL_VERSION_1_1
+
+
+/** 8-bit boolean */
+typedef char ALboolean;
+
+/** character */
+typedef char ALchar;
+
+/** signed 8-bit 2's complement integer */
+typedef char ALbyte;
+
+/** unsigned 8-bit integer */
+typedef unsigned char ALubyte;
+
+/** signed 16-bit 2's complement integer */
+typedef short ALshort;
+
+/** unsigned 16-bit integer */
+typedef unsigned short ALushort;
+
+/** signed 32-bit 2's complement integer */
+typedef int ALint;
+
+/** unsigned 32-bit integer */
+typedef unsigned int ALuint;
+
+/** non-negative 32-bit binary integer size */
+typedef int ALsizei;
+
+/** enumerated 32-bit value */
+typedef int ALenum;
+
+/** 32-bit IEEE754 floating-point */
+typedef float ALfloat;
+
+/** 64-bit IEEE754 floating-point */
+typedef double ALdouble;
+
+/** void type (for opaque pointers only) */
+typedef void ALvoid;
+
+
+/* Enumerant values begin at column 50. No tabs. */
+
+/* "no distance model" or "no buffer" */
+#define AL_NONE                                   0
+
+/* Boolean False. */
+#define AL_FALSE                                  0
+
+/** Boolean True. */
+#define AL_TRUE                                   1
+
+/** Indicate Source has relative coordinates. */
+#define AL_SOURCE_RELATIVE                        0x202
+
+
+
+/**
+ * Directional source, inner cone angle, in degrees.
+ * Range:    [0-360] 
+ * Default:  360
+ */
+#define AL_CONE_INNER_ANGLE                       0x1001
+
+/**
+ * Directional source, outer cone angle, in degrees.
+ * Range:    [0-360] 
+ * Default:  360
+ */
+#define AL_CONE_OUTER_ANGLE                       0x1002
+
+/**
+ * Specify the pitch to be applied, either at source,
+ *  or on mixer results, at listener.
+ * Range:   [0.5-2.0]
+ * Default: 1.0
+ */
+#define AL_PITCH                                  0x1003
+  
+/** 
+ * Specify the current location in three dimensional space.
+ * OpenAL, like OpenGL, uses a right handed coordinate system,
+ *  where in a frontal default view X (thumb) points right, 
+ *  Y points up (index finger), and Z points towards the
+ *  viewer/camera (middle finger). 
+ * To switch from a left handed coordinate system, flip the
+ *  sign on the Z coordinate.
+ * Listener position is always in the world coordinate system.
+ */ 
+#define AL_POSITION                               0x1004
+  
+/** Specify the current direction. */
+#define AL_DIRECTION                              0x1005
+  
+/** Specify the current velocity in three dimensional space. */
+#define AL_VELOCITY                               0x1006
+
+/**
+ * Indicate whether source is looping.
+ * Type: ALboolean?
+ * Range:   [AL_TRUE, AL_FALSE]
+ * Default: FALSE.
+ */
+#define AL_LOOPING                                0x1007
+
+/**
+ * Indicate the buffer to provide sound samples. 
+ * Type: ALuint.
+ * Range: any valid Buffer id.
+ */
+#define AL_BUFFER                                 0x1009
+  
+/**
+ * Indicate the gain (volume amplification) applied. 
+ * Type:   ALfloat.
+ * Range:  ]0.0-  ]
+ * A value of 1.0 means un-attenuated/unchanged.
+ * Each division by 2 equals an attenuation of -6dB.
+ * Each multiplicaton with 2 equals an amplification of +6dB.
+ * A value of 0.0 is meaningless with respect to a logarithmic
+ *  scale; it is interpreted as zero volume - the channel
+ *  is effectively disabled.
+ */
+#define AL_GAIN                                   0x100A
+
+/*
+ * Indicate minimum source attenuation
+ * Type: ALfloat
+ * Range:  [0.0 - 1.0]
+ *
+ * Logarthmic
+ */
+#define AL_MIN_GAIN                               0x100D
+
+/**
+ * Indicate maximum source attenuation
+ * Type: ALfloat
+ * Range:  [0.0 - 1.0]
+ *
+ * Logarthmic
+ */
+#define AL_MAX_GAIN                               0x100E
+
+/**
+ * Indicate listener orientation.
+ *
+ * at/up 
+ */
+#define AL_ORIENTATION                            0x100F
+
+/**
+ * Source state information.
+ */
+#define AL_SOURCE_STATE                           0x1010
+#define AL_INITIAL                                0x1011
+#define AL_PLAYING                                0x1012
+#define AL_PAUSED                                 0x1013
+#define AL_STOPPED                                0x1014
+
+/**
+ * Buffer Queue params
+ */
+#define AL_BUFFERS_QUEUED                         0x1015
+#define AL_BUFFERS_PROCESSED                      0x1016
+
+/**
+ * Source buffer position information
+ */
+#define AL_SEC_OFFSET                             0x1024
+#define AL_SAMPLE_OFFSET                          0x1025
+#define AL_BYTE_OFFSET                            0x1026
+
+/*
+ * Source type (Static, Streaming or undetermined)
+ * Source is Static if a Buffer has been attached using AL_BUFFER
+ * Source is Streaming if one or more Buffers have been attached using alSourceQueueBuffers
+ * Source is undetermined when it has the NULL buffer attached
+ */
+#define AL_SOURCE_TYPE                            0x1027
+#define AL_STATIC                                 0x1028
+#define AL_STREAMING                              0x1029
+#define AL_UNDETERMINED                           0x1030
+
+/** Sound samples: format specifier. */
+#define AL_FORMAT_MONO8                           0x1100
+#define AL_FORMAT_MONO16                          0x1101
+#define AL_FORMAT_STEREO8                         0x1102
+#define AL_FORMAT_STEREO16                        0x1103
+
+/**
+ * source specific reference distance
+ * Type: ALfloat
+ * Range:  0.0 - +inf
+ *
+ * At 0.0, no distance attenuation occurs.  Default is
+ * 1.0.
+ */
+#define AL_REFERENCE_DISTANCE                     0x1020
+
+/**
+ * source specific rolloff factor
+ * Type: ALfloat
+ * Range:  0.0 - +inf
+ *
+ */
+#define AL_ROLLOFF_FACTOR                         0x1021
+
+/**
+ * Directional source, outer cone gain.
+ *
+ * Default:  0.0
+ * Range:    [0.0 - 1.0]
+ * Logarithmic
+ */
+#define AL_CONE_OUTER_GAIN                        0x1022
+
+/**
+ * Indicate distance above which sources are not
+ * attenuated using the inverse clamped distance model.
+ *
+ * Default: +inf
+ * Type: ALfloat
+ * Range:  0.0 - +inf
+ */
+#define AL_MAX_DISTANCE                           0x1023
+
+/** 
+ * Sound samples: frequency, in units of Hertz [Hz].
+ * This is the number of samples per second. Half of the
+ *  sample frequency marks the maximum significant
+ *  frequency component.
+ */
+#define AL_FREQUENCY                              0x2001
+#define AL_BITS                                   0x2002
+#define AL_CHANNELS                               0x2003
+#define AL_SIZE                                   0x2004
+
+/**
+ * Buffer state.
+ *
+ * Not supported for public use (yet).
+ */
+#define AL_UNUSED                                 0x2010
+#define AL_PENDING                                0x2011
+#define AL_PROCESSED                              0x2012
+
+
+/** Errors: No Error. */
+#define AL_NO_ERROR                               AL_FALSE
+
+/** 
+ * Invalid Name paramater passed to AL call.
+ */
+#define AL_INVALID_NAME                           0xA001
+
+/** 
+ * Invalid parameter passed to AL call.
+ */
+#define AL_INVALID_ENUM                           0xA002
+
+/** 
+ * Invalid enum parameter value.
+ */
+#define AL_INVALID_VALUE                          0xA003
+
+/** 
+ * Illegal call.
+ */
+#define AL_INVALID_OPERATION                      0xA004
+
+  
+/**
+ * No mojo.
+ */
+#define AL_OUT_OF_MEMORY                          0xA005
+
+
+/** Context strings: Vendor Name. */
+#define AL_VENDOR                                 0xB001
+#define AL_VERSION                                0xB002
+#define AL_RENDERER                               0xB003
+#define AL_EXTENSIONS                             0xB004
+
+/** Global tweakage. */
+
+/**
+ * Doppler scale.  Default 1.0
+ */
+#define AL_DOPPLER_FACTOR                         0xC000
+
+/**
+ * Tweaks speed of propagation.
+ */
+#define AL_DOPPLER_VELOCITY                       0xC001
+
+/**
+ * Speed of Sound in units per second
+ */
+#define AL_SPEED_OF_SOUND                         0xC003
+
+/**
+ * Distance models
+ *
+ * used in conjunction with DistanceModel
+ *
+ * implicit: NONE, which disances distance attenuation.
+ */
+#define AL_DISTANCE_MODEL                         0xD000
+#define AL_INVERSE_DISTANCE                       0xD001
+#define AL_INVERSE_DISTANCE_CLAMPED               0xD002
+#define AL_LINEAR_DISTANCE                        0xD003
+#define AL_LINEAR_DISTANCE_CLAMPED                0xD004
+#define AL_EXPONENT_DISTANCE                      0xD005
+#define AL_EXPONENT_DISTANCE_CLAMPED              0xD006
+
+/*
+ * Renderer State management
+ */
+AL_API void AL_APIENTRY alEnable( ALenum capability );
+
+AL_API void AL_APIENTRY alDisable( ALenum capability ); 
+
+AL_API ALboolean AL_APIENTRY alIsEnabled( ALenum capability ); 
+
+
+/*
+ * State retrieval
+ */
+AL_API const ALchar* AL_APIENTRY alGetString( ALenum param );
+
+AL_API void AL_APIENTRY alGetBooleanv( ALenum param, ALboolean* data );
+
+AL_API void AL_APIENTRY alGetIntegerv( ALenum param, ALint* data );
+
+AL_API void AL_APIENTRY alGetFloatv( ALenum param, ALfloat* data );
+
+AL_API void AL_APIENTRY alGetDoublev( ALenum param, ALdouble* data );
+
+AL_API ALboolean AL_APIENTRY alGetBoolean( ALenum param );
+
+AL_API ALint AL_APIENTRY alGetInteger( ALenum param );
+
+AL_API ALfloat AL_APIENTRY alGetFloat( ALenum param );
+
+AL_API ALdouble AL_APIENTRY alGetDouble( ALenum param );
+
+
+/*
+ * Error support.
+ * Obtain the most recent error generated in the AL state machine.
+ */
+AL_API ALenum AL_APIENTRY alGetError( void );
+
+
+/* 
+ * Extension support.
+ * Query for the presence of an extension, and obtain any appropriate
+ * function pointers and enum values.
+ */
+AL_API ALboolean AL_APIENTRY alIsExtensionPresent( const ALchar* extname );
+
+AL_API void* AL_APIENTRY alGetProcAddress( const ALchar* fname );
+
+AL_API ALenum AL_APIENTRY alGetEnumValue( const ALchar* ename );
+
+
+/*
+ * LISTENER
+ * Listener represents the location and orientation of the
+ * 'user' in 3D-space.
+ *
+ * Properties include: -
+ *
+ * Gain         AL_GAIN         ALfloat
+ * Position     AL_POSITION     ALfloat[3]
+ * Velocity     AL_VELOCITY     ALfloat[3]
+ * Orientation  AL_ORIENTATION  ALfloat[6] (Forward then Up vectors)
+*/
+
+/*
+ * Set Listener parameters
+ */
+AL_API void AL_APIENTRY alListenerf( ALenum param, ALfloat value );
+
+AL_API void AL_APIENTRY alListener3f( ALenum param, ALfloat value1, ALfloat value2, ALfloat value3 );
+
+AL_API void AL_APIENTRY alListenerfv( ALenum param, const ALfloat* values ); 
+
+AL_API void AL_APIENTRY alListeneri( ALenum param, ALint value );
+
+AL_API void AL_APIENTRY alListener3i( ALenum param, ALint value1, ALint value2, ALint value3 );
+
+AL_API void AL_APIENTRY alListeneriv( ALenum param, const ALint* values );
+
+/*
+ * Get Listener parameters
+ */
+AL_API void AL_APIENTRY alGetListenerf( ALenum param, ALfloat* value );
+
+AL_API void AL_APIENTRY alGetListener3f( ALenum param, ALfloat *value1, ALfloat *value2, ALfloat *value3 );
+
+AL_API void AL_APIENTRY alGetListenerfv( ALenum param, ALfloat* values );
+
+AL_API void AL_APIENTRY alGetListeneri( ALenum param, ALint* value );
+
+AL_API void AL_APIENTRY alGetListener3i( ALenum param, ALint *value1, ALint *value2, ALint *value3 );
+
+AL_API void AL_APIENTRY alGetListeneriv( ALenum param, ALint* values );
+
+
+/**
+ * SOURCE
+ * Sources represent individual sound objects in 3D-space.
+ * Sources take the PCM data provided in the specified Buffer,
+ * apply Source-specific modifications, and then
+ * submit them to be mixed according to spatial arrangement etc.
+ * 
+ * Properties include: -
+ *
+ * Gain                              AL_GAIN                 ALfloat
+ * Min Gain                          AL_MIN_GAIN             ALfloat
+ * Max Gain                          AL_MAX_GAIN             ALfloat
+ * Position                          AL_POSITION             ALfloat[3]
+ * Velocity                          AL_VELOCITY             ALfloat[3]
+ * Direction                         AL_DIRECTION            ALfloat[3]
+ * Head Relative Mode                AL_SOURCE_RELATIVE      ALint (AL_TRUE or AL_FALSE)
+ * Reference Distance                AL_REFERENCE_DISTANCE   ALfloat
+ * Max Distance                      AL_MAX_DISTANCE         ALfloat
+ * RollOff Factor                    AL_ROLLOFF_FACTOR       ALfloat
+ * Inner Angle                       AL_CONE_INNER_ANGLE     ALint or ALfloat
+ * Outer Angle                       AL_CONE_OUTER_ANGLE     ALint or ALfloat
+ * Cone Outer Gain                   AL_CONE_OUTER_GAIN      ALint or ALfloat
+ * Pitch                             AL_PITCH                ALfloat
+ * Looping                           AL_LOOPING              ALint (AL_TRUE or AL_FALSE)
+ * MS Offset                         AL_MSEC_OFFSET          ALint or ALfloat
+ * Byte Offset                       AL_BYTE_OFFSET          ALint or ALfloat
+ * Sample Offset                     AL_SAMPLE_OFFSET        ALint or ALfloat
+ * Attached Buffer                   AL_BUFFER               ALint
+ * State (Query only)                AL_SOURCE_STATE         ALint
+ * Buffers Queued (Query only)       AL_BUFFERS_QUEUED       ALint
+ * Buffers Processed (Query only)    AL_BUFFERS_PROCESSED    ALint
+ */
+
+/* Create Source objects */
+AL_API void AL_APIENTRY alGenSources( ALsizei n, ALuint* sources ); 
+
+/* Delete Source objects */
+AL_API void AL_APIENTRY alDeleteSources( ALsizei n, const ALuint* sources );
+
+/* Verify a handle is a valid Source */ 
+AL_API ALboolean AL_APIENTRY alIsSource( ALuint sid ); 
+
+/*
+ * Set Source parameters
+ */
+AL_API void AL_APIENTRY alSourcef( ALuint sid, ALenum param, ALfloat value ); 
+
+AL_API void AL_APIENTRY alSource3f( ALuint sid, ALenum param, ALfloat value1, ALfloat value2, ALfloat value3 );
+
+AL_API void AL_APIENTRY alSourcefv( ALuint sid, ALenum param, const ALfloat* values ); 
+
+AL_API void AL_APIENTRY alSourcei( ALuint sid, ALenum param, ALint value ); 
+
+AL_API void AL_APIENTRY alSource3i( ALuint sid, ALenum param, ALint value1, ALint value2, ALint value3 );
+
+AL_API void AL_APIENTRY alSourceiv( ALuint sid, ALenum param, const ALint* values );
+
+/*
+ * Get Source parameters
+ */
+AL_API void AL_APIENTRY alGetSourcef( ALuint sid, ALenum param, ALfloat* value );
+
+AL_API void AL_APIENTRY alGetSource3f( ALuint sid, ALenum param, ALfloat* value1, ALfloat* value2, ALfloat* value3);
+
+AL_API void AL_APIENTRY alGetSourcefv( ALuint sid, ALenum param, ALfloat* values );
+
+AL_API void AL_APIENTRY alGetSourcei( ALuint sid,  ALenum param, ALint* value );
+
+AL_API void AL_APIENTRY alGetSource3i( ALuint sid, ALenum param, ALint* value1, ALint* value2, ALint* value3);
+
+AL_API void AL_APIENTRY alGetSourceiv( ALuint sid,  ALenum param, ALint* values );
+
+
+/*
+ * Source vector based playback calls
+ */
+
+/* Play, replay, or resume (if paused) a list of Sources */
+AL_API void AL_APIENTRY alSourcePlayv( ALsizei ns, const ALuint *sids );
+
+/* Stop a list of Sources */
+AL_API void AL_APIENTRY alSourceStopv( ALsizei ns, const ALuint *sids );
+
+/* Rewind a list of Sources */
+AL_API void AL_APIENTRY alSourceRewindv( ALsizei ns, const ALuint *sids );
+
+/* Pause a list of Sources */
+AL_API void AL_APIENTRY alSourcePausev( ALsizei ns, const ALuint *sids );
+
+/*
+ * Source based playback calls
+ */
+
+/* Play, replay, or resume a Source */
+AL_API void AL_APIENTRY alSourcePlay( ALuint sid );
+
+/* Stop a Source */
+AL_API void AL_APIENTRY alSourceStop( ALuint sid );
+
+/* Rewind a Source (set playback postiton to beginning) */
+AL_API void AL_APIENTRY alSourceRewind( ALuint sid );
+
+/* Pause a Source */
+AL_API void AL_APIENTRY alSourcePause( ALuint sid );
+
+/*
+ * Source Queuing 
+ */
+AL_API void AL_APIENTRY alSourceQueueBuffers( ALuint sid, ALsizei numEntries, const ALuint *bids );
+
+AL_API void AL_APIENTRY alSourceUnqueueBuffers( ALuint sid, ALsizei numEntries, ALuint *bids );
+
+
+/**
+ * BUFFER
+ * Buffer objects are storage space for sample data.
+ * Buffers are referred to by Sources. One Buffer can be used
+ * by multiple Sources.
+ *
+ * Properties include: -
+ *
+ * Frequency (Query only)    AL_FREQUENCY      ALint
+ * Size (Query only)         AL_SIZE           ALint
+ * Bits (Query only)         AL_BITS           ALint
+ * Channels (Query only)     AL_CHANNELS       ALint
+ */
+
+/* Create Buffer objects */
+AL_API void AL_APIENTRY alGenBuffers( ALsizei n, ALuint* buffers );
+
+/* Delete Buffer objects */
+AL_API void AL_APIENTRY alDeleteBuffers( ALsizei n, const ALuint* buffers );
+
+/* Verify a handle is a valid Buffer */
+AL_API ALboolean AL_APIENTRY alIsBuffer( ALuint bid );
+
+/* Specify the data to be copied into a buffer */
+AL_API void AL_APIENTRY alBufferData( ALuint bid, ALenum format, const ALvoid* data, ALsizei size, ALsizei freq );
+
+/*
+ * Set Buffer parameters
+ */
+AL_API void AL_APIENTRY alBufferf( ALuint bid, ALenum param, ALfloat value );
+
+AL_API void AL_APIENTRY alBuffer3f( ALuint bid, ALenum param, ALfloat value1, ALfloat value2, ALfloat value3 );
+
+AL_API void AL_APIENTRY alBufferfv( ALuint bid, ALenum param, const ALfloat* values );
+
+AL_API void AL_APIENTRY alBufferi( ALuint bid, ALenum param, ALint value );
+
+AL_API void AL_APIENTRY alBuffer3i( ALuint bid, ALenum param, ALint value1, ALint value2, ALint value3 );
+
+AL_API void AL_APIENTRY alBufferiv( ALuint bid, ALenum param, const ALint* values );
+
+/*
+ * Get Buffer parameters
+ */
+AL_API void AL_APIENTRY alGetBufferf( ALuint bid, ALenum param, ALfloat* value );
+
+AL_API void AL_APIENTRY alGetBuffer3f( ALuint bid, ALenum param, ALfloat* value1, ALfloat* value2, ALfloat* value3);
+
+AL_API void AL_APIENTRY alGetBufferfv( ALuint bid, ALenum param, ALfloat* values );
+
+AL_API void AL_APIENTRY alGetBufferi( ALuint bid, ALenum param, ALint* value );
+
+AL_API void AL_APIENTRY alGetBuffer3i( ALuint bid, ALenum param, ALint* value1, ALint* value2, ALint* value3);
+
+AL_API void AL_APIENTRY alGetBufferiv( ALuint bid, ALenum param, ALint* values );
+
+
+/*
+ * Global Parameters
+ */
+AL_API void AL_APIENTRY alDopplerFactor( ALfloat value );
+
+AL_API void AL_APIENTRY alDopplerVelocity( ALfloat value );
+
+AL_API void AL_APIENTRY alSpeedOfSound( ALfloat value );
+
+AL_API void AL_APIENTRY alDistanceModel( ALenum distanceModel );
+
+/*
+ * Pointer-to-function types, useful for dynamically getting AL entry points.
+ */
+typedef void           (AL_APIENTRY *LPALENABLE)( ALenum capability );
+typedef void           (AL_APIENTRY *LPALDISABLE)( ALenum capability ); 
+typedef ALboolean      (AL_APIENTRY *LPALISENABLED)( ALenum capability ); 
+typedef const ALchar*  (AL_APIENTRY *LPALGETSTRING)( ALenum param );
+typedef void           (AL_APIENTRY *LPALGETBOOLEANV)( ALenum param, ALboolean* data );
+typedef void           (AL_APIENTRY *LPALGETINTEGERV)( ALenum param, ALint* data );
+typedef void           (AL_APIENTRY *LPALGETFLOATV)( ALenum param, ALfloat* data );
+typedef void           (AL_APIENTRY *LPALGETDOUBLEV)( ALenum param, ALdouble* data );
+typedef ALboolean      (AL_APIENTRY *LPALGETBOOLEAN)( ALenum param );
+typedef ALint          (AL_APIENTRY *LPALGETINTEGER)( ALenum param );
+typedef ALfloat        (AL_APIENTRY *LPALGETFLOAT)( ALenum param );
+typedef ALdouble       (AL_APIENTRY *LPALGETDOUBLE)( ALenum param );
+typedef ALenum         (AL_APIENTRY *LPALGETERROR)( void );
+typedef ALboolean      (AL_APIENTRY *LPALISEXTENSIONPRESENT)(const ALchar* extname );
+typedef void*          (AL_APIENTRY *LPALGETPROCADDRESS)( const ALchar* fname );
+typedef ALenum         (AL_APIENTRY *LPALGETENUMVALUE)( const ALchar* ename );
+typedef void           (AL_APIENTRY *LPALLISTENERF)( ALenum param, ALfloat value );
+typedef void           (AL_APIENTRY *LPALLISTENER3F)( ALenum param, ALfloat value1, ALfloat value2, ALfloat value3 );
+typedef void           (AL_APIENTRY *LPALLISTENERFV)( ALenum param, const ALfloat* values );
+typedef void           (AL_APIENTRY *LPALLISTENERI)( ALenum param, ALint value );
+typedef void           (AL_APIENTRY *LPALLISTENER3I)( ALenum param, ALint value1, ALint value2, ALint value3 );
+typedef void           (AL_APIENTRY *LPALLISTENERIV)( ALenum param, const ALint* values );
+typedef void           (AL_APIENTRY *LPALGETLISTENERF)( ALenum param, ALfloat* value );
+typedef void           (AL_APIENTRY *LPALGETLISTENER3F)( ALenum param, ALfloat *value1, ALfloat *value2, ALfloat *value3 );
+typedef void           (AL_APIENTRY *LPALGETLISTENERFV)( ALenum param, ALfloat* values );
+typedef void           (AL_APIENTRY *LPALGETLISTENERI)( ALenum param, ALint* value );
+typedef void           (AL_APIENTRY *LPALGETLISTENER3I)( ALenum param, ALint *value1, ALint *value2, ALint *value3 );
+typedef void           (AL_APIENTRY *LPALGETLISTENERIV)( ALenum param, ALint* values );
+typedef void           (AL_APIENTRY *LPALGENSOURCES)( ALsizei n, ALuint* sources ); 
+typedef void           (AL_APIENTRY *LPALDELETESOURCES)( ALsizei n, const ALuint* sources );
+typedef ALboolean      (AL_APIENTRY *LPALISSOURCE)( ALuint sid ); 
+typedef void           (AL_APIENTRY *LPALSOURCEF)( ALuint sid, ALenum param, ALfloat value); 
+typedef void           (AL_APIENTRY *LPALSOURCE3F)( ALuint sid, ALenum param, ALfloat value1, ALfloat value2, ALfloat value3 );
+typedef void           (AL_APIENTRY *LPALSOURCEFV)( ALuint sid, ALenum param, const ALfloat* values );
+typedef void           (AL_APIENTRY *LPALSOURCEI)( ALuint sid, ALenum param, ALint value); 
+typedef void           (AL_APIENTRY *LPALSOURCE3I)( ALuint sid, ALenum param, ALint value1, ALint value2, ALint value3 );
+typedef void           (AL_APIENTRY *LPALSOURCEIV)( ALuint sid, ALenum param, const ALint* values );
+typedef void           (AL_APIENTRY *LPALGETSOURCEF)( ALuint sid, ALenum param, ALfloat* value );
+typedef void           (AL_APIENTRY *LPALGETSOURCE3F)( ALuint sid, ALenum param, ALfloat* value1, ALfloat* value2, ALfloat* value3);
+typedef void           (AL_APIENTRY *LPALGETSOURCEFV)( ALuint sid, ALenum param, ALfloat* values );
+typedef void           (AL_APIENTRY *LPALGETSOURCEI)( ALuint sid, ALenum param, ALint* value );
+typedef void           (AL_APIENTRY *LPALGETSOURCE3I)( ALuint sid, ALenum param, ALint* value1, ALint* value2, ALint* value3);
+typedef void           (AL_APIENTRY *LPALGETSOURCEIV)( ALuint sid, ALenum param, ALint* values );
+typedef void           (AL_APIENTRY *LPALSOURCEPLAYV)( ALsizei ns, const ALuint *sids );
+typedef void           (AL_APIENTRY *LPALSOURCESTOPV)( ALsizei ns, const ALuint *sids );
+typedef void           (AL_APIENTRY *LPALSOURCEREWINDV)( ALsizei ns, const ALuint *sids );
+typedef void           (AL_APIENTRY *LPALSOURCEPAUSEV)( ALsizei ns, const ALuint *sids );
+typedef void           (AL_APIENTRY *LPALSOURCEPLAY)( ALuint sid );
+typedef void           (AL_APIENTRY *LPALSOURCESTOP)( ALuint sid );
+typedef void           (AL_APIENTRY *LPALSOURCEREWIND)( ALuint sid );
+typedef void           (AL_APIENTRY *LPALSOURCEPAUSE)( ALuint sid );
+typedef void           (AL_APIENTRY *LPALSOURCEQUEUEBUFFERS)(ALuint sid, ALsizei numEntries, const ALuint *bids );
+typedef void           (AL_APIENTRY *LPALSOURCEUNQUEUEBUFFERS)(ALuint sid, ALsizei numEntries, ALuint *bids );
+typedef void           (AL_APIENTRY *LPALGENBUFFERS)( ALsizei n, ALuint* buffers );
+typedef void           (AL_APIENTRY *LPALDELETEBUFFERS)( ALsizei n, const ALuint* buffers );
+typedef ALboolean      (AL_APIENTRY *LPALISBUFFER)( ALuint bid );
+typedef void           (AL_APIENTRY *LPALBUFFERDATA)( ALuint bid, ALenum format, const ALvoid* data, ALsizei size, ALsizei freq );
+typedef void           (AL_APIENTRY *LPALBUFFERF)( ALuint bid, ALenum param, ALfloat value);
+typedef void           (AL_APIENTRY *LPALBUFFER3F)( ALuint bid, ALenum param, ALfloat value1, ALfloat value2, ALfloat value3 );
+typedef void           (AL_APIENTRY *LPALBUFFERFV)( ALuint bid, ALenum param, const ALfloat* values );
+typedef void           (AL_APIENTRY *LPALBUFFERI)( ALuint bid, ALenum param, ALint value);
+typedef void           (AL_APIENTRY *LPALBUFFER3I)( ALuint bid, ALenum param, ALint value1, ALint value2, ALint value3 );
+typedef void           (AL_APIENTRY *LPALBUFFERIV)( ALuint bid, ALenum param, const ALint* values );
+typedef void           (AL_APIENTRY *LPALGETBUFFERF)( ALuint bid, ALenum param, ALfloat* value );
+typedef void           (AL_APIENTRY *LPALGETBUFFER3F)( ALuint bid, ALenum param, ALfloat* value1, ALfloat* value2, ALfloat* value3);
+typedef void           (AL_APIENTRY *LPALGETBUFFERFV)( ALuint bid, ALenum param, ALfloat* values );
+typedef void           (AL_APIENTRY *LPALGETBUFFERI)( ALuint bid, ALenum param, ALint* value );
+typedef void           (AL_APIENTRY *LPALGETBUFFER3I)( ALuint bid, ALenum param, ALint* value1, ALint* value2, ALint* value3);
+typedef void           (AL_APIENTRY *LPALGETBUFFERIV)( ALuint bid, ALenum param, ALint* values );
+typedef void           (AL_APIENTRY *LPALDOPPLERFACTOR)( ALfloat value );
+typedef void           (AL_APIENTRY *LPALDOPPLERVELOCITY)( ALfloat value );
+typedef void           (AL_APIENTRY *LPALSPEEDOFSOUND)( ALfloat value );
+typedef void           (AL_APIENTRY *LPALDISTANCEMODEL)( ALenum distanceModel );
