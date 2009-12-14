@@ -25,6 +25,7 @@
 		430D307810B39A55002950F6 /* CJSONScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 430D306F10B39A55002950F6 /* CJSONScanner.m */; };
 		430D307910B39A55002950F6 /* CJSONSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 430D307110B39A55002950F6 /* CJSONSerializer.m */; };
 		43BF52A210AC222500C116BD /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43BF52A110AC222500C116BD /* CoreLocation.framework */; };
+		43E472B210D5BCD60017E9C9 /* README in Resources */ = {isa = PBXBuildFile; fileRef = 43E472B110D5BCD60017E9C9 /* README */; };
 		E04BBA43100D5B280078A39E /* sio2_action.cc in Sources */ = {isa = PBXBuildFile; fileRef = E04BB9FE100D5B280078A39E /* sio2_action.cc */; };
 		E04BBA44100D5B280078A39E /* sio2_camera.cc in Sources */ = {isa = PBXBuildFile; fileRef = E04BBA00100D5B280078A39E /* sio2_camera.cc */; };
 		E04BBA45100D5B280078A39E /* sio2_emitter.cc in Sources */ = {isa = PBXBuildFile; fileRef = E04BBA03100D5B280078A39E /* sio2_emitter.cc */; };
@@ -353,6 +354,7 @@
 		430D307010B39A55002950F6 /* CJSONSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJSONSerializer.h; sourceTree = "<group>"; };
 		430D307110B39A55002950F6 /* CJSONSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJSONSerializer.m; sourceTree = "<group>"; };
 		43BF52A110AC222500C116BD /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		43E472B110D5BCD60017E9C9 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E04BB9FE100D5B280078A39E /* sio2_action.cc */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = sio2_action.cc; path = sio2/sio2_action.cc; sourceTree = SOURCE_ROOT; };
 		E04BB9FF100D5B280078A39E /* sio2_action.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = sio2_action.h; path = sio2/sio2_action.h; sourceTree = SOURCE_ROOT; };
@@ -985,6 +987,7 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				43E472B110D5BCD60017E9C9 /* README */,
 				430D305A10B39A15002950F6 /* json */,
 				E0F6AECC0F24090F00DA0338 /* png */,
 				E0E311BC0E5EA54900F6D25F /* bullet */,
@@ -1744,6 +1747,7 @@
 				E0E313F60E5EA78B00F6D25F /* Icon.png in Resources */,
 				E0E313F70E5EA78B00F6D25F /* Default.png in Resources */,
 				430D2DB610B330D7002950F6 /* shadowland.sio2 in Resources */,
+				43E472B210D5BCD60017E9C9 /* README in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

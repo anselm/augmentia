@@ -3,7 +3,7 @@
 #include "sio2/sio2.h"
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// iphone world state ( orientation, position and the like )
+// iphone physical real world sensor states
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 extern float first_latitude;
@@ -25,7 +25,13 @@ int screen_orientation = 0;
 float scene_ready = FALSE;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
 // camera
+//
+// camera view in the world is a function of external sensors
+// there is also a local independent swivel so you can move the view around with your finger if you don't have a 3gs
+// also you can drive the view around with your finger independent of actually physically moving
+//
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 float camera_thrust = 0;
@@ -44,12 +50,20 @@ vec3 target = { 0,0,0 };
 // set this scale up so that i don't get tired playtesting the game ( i only have to walk 1/100th as far)
 #define TEST_SCALE_FACTOR 100
 
+//
+// Update Camera
+//
+// camera view in the world is a function of external sensors
+// there is also a local independent swivel so you can move the view around with your finger if you don't have a 3gs
+// also you can drive the view around with your finger independent of actually physically moving
+//
+//
 void augmentiaCamera() {
 
 	SIO2camera *camera = sio2->_SIO2camera;
 	SIO2window *window = sio2->_SIO2window;
 
-	// make camera?
+	// make camera just in time if needed
 	if( !camera ) {
 		camera = ( SIO2camera * )sio2ResourceGet( sio2->_SIO2resource, SIO2_CAMERA, "camera/Camera" );
 		if(!camera) return;
@@ -57,7 +71,7 @@ void augmentiaCamera() {
 		sio2Perspective( camera->fov, window->scl->x / window->scl->y, camera->cstart, camera->cend );
 	}
 
-	// Unsure if this has to be exactly here 
+	// Unsure if this has to be exactly here TODO examine
 	if( screen_orientation ) {
 		sio2WindowEnterLandscape3D();
 	}
@@ -103,7 +117,7 @@ void augmentiaCamera() {
 	camera->_SIO2transform->loc->y = world.y;
 	camera->_SIO2transform->loc->z = world.z;
 	sio2CameraRender( camera );
-	sio2CameraUpdateFrustum( camera );	
+	sio2CameraUpdateFrustum( camera );
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -141,6 +155,9 @@ void shadowmatrix( float *_m, vec4 *_n, vec4 *_lpos ) {
 	_m[ 15 ] = dp   - ( _lpos->w * _n->w );
 }
 
+/*
+
+// unused - i was playing with sio2 widgets but what is the point? too much hassle for now.
 // http://sio2interactive.wikidot.com/sio2-widgets
 
 SIO2image *NAMEOFYOURIMAGE;
@@ -168,9 +185,14 @@ void augmentiaRadarLoad( void ) {
 		sio2EnableState( & NAMEOFYOURWIDGET->flags, SIO2_WIDGET_VISIBLE );
 	}
 }
+*/
 
 GLfloat vertices[722];
 int made_circle = 0;
+
+//
+// Draw a radar circle - unused for now.
+//
 void glCircle( void ) {
 	if(!made_circle) {
 		made_circle = 1;
@@ -191,6 +213,9 @@ void glCircle( void ) {
 	glDrawArrays(GL_TRIANGLE_FAN, 0, 361);
 }
 
+//
+// Draw a radar view so that we can see where stuff is in the world
+//
 void augmentiaRadar( void ) {
 
 	// goto 2d mode
@@ -244,6 +269,9 @@ void augmentiaRadar( void ) {
 	sio2WindowLeave2D();
 }
 
+//
+// Shadows - off for now
+//
 void augmentiaShadows() {
 	vec4 shadow = { 0.0f, 0.0f, 0.0f, 1.0f };
 	static float m[ 16 ] = { 0.0f };
@@ -274,6 +302,9 @@ void augmentiaShadows() {
 	glPopMatrix();
 }
 
+//
+// Render everything - including updating the camera transforms
+//
 void augmentiaRender( void ) {
 
 	// skip out early if scene is not loaded yet
@@ -312,9 +343,12 @@ void augmentiaRender( void ) {
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// manage objects geometry
+// load objects
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+//
+// load the world
+//
 void augmentiaLoading( void ) {
 	sio2->_SIO2resource = sio2ResourceInit("world");
 	sio2ResourceCreateDictionary( sio2->_SIO2resource );
@@ -406,9 +440,15 @@ ARObject arobjects[AROBJECTMAX];
 int arobjectcursor = 0;
 int arobjectsinitialized = 0;
 
+//
+// Add an object to our system
+// Objects may come from a server and have a unique id
+// We recycle oldest to cap our proximity to 100 objects
+// TODO may want to sort these by distance (on the server or here) and use that as a basis for deletion priority
+//
 void augmentiaAddObject(int uuid,float lat, float lon, float heading) {
 
-	// Manage a small fixed array of objects which we will track by ourselves
+	// Just in time initialization once only
 	if(!arobjectsinitialized) {
 		for(int i = 0; i < AROBJECTMAX ; i++ ) {
 			arobjects[i].uuid = 0;
@@ -463,14 +503,21 @@ float ar_create_lat = 0;
 float ar_create_lon = 0;
 char* ar_create_name = NULL;
 
+int ar_test = 1;
+
 void augmentiaCloneAR() {
+
 	ar_create_name = "object/Cube";
-	ar_create_request = 1;
 	ar_create_lat = sio2->_SIO2camera->_SIO2transform->loc->x + cosf(camera_orientation*3.1459/180) * 10;
 	ar_create_lon = sio2->_SIO2camera->_SIO2transform->loc->y + -sinf(camera_orientation*3.1459/180) * 10;
 	ar_create_lat = ar_create_lat / TEST_SCALE_FACTOR;
 	ar_create_lon = ar_create_lon / TEST_SCALE_FACTOR;
 	//ar->heading = camera_orientation;
+//	ar_create_request = 1;
+	
+	ar_test = ar_test + 1;
+	augmentiaAddObject(ar_test,ar_create_lat,ar_create_lon,camera_orientation);
+
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -478,9 +525,7 @@ void augmentiaCloneAR() {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //
-// Track the starting position of user screen touch event and use it to drag the camera heading around.
-// Can rotate screen on double tap but this is disabled for now.
-// For now clone an object on double tap.
+// Single tap detect
 //
 
 vec2 touch;
@@ -508,7 +553,7 @@ void augmentiaScreenTap( void *_ptr, unsigned char _state ) {
 }
 
 //
-// Rotate the camera heading if large drag event
+// Rotate the camera heading on finger drag event
 //
 void augmentiaScreenTouchMove( void *_ptr ) {
 	vec2 d;
@@ -535,29 +580,3 @@ void augmentiaShutdown( void ) {
 	sio2->_SIO2resource = sio2ResourceFree( sio2->_SIO2resource );
 	sio2 = sio2Shutdown();
 }
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// notes
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-/*
-
- http://angel.makerlab.com
-
-TODO REMAINING NOV 18 2009
-
- - improve publishing of heading and state to server and limit each client to a fixed number of objects
-
- - make the first time update a bit smoother; occur before presenting the avatar to the view
-
- - show contrails from the server of waze drivers better;
-
- - support pan and tilt
- 
- - support camera overlay
-
- - let you name your critters and even publish your own account info so it is more social
- 
-*/
-
-

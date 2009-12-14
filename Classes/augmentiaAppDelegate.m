@@ -133,7 +133,7 @@ float distanceTimeDelta = 0.0;
 	[glView startAnimation];
 	[[UIApplication sharedApplication] setIdleTimerDisabled:NO];
     [[UIAccelerometer sharedAccelerometer] setUpdateInterval:( 1.0f / 30.0f )];
-    [[UIAccelerometer sharedAccelerometer] setDelegate:self];		
+    [[UIAccelerometer sharedAccelerometer] setDelegate:self];
 	// Setup location
 	lm = [[CLLocationManager alloc] init];
 	if ([lm locationServicesEnabled]) {

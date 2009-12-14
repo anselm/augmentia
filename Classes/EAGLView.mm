@@ -19,12 +19,6 @@
 @synthesize animationTimer;
 @synthesize animationInterval;
 
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// www
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
 // this implements a poor mans queue - later it could be more fancy
 extern int ar_create_request;
 extern float ar_create_lat;
@@ -32,6 +26,9 @@ extern float ar_create_lon;
 extern char* ar_create_name;
 void augmentiaAddObject(int uuid,float lat, float lon, float heading);
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// network
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 - (void)handleError:(NSError *)error {
 	if (error != nil) {
@@ -122,7 +119,17 @@ void augmentiaAddObject(int uuid,float lat, float lon, float heading);
 	
 }
 
-- (void) server_tick_events {
+//
+// Making an object in a multiplayer game is a bit different from a single player game.
+// The transaction has to be submitted to the server and the server will respond with any fresh state.
+// Later on we can implement predictive object creation.
+//
+// Check if there is a flag set for creating a new object.
+// If so then publish the object to the server.
+// Also ask the server for all recent objects.
+//
+//
+- (void) server_synchronize {
 	if(!ar_create_request) return;
 	ar_create_request = 0;
 	
@@ -135,7 +142,7 @@ void augmentiaAddObject(int uuid,float lat, float lon, float heading);
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// www
+// opengl boilerplate
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // You must implement this [ for some mysterious reason ]
@@ -245,7 +252,7 @@ void augmentiaAddObject(int uuid,float lat, float lon, float heading);
 	sio2ResourceDispatchEvents( sio2->_SIO2resource, sio2->_SIO2window, SIO2_WINDOW_TAP, SIO2_WINDOW_TAP_UP );
 
 	// do any updates - can move this elsewhere later
-	[self server_tick_events ];
+	[self server_synchronize ];
 }
 
 - (void)destroyFramebuffer {
