@@ -1,33 +1,5 @@
 This is an AR app for the iPhone.
 It talks to my server at http://locative.makerlab.org for uploads and downloads
 
-bugs major,
- 
- - why can i not drop stuff?
- 
- - globe view on and or map
- 
- - show friends - fetch twitter friend networks by proxy onto my server and then relay them here
 
- - screen cast
-
-bigs minor,
-
- - poke critters into the world - and set limits - and user login
- 
- - support pan and tilt
- 
- - camera overlay
- 
- - flurry
-
- - geolocation is weird
-
-demo
-
- - install vnc
- - show off camera
- - show off server
- - 
- 
 

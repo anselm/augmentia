@@ -508,8 +508,8 @@ int ar_test = 1;
 void augmentiaCloneAR() {
 
 	ar_create_name = "object/Cube";
-	ar_create_lat = sio2->_SIO2camera->_SIO2transform->loc->x + cosf(camera_orientation*3.1459/180) * 10;
-	ar_create_lon = sio2->_SIO2camera->_SIO2transform->loc->y + -sinf(camera_orientation*3.1459/180) * 10;
+	ar_create_lon = sio2->_SIO2camera->_SIO2transform->loc->x + cosf(camera_orientation*3.1459/180) * 10;
+	ar_create_lat = sio2->_SIO2camera->_SIO2transform->loc->y + -sinf(camera_orientation*3.1459/180) * 10;
 	ar_create_lat = ar_create_lat / TEST_SCALE_FACTOR;
 	ar_create_lon = ar_create_lon / TEST_SCALE_FACTOR;
 	//ar->heading = camera_orientation;
