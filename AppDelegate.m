@@ -1,6 +1,6 @@
 
-#import "augmentiaAppDelegate.h"
-#import "EAGLView.h"
+#import "AppDelegate.h"
+#import "ARView.h"
 
 @implementation augmentiaAppDelegate
 

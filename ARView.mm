@@ -3,18 +3,21 @@
 
 #import <QuartzCore/QuartzCore.h>
 #import <OpenGLES/EAGLDrawable.h>
-#import "EAGLView.h"
+
+#import "ARView.h"
+#import "sio2.h"
 #import "main.h"
 #include "augmentia.h"
 
-@interface EAGLView ()
+@interface ARView ()
 	@property (nonatomic, retain) EAGLContext *context;
 	@property (nonatomic, assign) NSTimer *animationTimer;
 	- (BOOL) createFramebuffer;
 	- (void) destroyFramebuffer;
 @end
 
-@implementation EAGLView
+@implementation ARView
+
 @synthesize context;
 @synthesize animationTimer;
 @synthesize animationInterval;
@@ -142,75 +145,8 @@ void augmentiaAddObject(int uuid,float lat, float lon, float heading);
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// opengl boilerplate
+// events - can we push up to controller TODO
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-// You must implement this [ for some mysterious reason ]
-+ (Class)layerClass {
-	return [CAEAGLLayer class];
-}
-
-//The GL view is stored in the nib file. When it's unarchived it's sent -initWithCoder:
-- (id)initWithCoder:(NSCoder*)coder {
-	if ((self = [super initWithCoder:coder])) {
-		CAEAGLLayer *eaglLayer = (CAEAGLLayer *)self.layer;		
-		eaglLayer.opaque = YES;
-		eaglLayer.drawableProperties = [NSDictionary dictionaryWithObjectsAndKeys:
-		   [NSNumber numberWithBool:NO], kEAGLDrawablePropertyRetainedBacking, kEAGLColorFormatRGBA8, kEAGLDrawablePropertyColorFormat, nil];
-		context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES1];		
-		if (!context || ![EAGLContext setCurrentContext:context]) {
-			[self release];
-			return nil;
-		}
-		animationInterval = 1.0 / 60.0;
-	}
-	return self;
-}
-
-- (void)drawView {
-	if( sio2->_SIO2window->_SIO2windowrender ) {
-		sio2->_SIO2window->_SIO2windowrender();
-		sio2WindowSwapBuffers( sio2->_SIO2window );
-	}
-	glBindRenderbufferOES(GL_RENDERBUFFER_OES, viewRenderbuffer);
-	[context presentRenderbuffer:GL_RENDERBUFFER_OES];
-}
-
-- (void)layoutSubviews {
-	[EAGLContext setCurrentContext:context];
-	[self destroyFramebuffer];
-	[self createFramebuffer];
-	[self drawView];
-}
-
-- (BOOL)createFramebuffer {
-	glGenFramebuffersOES(1, &viewFramebuffer);
-	glGenRenderbuffersOES(1, &viewRenderbuffer);
-	glBindFramebufferOES(GL_FRAMEBUFFER_OES, viewFramebuffer);
-	glBindRenderbufferOES(GL_RENDERBUFFER_OES, viewRenderbuffer);
-	[context renderbufferStorage:GL_RENDERBUFFER_OES fromDrawable:(CAEAGLLayer*)self.layer];
-	glFramebufferRenderbufferOES(GL_FRAMEBUFFER_OES, GL_COLOR_ATTACHMENT0_OES, GL_RENDERBUFFER_OES, viewRenderbuffer);
-	glGetRenderbufferParameterivOES(GL_RENDERBUFFER_OES, GL_RENDERBUFFER_WIDTH_OES, &backingWidth);
-	glGetRenderbufferParameterivOES(GL_RENDERBUFFER_OES, GL_RENDERBUFFER_HEIGHT_OES, &backingHeight);
-	glGenRenderbuffersOES(1, &depthRenderbuffer);
-	glBindRenderbufferOES(GL_RENDERBUFFER_OES, depthRenderbuffer);
-	// Use a 24bits depth buffer instead of the default 16bits so that shadows don't zfight as much
-	glRenderbufferStorageOES(GL_RENDERBUFFER_OES, GL_DEPTH_COMPONENT24_OES, backingWidth, backingHeight);
-	glFramebufferRenderbufferOES(GL_FRAMEBUFFER_OES, GL_DEPTH_ATTACHMENT_OES, GL_RENDERBUFFER_OES, depthRenderbuffer);
-	if( !sio2 ) {
-		sio2Init( &tmp_argc, tmp_argv );
-		sio2InitGL();
-		sio2->_SIO2window = sio2WindowInit();
-		sio2->_SIO2resource = sio2ResourceInit( "default" );
-		sio2WindowUpdateViewport( sio2->_SIO2window, 0, 0, backingWidth, backingHeight );
-		sio2->_SIO2window->_SIO2windowrender = augmentiaLoading;
-		sio2WindowShutdown( sio2->_SIO2window, augmentiaShutdown );
-		sio2->_SIO2window->_SIO2windowtap			= augmentiaScreenTap;
-		sio2->_SIO2window->_SIO2windowtouchmove		= augmentiaScreenTouchMove;
-		sio2->_SIO2window->_SIO2windowaccelerometer = augmentiaScreenAccelerometer;
-	}
-	return YES;
-}
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
 	UITouch *touch;
@@ -255,17 +191,6 @@ void augmentiaAddObject(int uuid,float lat, float lon, float heading);
 	[self server_synchronize ];
 }
 
-- (void)destroyFramebuffer {
-	glDeleteFramebuffersOES(1, &viewFramebuffer);
-	viewFramebuffer = 0;
-	glDeleteRenderbuffersOES(1, &viewRenderbuffer);
-	viewRenderbuffer = 0;
-	if(depthRenderbuffer) {
-		glDeleteRenderbuffersOES(1, &depthRenderbuffer);
-		depthRenderbuffer = 0;
-	}
-}
-
 - (void)startAnimation {
 	self.animationTimer = [NSTimer scheduledTimerWithTimeInterval:animationInterval target:self selector:@selector(drawView) userInfo:nil repeats:YES];
 }
@@ -287,6 +212,77 @@ void augmentiaAddObject(int uuid,float lat, float lon, float heading);
 	}
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// initialization
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// You must implement this [ for some mysterious reason ]
++ (Class)layerClass {
+	return [CAEAGLLayer class];
+}
+
+// who knows...
+- (void)layoutSubviews {
+	[EAGLContext setCurrentContext:context];
+	[self destroyFramebuffer];
+	[self createFramebuffer];
+	[self drawView];
+}
+
+-(id)initWithFrame:(CGRect)frame {
+	if((self = [super initWithFrame:frame])) {
+		CAEAGLLayer *eaglLayer = (CAEAGLLayer *)self.layer;
+		eaglLayer.opaque = YES;
+		eaglLayer.drawableProperties = [
+										NSDictionary dictionaryWithObjectsAndKeys:
+										[NSNumber numberWithBool:NO],
+										kEAGLDrawablePropertyRetainedBacking,
+										kEAGLColorFormatRGBA8,
+										kEAGLDrawablePropertyColorFormat,
+										nil
+										];
+		context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES1];
+		if (!context || ![EAGLContext setCurrentContext:context] || ![self createFramebuffer] ) {
+			NSLog(@"GlobeView: Initialization error" );
+			[self release];
+			return nil;
+		}
+		NSLog(@"View: Initialized 3!!" );
+		animationInterval = 1.0 / 60.0;
+		//[self setupView];		
+	}
+	return self;
+}
+
+- (BOOL)createFramebuffer {
+	glGenFramebuffersOES(1, &viewFramebuffer);
+	glGenRenderbuffersOES(1, &viewRenderbuffer);
+	glBindFramebufferOES(GL_FRAMEBUFFER_OES, viewFramebuffer);
+	glBindRenderbufferOES(GL_RENDERBUFFER_OES, viewRenderbuffer);
+	[context renderbufferStorage:GL_RENDERBUFFER_OES fromDrawable:(CAEAGLLayer*)self.layer];
+	glFramebufferRenderbufferOES(GL_FRAMEBUFFER_OES, GL_COLOR_ATTACHMENT0_OES, GL_RENDERBUFFER_OES, viewRenderbuffer);
+	glGetRenderbufferParameterivOES(GL_RENDERBUFFER_OES, GL_RENDERBUFFER_WIDTH_OES, &backingWidth);
+	glGetRenderbufferParameterivOES(GL_RENDERBUFFER_OES, GL_RENDERBUFFER_HEIGHT_OES, &backingHeight);
+	glGenRenderbuffersOES(1, &depthRenderbuffer);
+	glBindRenderbufferOES(GL_RENDERBUFFER_OES, depthRenderbuffer);
+	// Use a 24bits depth buffer instead of the default 16bits so that shadows don't zfight as much
+	glRenderbufferStorageOES(GL_RENDERBUFFER_OES, GL_DEPTH_COMPONENT24_OES, backingWidth, backingHeight);
+	glFramebufferRenderbufferOES(GL_FRAMEBUFFER_OES, GL_DEPTH_ATTACHMENT_OES, GL_RENDERBUFFER_OES, depthRenderbuffer);
+	if( !sio2 ) {
+		sio2Init( &tmp_argc, tmp_argv );
+		sio2InitGL();
+		sio2->_SIO2window = sio2WindowInit();
+		sio2->_SIO2resource = sio2ResourceInit( "default" );
+		sio2WindowUpdateViewport( sio2->_SIO2window, 0, 0, backingWidth, backingHeight );
+		sio2->_SIO2window->_SIO2windowrender = augmentiaLoading;
+		sio2WindowShutdown( sio2->_SIO2window, augmentiaShutdown );
+		sio2->_SIO2window->_SIO2windowtap			= augmentiaScreenTap;
+		sio2->_SIO2window->_SIO2windowtouchmove		= augmentiaScreenTouchMove;
+		sio2->_SIO2window->_SIO2windowaccelerometer = augmentiaScreenAccelerometer;
+	}
+	return YES;
+}
+
 - (void)dealloc {
 	[self stopAnimation];
 	if ([EAGLContext currentContext] == context) {
@@ -296,5 +292,24 @@ void augmentiaAddObject(int uuid,float lat, float lon, float heading);
 	[super dealloc];
 }
 
+- (void)destroyFramebuffer {
+    glDeleteFramebuffersOES(1, &viewFramebuffer);
+    viewFramebuffer = 0;
+    glDeleteRenderbuffersOES(1, &viewRenderbuffer);
+    viewRenderbuffer = 0;
+    if(depthRenderbuffer) {
+		glDeleteRenderbuffersOES(1, &depthRenderbuffer);
+		depthRenderbuffer = 0;
+    }
+}
+
+- (void)drawView {
+	if( sio2->_SIO2window->_SIO2windowrender ) {
+		sio2->_SIO2window->_SIO2windowrender();
+		sio2WindowSwapBuffers( sio2->_SIO2window );
+	}
+	glBindRenderbufferOES(GL_RENDERBUFFER_OES, viewRenderbuffer);
+	[context presentRenderbuffer:GL_RENDERBUFFER_OES];
+}
 
 @end

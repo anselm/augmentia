@@ -2,9 +2,8 @@
 #import <OpenGLES/EAGL.h>
 #import <OpenGLES/ES1/gl.h>
 #import <OpenGLES/ES1/glext.h>
-#include "sio2.h"
-@interface EAGLView : UIView {	
-@private
+
+@interface ARView : UIView {
 	GLint backingWidth;
 	GLint backingHeight;	
 	EAGLContext *context;

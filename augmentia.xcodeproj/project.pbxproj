@@ -7,12 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1D3623260D0F684500981E51 /* augmentiaAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* augmentiaAppDelegate.m */; };
 		1D60589B0D05DD56006BFB54 /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.mm */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
-		28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
-		28FD14FE0DC6FC130079059D /* EAGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 28FD14FD0DC6FC130079059D /* EAGLView.mm */; };
 		28FD15000DC6FC520079059D /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28FD14FF0DC6FC520079059D /* OpenGLES.framework */; };
 		28FD15080DC6FC5B0079059D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28FD15070DC6FC5B0079059D /* QuartzCore.framework */; };
 		430D2DB610B330D7002950F6 /* shadowland.sio2 in Resources */ = {isa = PBXBuildFile; fileRef = 430D2DB510B330D7002950F6 /* shadowland.sio2 */; };
@@ -25,6 +22,9 @@
 		430D307810B39A55002950F6 /* CJSONScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 430D306F10B39A55002950F6 /* CJSONScanner.m */; };
 		430D307910B39A55002950F6 /* CJSONSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 430D307110B39A55002950F6 /* CJSONSerializer.m */; };
 		43BF52A210AC222500C116BD /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43BF52A110AC222500C116BD /* CoreLocation.framework */; };
+		43D501A5112B5FDE00F9216D /* ARView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 43D501A1112B5FDE00F9216D /* ARView.mm */; };
+		43D501A6112B5FDE00F9216D /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 43D501A3112B5FDE00F9216D /* AppDelegate.mm */; };
+		43D50259112B70FA00F9216D /* ARViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 43D50257112B70FA00F9216D /* ARViewController.mm */; };
 		43E472B210D5BCD60017E9C9 /* README in Resources */ = {isa = PBXBuildFile; fileRef = 43E472B110D5BCD60017E9C9 /* README */; };
 		E04BBA43100D5B280078A39E /* sio2_action.cc in Sources */ = {isa = PBXBuildFile; fileRef = E04BB9FE100D5B280078A39E /* sio2_action.cc */; };
 		E04BBA44100D5B280078A39E /* sio2_camera.cc in Sources */ = {isa = PBXBuildFile; fileRef = E04BBA00100D5B280078A39E /* sio2_camera.cc */; };
@@ -325,13 +325,8 @@
 
 /* Begin PBXFileReference section */
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		1D3623240D0F684500981E51 /* augmentiaAppDelegate.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = augmentiaAppDelegate.h; sourceTree = "<group>"; };
-		1D3623250D0F684500981E51 /* augmentiaAppDelegate.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = augmentiaAppDelegate.m; sourceTree = "<group>"; };
 		1D6058910D05DD3D006BFB54 /* augmentia.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = augmentia.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		28AD733E0D9D9553002E5188 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
-		28FD14FC0DC6FC130079059D /* EAGLView.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = EAGLView.h; sourceTree = "<group>"; };
-		28FD14FD0DC6FC130079059D /* EAGLView.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = EAGLView.mm; sourceTree = "<group>"; };
 		28FD14FF0DC6FC520079059D /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		28FD15070DC6FC5B0079059D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		29B97316FDCFA39411CA2CEA /* main.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = main.mm; path = ../main.mm; sourceTree = "<group>"; };
@@ -354,6 +349,12 @@
 		430D307010B39A55002950F6 /* CJSONSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJSONSerializer.h; sourceTree = "<group>"; };
 		430D307110B39A55002950F6 /* CJSONSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJSONSerializer.m; sourceTree = "<group>"; };
 		43BF52A110AC222500C116BD /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		43D501A1112B5FDE00F9216D /* ARView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ARView.mm; sourceTree = SOURCE_ROOT; };
+		43D501A2112B5FDE00F9216D /* ARView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ARView.h; sourceTree = SOURCE_ROOT; };
+		43D501A3112B5FDE00F9216D /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = SOURCE_ROOT; };
+		43D501A4112B5FDE00F9216D /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = SOURCE_ROOT; };
+		43D50257112B70FA00F9216D /* ARViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ARViewController.mm; sourceTree = SOURCE_ROOT; };
+		43D50258112B70FA00F9216D /* ARViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ARViewController.h; sourceTree = SOURCE_ROOT; };
 		43E472B110D5BCD60017E9C9 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E04BB9FE100D5B280078A39E /* sio2_action.cc */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = sio2_action.cc; path = sio2/sio2_action.cc; sourceTree = SOURCE_ROOT; };
@@ -962,15 +963,17 @@
 		080E96DDFE201D6D7F000001 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				43D50257112B70FA00F9216D /* ARViewController.mm */,
+				43D50258112B70FA00F9216D /* ARViewController.h */,
+				43D501A1112B5FDE00F9216D /* ARView.mm */,
+				43D501A2112B5FDE00F9216D /* ARView.h */,
+				43D501A3112B5FDE00F9216D /* AppDelegate.mm */,
+				43D501A4112B5FDE00F9216D /* AppDelegate.h */,
 				32CA4F630368D1EE00C91783 /* augmentia_Prefix.pch */,
 				29B97316FDCFA39411CA2CEA /* main.mm */,
 				E0E310860E5EA3C300F6D25F /* main.h */,
 				E0E310880E5EA40200F6D25F /* augmentia.mm */,
 				E0E310870E5EA40200F6D25F /* augmentia.h */,
-				28FD14FC0DC6FC130079059D /* EAGLView.h */,
-				28FD14FD0DC6FC130079059D /* EAGLView.mm */,
-				1D3623240D0F684500981E51 /* augmentiaAppDelegate.h */,
-				1D3623250D0F684500981E51 /* augmentiaAppDelegate.m */,
 			);
 			name = src;
 			path = Classes;
@@ -1011,7 +1014,6 @@
 				430D2DB510B330D7002950F6 /* shadowland.sio2 */,
 				E0E313F40E5EA78B00F6D25F /* Icon.png */,
 				E0E313F50E5EA78B00F6D25F /* Default.png */,
-				28AD733E0D9D9553002E5188 /* MainWindow.xib */,
 				8D1107310486CEB800E47090 /* Info.plist */,
 			);
 			name = Resources;
@@ -1743,7 +1745,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */,
 				E0E313F60E5EA78B00F6D25F /* Icon.png in Resources */,
 				E0E313F70E5EA78B00F6D25F /* Default.png in Resources */,
 				430D2DB610B330D7002950F6 /* shadowland.sio2 in Resources */,
@@ -1759,8 +1760,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				1D60589B0D05DD56006BFB54 /* main.mm in Sources */,
-				1D3623260D0F684500981E51 /* augmentiaAppDelegate.m in Sources */,
-				28FD14FE0DC6FC130079059D /* EAGLView.mm in Sources */,
 				E0E310890E5EA40200F6D25F /* augmentia.mm in Sources */,
 				E0E312CB0E5EA54A00F6D25F /* zutil.c in Sources */,
 				E0E312CC0E5EA54A00F6D25F /* uncompr.c in Sources */,
@@ -2059,6 +2058,9 @@
 				430D307710B39A55002950F6 /* CJSONDeserializer.m in Sources */,
 				430D307810B39A55002950F6 /* CJSONScanner.m in Sources */,
 				430D307910B39A55002950F6 /* CJSONSerializer.m in Sources */,
+				43D501A5112B5FDE00F9216D /* ARView.mm in Sources */,
+				43D501A6112B5FDE00F9216D /* AppDelegate.mm in Sources */,
+				43D50259112B70FA00F9216D /* ARViewController.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2116,7 +2118,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Romain Marucchi-Foino (VC824XU999)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: anselm hook (U7BJQ7J8V4)";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_THUMB_SUPPORT = NO;
@@ -2130,7 +2132,7 @@
 					"-fvisibility=default",
 				);
 				PREBINDING = NO;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "88AFC0AE-597C-40BD-B8AC-27F98882B700";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "1F6FE509-7958-416C-BE78-85AB68141A9F";
 				SDKROOT = iphoneos3.0;
 				STANDARD_C_PLUS_PLUS_LIBRARY_TYPE = dynamic;
 			};
