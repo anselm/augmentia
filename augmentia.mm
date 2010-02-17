@@ -312,10 +312,14 @@ void augmentiaRender( void ) {
 		return;
 	}
 
-	// Why is this here?
+	// Why is this here? TODO
 	glMatrixMode( GL_MODELVIEW );
 	glLoadIdentity();
-	glClearColor( 1.0f, 1.0f, 1.0f, 1.0f );
+
+//	glClearColor( 1.0f, 1.0f, 1.0f, 1.0f );
+
+	glClearColor(0,0,0,0) ;
+
 	glClear( GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT );
 
 	// deal with camera

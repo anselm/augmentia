@@ -9,15 +9,16 @@
 	29B97313FDCFA39411CA2CEA /* Project object */ = {
 		activeBuildConfigurationName = Debug;
 		activeExecutable = 43BF51D210AC0B7100C116BD /* augmentia */;
-		activeSDKPreference = iphonesimulator3.1.2;
+		activeSDKPreference = iphoneos3.1.2;
 		activeTarget = 1D6058900D05DD3D006BFB54 /* augmentia */;
 		addToTargets = (
 			1D6058900D05DD3D006BFB54 /* augmentia */,
 		);
 		breakpoints = (
-			43AB6C9910B145810009917C /* augmentia.mm:572 */,
-			43AB6D1110B258A70009917C /* augmentia.mm:390 */,
-			43A6AB25112A115C00EF80D5 /* augmentia.mm:510 */,
+			43AB6C9910B145810009917C /* augmentia.mm:576 */,
+			43AB6D1110B258A70009917C /* augmentia.mm:394 */,
+			43A6AB25112A115C00EF80D5 /* augmentia.mm:514 */,
+			43D502C8112B83F100F9216D /* ARView.mm:321 */,
 		);
 		codeSenseManager = 43BF51D710AC0B9300C116BD /* Code sense */;
 		executables = (
@@ -165,6 +166,20 @@
 			43D50254112B709000F9216D /* PBXTextBookmark */ = 43D50254112B709000F9216D /* PBXTextBookmark */;
 			43D50255112B709000F9216D /* PBXTextBookmark */ = 43D50255112B709000F9216D /* PBXTextBookmark */;
 			43D50256112B709000F9216D /* PBXTextBookmark */ = 43D50256112B709000F9216D /* PBXTextBookmark */;
+			43D5026B112B73F200F9216D /* PBXTextBookmark */ = 43D5026B112B73F200F9216D /* PBXTextBookmark */;
+			43D5026C112B73F200F9216D /* PBXTextBookmark */ = 43D5026C112B73F200F9216D /* PBXTextBookmark */;
+			43D502B4112B76F800F9216D /* PBXTextBookmark */ = 43D502B4112B76F800F9216D /* PBXTextBookmark */;
+			43D502B5112B76F800F9216D /* PBXTextBookmark */ = 43D502B5112B76F800F9216D /* PBXTextBookmark */;
+			43D502B6112B76F800F9216D /* PBXTextBookmark */ = 43D502B6112B76F800F9216D /* PBXTextBookmark */;
+			43D502B7112B76F800F9216D /* PBXTextBookmark */ = 43D502B7112B76F800F9216D /* PBXTextBookmark */;
+			43D502D3112B84D800F9216D /* PBXTextBookmark */ = 43D502D3112B84D800F9216D /* PBXTextBookmark */;
+			43D502D5112B84D800F9216D /* PBXTextBookmark */ = 43D502D5112B84D800F9216D /* PBXTextBookmark */;
+			43D502D7112B84D800F9216D /* PBXTextBookmark */ = 43D502D7112B84D800F9216D /* PBXTextBookmark */;
+			43D502D9112B84D800F9216D /* PBXTextBookmark */ = 43D502D9112B84D800F9216D /* PBXTextBookmark */;
+			43D502DA112B84D800F9216D /* PBXTextBookmark */ = 43D502DA112B84D800F9216D /* PBXTextBookmark */;
+			43D502DB112B84D800F9216D /* PBXTextBookmark */ = 43D502DB112B84D800F9216D /* PBXTextBookmark */;
+			43D502DC112B84D800F9216D /* PBXTextBookmark */ = 43D502DC112B84D800F9216D /* PBXTextBookmark */;
+			43D502DD112B84D800F9216D /* PBXTextBookmark */ = 43D502DD112B84D800F9216D /* PBXTextBookmark */;
 			43E472A110D5BAD80017E9C9 = 43E472A110D5BAD80017E9C9 /* PBXBookmark */;
 		};
 		sourceControlManager = 43BF51D610AC0B9300C116BD /* Source Control */;
@@ -347,7 +362,7 @@
 		vrLen = 177;
 		vrLoc = 0;
 	};
-	43A6AB25112A115C00EF80D5 /* augmentia.mm:510 */ = {
+	43A6AB25112A115C00EF80D5 /* augmentia.mm:514 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -359,13 +374,13 @@
 		functionName = "augmentiaCloneAR()";
 		hitCount = 0;
 		ignoreCount = 0;
-		lineNumber = 510;
+		lineNumber = 514;
 		location = augmentia;
-		modificationTime = 288059479.230745;
+		modificationTime = 288064511.378625;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
-	43AB6C9910B145810009917C /* augmentia.mm:572 */ = {
+	43AB6C9910B145810009917C /* augmentia.mm:576 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -377,13 +392,13 @@
 		functionName = "augmentiaScreenTouchMove( void *_ptr )";
 		hitCount = 0;
 		ignoreCount = 0;
-		lineNumber = 572;
+		lineNumber = 576;
 		location = augmentia;
-		modificationTime = 288059479.230606;
+		modificationTime = 288064511.378217;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
-	43AB6D1110B258A70009917C /* augmentia.mm:390 */ = {
+	43AB6D1110B258A70009917C /* augmentia.mm:394 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -395,9 +410,9 @@
 		functionName = "augmentiaClone(char* original_name)";
 		hitCount = 0;
 		ignoreCount = 0;
-		lineNumber = 390;
+		lineNumber = 394;
 		location = augmentia;
-		modificationTime = 288059479.230697;
+		modificationTime = 288064511.378359;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -408,7 +423,7 @@
 		argumentStrings = (
 		);
 		autoAttachOnCrash = 1;
-		breakpointsEnabled = 1;
+		breakpointsEnabled = 0;
 		configStateDict = {
 		};
 		customDataFormattersEnabled = 1;
@@ -449,9 +464,9 @@
 	};
 	43D501A1112B5FDE00F9216D /* ARView.mm */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1531, 4108}}";
-			sepNavSelRange = "{8248, 0}";
-			sepNavVisRange = "{0, 1606}";
+			sepNavIntBoundsRect = "{{0, 0}, {1286, 4407}}";
+			sepNavSelRange = "{11725, 0}";
+			sepNavVisRange = "{9933, 1959}";
 		};
 	};
 	43D501A2112B5FDE00F9216D /* ARView.h */ = {
@@ -463,9 +478,9 @@
 	};
 	43D501A3112B5FDE00F9216D /* AppDelegate.mm */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {809, 674}}";
-			sepNavSelRange = "{316, 0}";
-			sepNavVisRange = "{0, 617}";
+			sepNavIntBoundsRect = "{{0, 0}, {934, 416}}";
+			sepNavSelRange = "{144, 0}";
+			sepNavVisRange = "{316, 301}";
 		};
 	};
 	43D501A4112B5FDE00F9216D /* AppDelegate.h */ = {
@@ -604,7 +619,7 @@
 		fRef = E0E310880E5EA40200F6D25F /* augmentia.mm */;
 		name = "augmentia.mm: 512";
 		rLen = 0;
-		rLoc = 16421;
+		rLoc = 16456;
 		rType = 0;
 		vrLen = 1186;
 		vrLoc = 15595;
@@ -838,7 +853,7 @@
 		fRef = 43D501A1112B5FDE00F9216D /* ARView.mm */;
 		name = "ARView.mm: 319";
 		rLen = 0;
-		rLoc = 11575;
+		rLoc = 11891;
 		rType = 0;
 		vrLen = 1451;
 		vrLoc = 10291;
@@ -1053,10 +1068,200 @@
 		fRef = 43D501A1112B5FDE00F9216D /* ARView.mm */;
 		name = "ARView.mm: 226";
 		rLen = 0;
-		rLoc = 8248;
+		rLoc = 8250;
 		rType = 0;
 		vrLen = 1606;
 		vrLoc = 0;
+	};
+	43D50257112B70FA00F9216D /* ARViewController.mm */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1076, 2600}}";
+			sepNavSelRange = "{6274, 0}";
+			sepNavVisRange = "{5125, 1640}";
+		};
+	};
+	43D50258112B70FA00F9216D /* ARViewController.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {809, 649}}";
+			sepNavSelRange = "{125, 0}";
+			sepNavVisRange = "{0, 561}";
+		};
+	};
+	43D5026B112B73F200F9216D /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 43D501A3112B5FDE00F9216D /* AppDelegate.mm */;
+		name = "AppDelegate.mm: 10";
+		rLen = 0;
+		rLoc = 144;
+		rType = 0;
+		vrLen = 261;
+		vrLoc = 1;
+	};
+	43D5026C112B73F200F9216D /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 43D501A3112B5FDE00F9216D /* AppDelegate.mm */;
+		name = "AppDelegate.mm: 10";
+		rLen = 0;
+		rLoc = 144;
+		rType = 0;
+		vrLen = 520;
+		vrLoc = 1;
+	};
+	43D502B4112B76F800F9216D /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 43D501A1112B5FDE00F9216D /* ARView.mm */;
+		name = "ARView.mm: 25";
+		rLen = 0;
+		rLoc = 491;
+		rType = 0;
+		vrLen = 1606;
+		vrLoc = 0;
+	};
+	43D502B5112B76F800F9216D /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 43D50258112B70FA00F9216D /* ARViewController.h */;
+		name = "ARViewController.h: 7";
+		rLen = 0;
+		rLoc = 125;
+		rType = 0;
+		vrLen = 561;
+		vrLoc = 0;
+	};
+	43D502B6112B76F800F9216D /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 43D50257112B70FA00F9216D /* ARViewController.mm */;
+		name = "ARViewController.mm: 160";
+		rLen = 0;
+		rLoc = 5988;
+		rType = 0;
+		vrLen = 1704;
+		vrLoc = 4817;
+	};
+	43D502B7112B76F800F9216D /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 43D50257112B70FA00F9216D /* ARViewController.mm */;
+		name = "ARViewController.mm: 160";
+		rLen = 0;
+		rLoc = 5988;
+		rType = 0;
+		vrLen = 1674;
+		vrLoc = 4817;
+	};
+	43D502C8112B83F100F9216D /* ARView.mm:321 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 43D501A1112B5FDE00F9216D /* ARView.mm */;
+		functionName = "-drawView";
+		hitCount = 11;
+		ignoreCount = 0;
+		lineNumber = 321;
+		location = augmentia;
+		modificationTime = 288064559.741987;
+		originalNumberOfMultipleMatches = 1;
+		state = 1;
+	};
+	43D502D3112B84D800F9216D /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 43D502D4112B84D800F9216D /* CALayer.h */;
+		name = "CALayer.h: 26";
+		rLen = 0;
+		rLoc = 589;
+		rType = 0;
+		vrLen = 2215;
+		vrLoc = 10168;
+	};
+	43D502D4112B84D800F9216D /* CALayer.h */ = {
+		isa = PBXFileReference;
+		name = CALayer.h;
+		path = /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.1.2.sdk/System/Library/Frameworks/QuartzCore.framework/Headers/CALayer.h;
+		sourceTree = "<absolute>";
+	};
+	43D502D5112B84D800F9216D /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 43D502D6112B84D800F9216D /* CAEAGLLayer.h */;
+		name = "CAEAGLLayer.h: 14";
+		rLen = 12;
+		rLoc = 428;
+		rType = 0;
+		vrLen = 604;
+		vrLoc = 0;
+	};
+	43D502D6112B84D800F9216D /* CAEAGLLayer.h */ = {
+		isa = PBXFileReference;
+		name = CAEAGLLayer.h;
+		path = /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.1.2.sdk/System/Library/Frameworks/QuartzCore.framework/Headers/CAEAGLLayer.h;
+		sourceTree = "<absolute>";
+	};
+	43D502D7112B84D800F9216D /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 43D502D8112B84D800F9216D /* EAGLDrawable.h */;
+		name = "EAGLDrawable.h: 38";
+		rLen = 0;
+		rLoc = 2059;
+		rType = 0;
+		vrLen = 2450;
+		vrLoc = 0;
+	};
+	43D502D8112B84D800F9216D /* EAGLDrawable.h */ = {
+		isa = PBXFileReference;
+		name = EAGLDrawable.h;
+		path = /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.1.2.sdk/System/Library/Frameworks/OpenGLES.framework/Headers/EAGLDrawable.h;
+		sourceTree = "<absolute>";
+	};
+	43D502D9112B84D800F9216D /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = E04BBA40100D5B280078A39E /* sio2_window.h */;
+		name = "sio2_window.h: 191";
+		rLen = 40;
+		rLoc = 6354;
+		rType = 0;
+		vrLen = 2074;
+		vrLoc = 0;
+	};
+	43D502DA112B84D800F9216D /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 43D501A1112B5FDE00F9216D /* ARView.mm */;
+		name = "ARView.mm: 322";
+		rLen = 0;
+		rLoc = 11725;
+		rType = 0;
+		vrLen = 1959;
+		vrLoc = 9933;
+	};
+	43D502DB112B84D800F9216D /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = E0E310880E5EA40200F6D25F /* augmentia.mm */;
+		name = "augmentia.mm: 315";
+		rLen = 0;
+		rLoc = 10177;
+		rType = 0;
+		vrLen = 1576;
+		vrLoc = 9303;
+	};
+	43D502DC112B84D800F9216D /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 43D50257112B70FA00F9216D /* ARViewController.mm */;
+		name = "ARViewController.mm: 146";
+		rLen = 0;
+		rLoc = 5429;
+		rType = 0;
+		vrLen = 2268;
+		vrLoc = 2692;
+	};
+	43D502DD112B84D800F9216D /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 43D50257112B70FA00F9216D /* ARViewController.mm */;
+		name = "ARViewController.mm: 169";
+		rLen = 0;
+		rLoc = 6274;
+		rType = 0;
+		vrLen = 1640;
+		vrLoc = 5125;
 	};
 	43E472A110D5BAD80017E9C9 /* PBXBookmark */ = {
 		isa = PBXBookmark;
@@ -1111,6 +1316,13 @@
 			sepNavVisRange = "{5377, 374}";
 		};
 	};
+	E04BBA40100D5B280078A39E /* sio2_window.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {809, 3003}}";
+			sepNavSelRange = "{6354, 40}";
+			sepNavVisRange = "{0, 2074}";
+		};
+	};
 	E0E310860E5EA3C300F6D25F /* main.h */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {809, 674}}";
@@ -1127,9 +1339,9 @@
 	};
 	E0E310880E5EA40200F6D25F /* augmentia.mm */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {824, 7527}}";
-			sepNavSelRange = "{614, 0}";
-			sepNavVisRange = "{0, 1878}";
+			sepNavIntBoundsRect = "{{0, 0}, {1020, 7904}}";
+			sepNavSelRange = "{10177, 0}";
+			sepNavVisRange = "{9303, 1576}";
 		};
 	};
 	E0FCD3D10F0DB35F00C9E6A7 /* liolib.c */ = {

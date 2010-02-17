@@ -3,6 +3,16 @@
 #include "ARViewController.h"
 #include "sio2.h"
 
+
+// Transform values for full screen support:
+#define CAMERA_TRANSFORM_X 1
+#define CAMERA_TRANSFORM_Y 1.12412
+
+// iPhone screen dimensions:
+#define SCREEN_WIDTH  320
+#define SCREEN_HEIGTH 480
+
+
 @implementation ARViewController
 
 @synthesize arview;
@@ -127,16 +137,36 @@ float distanceTimeDelta = 0.0;
 		arview = [[ARView alloc] initWithFrame:frame];
 		arview.animationInterval = 1.0 / 60.0;
 		self.view = arview;
-		//[view release];
+		[arview release];
 		[arview startAnimation];
 		NSLog(@"ARViewController: initialization complete!");
 	} else {
 		NSLog(@"ARViewController: trying to initialize more than once!? Why?");
-	}
+	}	
 }
 
-- (void)viewDidLoad {
 
+- (void) viewDidAppear:(BOOL)animated { 
+
+	// CAMERA OVERLAY
+	UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+	picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+	picker.showsCameraControls = NO;
+	picker.navigationBarHidden = YES;
+	picker.wantsFullScreenLayout = YES;
+	picker.cameraViewTransform = CGAffineTransformScale(picker.cameraViewTransform, CAMERA_TRANSFORM_X, CAMERA_TRANSFORM_Y);
+	picker.cameraOverlayView = arview;
+	[self presentModalViewController:picker animated:YES];	
+	[picker release];
+
+	// KICK OFF VIEW
+	arview.animationInterval = 1.0 / 60.0;
+	[arview startAnimation];
+
+	// KICK OFF SENSORS
+	[[UIApplication sharedApplication] setIdleTimerDisabled:NO];
+	[[UIAccelerometer sharedAccelerometer] setUpdateInterval:( 1.0f / 30.0f )];
+	[[UIAccelerometer sharedAccelerometer] setDelegate:self];
 	lm = [[CLLocationManager alloc] init];
 	if ([lm locationServicesEnabled]) {
 		lm.delegate = self;
@@ -145,9 +175,8 @@ float distanceTimeDelta = 0.0;
 		[lm startUpdatingLocation];
 		[lm startUpdatingHeading];
 	}
-	
-	[arview startAnimation];
-	NSLog(@"ARViewController: view did load");
+
+    [super viewDidAppear:YES];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

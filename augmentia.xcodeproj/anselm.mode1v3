@@ -264,7 +264,9 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateExpansionKey</key>
 							<array>
 								<string>29B97314FDCFA39411CA2CEA</string>
+								<string>080E96DDFE201D6D7F000001</string>
 								<string>29B97317FDCFA39411CA2CEA</string>
+								<string>29B97323FDCFA39411CA2CEA</string>
 								<string>1C37FBAC04509CD000000102</string>
 								<string>1C37FAAC04509CD000000102</string>
 								<string>1C37FABC05509CD000000102</string>
@@ -272,6 +274,7 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
+									<integer>12</integer>
 									<integer>11</integer>
 									<integer>0</integer>
 								</array>
@@ -314,7 +317,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>ARView.mm</string>
+								<string>ARViewController.mm</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -322,11 +325,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>ARView.mm</string>
+										<string>ARViewController.mm</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>43D50256112B709000F9216D</string>
+										<string>43D502DD112B84D800F9216D</string>
 										<key>history</key>
 										<array>
 											<string>430D2DC010B3331C002950F6</string>
@@ -347,13 +350,17 @@
 											<string>43D5021A112B6CF000F9216D</string>
 											<string>43D5021B112B6CF000F9216D</string>
 											<string>43D5021C112B6CF000F9216D</string>
-											<string>43D5021D112B6CF000F9216D</string>
 											<string>43D5021E112B6CF000F9216D</string>
 											<string>43D50220112B6CF000F9216D</string>
 											<string>43D5022C112B6EEB00F9216D</string>
-											<string>43D50250112B705400F9216D</string>
-											<string>43D50254112B709000F9216D</string>
-											<string>43D50255112B709000F9216D</string>
+											<string>43D502B5112B76F800F9216D</string>
+											<string>43D502D3112B84D800F9216D</string>
+											<string>43D502D5112B84D800F9216D</string>
+											<string>43D502D7112B84D800F9216D</string>
+											<string>43D502D9112B84D800F9216D</string>
+											<string>43D502DA112B84D800F9216D</string>
+											<string>43D502DB112B84D800F9216D</string>
+											<string>43D502DC112B84D800F9216D</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -551,6 +558,7 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
+		<string>43D502DE112B84D800F9216D</string>
 		<string>43D5023C112B6F5B00F9216D</string>
 		<string>43D50231112B6EEB00F9216D</string>
 		<string>1C78EAAD065D492600B07095</string>
@@ -575,14 +583,12 @@
 					<key>Dock</key>
 					<array>
 						<dict>
-							<key>BecomeActive</key>
-							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
 								<string>1CD0528F0623707200166675</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>ARViewController.mm</string>
+								<string>AppDelegate.mm</string>
 								<key>StatusBarVisibility</key>
 								<true/>
 							</dict>
@@ -599,6 +605,8 @@
 							<string>304pt</string>
 						</dict>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>

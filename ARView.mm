@@ -188,7 +188,7 @@ void augmentiaAddObject(int uuid,float lat, float lon, float heading);
 	sio2ResourceDispatchEvents( sio2->_SIO2resource, sio2->_SIO2window, SIO2_WINDOW_TAP, SIO2_WINDOW_TAP_UP );
 
 	// do any updates - can move this elsewhere later
-	[self server_synchronize ];
+	//[self server_synchronize ];
 }
 
 - (void)startAnimation {
@@ -229,10 +229,23 @@ void augmentiaAddObject(int uuid,float lat, float lon, float heading);
 	[self drawView];
 }
 
+
+/*
+ // http://mobile-augmented-reality.blogspot.com/2009/07/simple-and-nice-way-to-video-background.html
+ 
+ glView = [[EAGLView alloc]
+ initWithFrame:CGRectMake(0,0,320,480)] ;
+ glView.opaque = NO ;
+ glView.alpha = 1.0 ;
+ [window addSubview:cam_view];
+ [window addSubview:glView] ;
+ */
+
 -(id)initWithFrame:(CGRect)frame {
 	if((self = [super initWithFrame:frame])) {
 		CAEAGLLayer *eaglLayer = (CAEAGLLayer *)self.layer;
-		eaglLayer.opaque = YES;
+		eaglLayer.opaque = NO;
+		//eaglLayer.alpha = 1.0;
 		eaglLayer.drawableProperties = [
 										NSDictionary dictionaryWithObjectsAndKeys:
 										[NSNumber numberWithBool:NO],
