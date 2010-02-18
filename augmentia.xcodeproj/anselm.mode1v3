@@ -274,13 +274,12 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>12</integer>
-									<integer>11</integer>
+									<integer>52</integer>
 									<integer>0</integer>
 								</array>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
-							<string>{{0, 0}, {227, 693}}</string>
+							<string>{{0, 362}, {227, 693}}</string>
 						</dict>
 						<key>PBXTopSmartGroupGIDs</key>
 						<array/>
@@ -317,7 +316,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>ARViewController.mm</string>
+								<string>AppDelegate.mm</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -325,11 +324,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>ARViewController.mm</string>
+										<string>AppDelegate.mm</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>43D502DD112B84D800F9216D</string>
+										<string>43D50498112D01DC00F9216D</string>
 										<key>history</key>
 										<array>
 											<string>430D2DC010B3331C002950F6</string>
@@ -343,24 +342,52 @@
 											<string>430D30AD10B3A144002950F6</string>
 											<string>430D30AE10B3A144002950F6</string>
 											<string>430D313A10B3EEBF002950F6</string>
-											<string>43E472A110D5BAD80017E9C9</string>
 											<string>43D501A9112B600800F9216D</string>
 											<string>43D501D8112B62CC00F9216D</string>
 											<string>43D50218112B6CF000F9216D</string>
 											<string>43D5021A112B6CF000F9216D</string>
-											<string>43D5021B112B6CF000F9216D</string>
-											<string>43D5021C112B6CF000F9216D</string>
-											<string>43D5021E112B6CF000F9216D</string>
-											<string>43D50220112B6CF000F9216D</string>
-											<string>43D5022C112B6EEB00F9216D</string>
-											<string>43D502B5112B76F800F9216D</string>
 											<string>43D502D3112B84D800F9216D</string>
 											<string>43D502D5112B84D800F9216D</string>
 											<string>43D502D7112B84D800F9216D</string>
 											<string>43D502D9112B84D800F9216D</string>
-											<string>43D502DA112B84D800F9216D</string>
-											<string>43D502DB112B84D800F9216D</string>
-											<string>43D502DC112B84D800F9216D</string>
+											<string>43D50337112C710E00F9216D</string>
+											<string>43D50338112C710E00F9216D</string>
+											<string>43D50339112C710E00F9216D</string>
+											<string>43D5033A112C710E00F9216D</string>
+											<string>43D5033B112C710E00F9216D</string>
+											<string>43D5033C112C710E00F9216D</string>
+											<string>43D5033D112C710E00F9216D</string>
+											<string>43D5033E112C710E00F9216D</string>
+											<string>43D50372112C726400F9216D</string>
+											<string>43D50373112C726400F9216D</string>
+											<string>43D503DE112CF39500F9216D</string>
+											<string>43D503DF112CF39500F9216D</string>
+											<string>43D503E9112CF39500F9216D</string>
+											<string>43D503EA112CF39500F9216D</string>
+											<string>43D50480112D01DC00F9216D</string>
+											<string>43D50481112D01DC00F9216D</string>
+											<string>43D50482112D01DC00F9216D</string>
+											<string>43D50483112D01DC00F9216D</string>
+											<string>43D50484112D01DC00F9216D</string>
+											<string>43D50485112D01DC00F9216D</string>
+											<string>43D50486112D01DC00F9216D</string>
+											<string>43D50487112D01DC00F9216D</string>
+											<string>43D50488112D01DC00F9216D</string>
+											<string>43D50489112D01DC00F9216D</string>
+											<string>43D5048A112D01DC00F9216D</string>
+											<string>43D5048B112D01DC00F9216D</string>
+											<string>43D5048C112D01DC00F9216D</string>
+											<string>43D5048D112D01DC00F9216D</string>
+											<string>43D5048E112D01DC00F9216D</string>
+											<string>43D5048F112D01DC00F9216D</string>
+											<string>43D50490112D01DC00F9216D</string>
+											<string>43D50491112D01DC00F9216D</string>
+											<string>43D50492112D01DC00F9216D</string>
+											<string>43D50493112D01DC00F9216D</string>
+											<string>43D50494112D01DC00F9216D</string>
+											<string>43D50495112D01DC00F9216D</string>
+											<string>43D50496112D01DC00F9216D</string>
+											<string>43D50497112D01DC00F9216D</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -558,7 +585,6 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>43D502DE112B84D800F9216D</string>
 		<string>43D5023C112B6F5B00F9216D</string>
 		<string>43D50231112B6EEB00F9216D</string>
 		<string>1C78EAAD065D492600B07095</string>
@@ -588,21 +614,21 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CD0528F0623707200166675</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>AppDelegate.mm</string>
+								<string>PostController.m</string>
 								<key>StatusBarVisibility</key>
 								<true/>
 							</dict>
 							<key>GeometryConfiguration</key>
 							<dict>
 								<key>Frame</key>
-								<string>{{0, 0}, {995, 304}}</string>
+								<string>{{0, 0}, {995, 224}}</string>
 								<key>RubberWindowFrame</key>
 								<string>378 145 995 599 0 0 1440 878 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXNavigatorGroup</string>
 							<key>Proportion</key>
-							<string>304pt</string>
+							<string>224pt</string>
 						</dict>
 						<dict>
 							<key>BecomeActive</key>
@@ -621,14 +647,14 @@
 							<key>GeometryConfiguration</key>
 							<dict>
 								<key>Frame</key>
-								<string>{{0, 309}, {995, 249}}</string>
+								<string>{{0, 229}, {995, 329}}</string>
 								<key>RubberWindowFrame</key>
 								<string>378 145 995 599 0 0 1440 878 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXBuildResultsModule</string>
 							<key>Proportion</key>
-							<string>249pt</string>
+							<string>329pt</string>
 						</dict>
 					</array>
 					<key>Proportion</key>

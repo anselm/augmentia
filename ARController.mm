@@ -1,6 +1,6 @@
 
 #include "ARView.h"
-#include "ARViewController.h"
+#include "ARController.h"
 #include "sio2.h"
 
 
@@ -8,12 +8,7 @@
 #define CAMERA_TRANSFORM_X 1
 #define CAMERA_TRANSFORM_Y 1.12412
 
-// iPhone screen dimensions:
-#define SCREEN_WIDTH  320
-#define SCREEN_HEIGTH 480
-
-
-@implementation ARViewController
+@implementation ARController
 
 @synthesize arview;
 @synthesize latitudeTextField;
@@ -43,6 +38,7 @@ float distanceTimeDelta = 0.0;
 // Accelerometer event handler
 //
 - (void)accelerometer:(UIAccelerometer *)accelerometer didAccelerate:(UIAcceleration *)acceleration {
+	/*
 	sio2->_SIO2window->accel->x = acceleration.x * ( 1.0f - sio2->_SIO2window->accel_smooth ) + sio2->_SIO2window->accel->x * sio2->_SIO2window->accel_smooth;
 	sio2->_SIO2window->accel->y = acceleration.y * ( 1.0f - sio2->_SIO2window->accel_smooth ) + sio2->_SIO2window->accel->y * sio2->_SIO2window->accel_smooth;
 	sio2->_SIO2window->accel->z = acceleration.z * ( 1.0f - sio2->_SIO2window->accel_smooth ) + sio2->_SIO2window->accel->z * sio2->_SIO2window->accel_smooth;
@@ -51,6 +47,7 @@ float distanceTimeDelta = 0.0;
 	sio2->_SIO2window->accel->y = ( int )( sio2->_SIO2window->accel->y * 100.0f );
 	sio2->_SIO2window->accel->y *= 0.01f;
 	sio2ResourceDispatchEvents( sio2->_SIO2resource, sio2->_SIO2window, SIO2_WINDOW_ACCELEROMETER, SIO2_WINDOW_TAP_NONE );
+	 */
 }
 
 //
@@ -148,6 +145,7 @@ float distanceTimeDelta = 0.0;
 
 - (void) viewDidAppear:(BOOL)animated { 
 
+#ifndef __i386__
 	// CAMERA OVERLAY
 	UIImagePickerController *picker = [[UIImagePickerController alloc] init];
 	picker.sourceType = UIImagePickerControllerSourceTypeCamera;
@@ -158,6 +156,7 @@ float distanceTimeDelta = 0.0;
 	picker.cameraOverlayView = arview;
 	[self presentModalViewController:picker animated:YES];	
 	[picker release];
+#endif
 
 	// KICK OFF VIEW
 	arview.animationInterval = 1.0 / 60.0;
@@ -196,9 +195,9 @@ float distanceTimeDelta = 0.0;
 	[super dealloc];
 }
 
-- (ARViewController *) init {
-	NSLog(@"ARViewController: init called");
-	self.title = @"ARViewController";
+- (ARController *) init {
+	NSLog(@"ARController: init called");
+	self.title = @"ARController";
 	return self;
 }
 

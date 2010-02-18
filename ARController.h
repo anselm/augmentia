@@ -4,7 +4,7 @@
 
 @class ARView;
 
-@interface ARViewController: UIViewController <UIAccelerometerDelegate,CLLocationManagerDelegate> {
+@interface ARController: UIViewController <UIAccelerometerDelegate,CLLocationManagerDelegate> {
 	ARView *arview;
 	UITextField *latitudeTextField;
 	UITextField *longitudeTextField;

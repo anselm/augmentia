@@ -1,9 +1,17 @@
-#import <UIKit/UIKit.h>
-@class ARViewController;
-@interface AppDelegate : NSObject {
+//
+// Application kick off point
+//
+// Globals are registered here for convenience
+//
+//
+
+@class DB;
+@class UIWindow;
+@interface AppDelegate : NSObject  <UIApplicationDelegate> {
+	DB *db;
 	UIWindow *window;
-	ARViewController *control;
 }
+@property (nonatomic, retain) DB *db;
 @property (nonatomic, retain) UIWindow *window;
-@property (nonatomic, retain) ARViewController *control;
+- (void)setActiveViewController:(NSString *)name;
 @end
