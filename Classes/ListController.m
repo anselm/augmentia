@@ -19,6 +19,15 @@
 	return self;
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+	//[self reloadData];
+	//[super viewWillAppear];
+}
+
+- (void)viewDidLoad {
+	[super viewDidLoad];
+}
+
 - (void)dealloc {
 	[super dealloc];
 }
@@ -32,7 +41,6 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	return 2;
 	AppDelegate *d = (AppDelegate *)[[UIApplication sharedApplication] delegate];
 	return d.db.notes.count;
 }

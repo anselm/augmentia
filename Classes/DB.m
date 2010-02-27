@@ -19,6 +19,10 @@ static DB *db = nil;
 @synthesize notes;
 @synthesize cursor;
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+// SETUP
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 + (id)sharedDB {
 	@synchronized(self) {
 		if(db == nil) {
@@ -57,7 +61,6 @@ static DB *db = nil;
 - (id)autorelease {
 	return self;
 }
-
 
 -(void) setupDB {
 	BOOL success;
@@ -102,10 +105,24 @@ static DB *db = nil;
 	sqlite3_close(database);
 }
 
+-(id) init {
+	[self setupDB];
+	[self readDB];
+	return self;
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+// FETCH STUFF FROM TWITTER AND MY SERVER
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 //
-// A first pass on a json based loader
-// We may turf this in favor of a packed blob
+// Given a user account and password fetch their recent activity
+// This can be used to validate the account as well
 //
+- (void)twitterGetActivity {
+	NSURL *path = [NSURL URLWithString:@"http://twitter.com/users/anselm.json"];
+}
+
 - (void)jsonLoad {
 	
 	NSError *error = NULL;
@@ -155,10 +172,15 @@ static DB *db = nil;
 
 }
 
--(id) init {
-	[self setupDB];
-	[self readDB];
-	return self;
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+// SAVE STUFF
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+-(void) addProfile:(NSString *)title Password:(NSString *)password {
+	NSString *i = @"http://a1.twimg.com/profile_images/684498210/snowmon_bigger.jpg";
+	Note *note = [[Note alloc] init:title description:password image:i];
+	[notes addObject:note];
+	[note release];
 }
 
 @end

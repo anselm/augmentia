@@ -9,4 +9,5 @@
 @property (nonatomic, retain) NSMutableArray *notes;
 @property (nonatomic, retain) Note* cursor;
 + (id)sharedDB;
+-(void) addProfile:(NSString *)title Password:(NSString *)password;
 @end

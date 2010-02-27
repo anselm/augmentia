@@ -7,6 +7,7 @@
 #import "DetailController.h"
 #import "ProfileController.h"
 #import "ProfilesController.h"
+#import "ProfileNewController.h"
 #import "MapController.h"
 #import "DB.h"
 
@@ -15,22 +16,26 @@
 @synthesize window;
 
 UINavigationController *nav;
+
 ARController *ar;
 MapController *map;
 GlobeController *globe;
 DetailController *detail;
 ProfileController *profile;
 ProfilesController *profiles;
+ProfileNewController *profilenew;
 
 - (void)setActiveViewController:(NSString *)name {
 
 	if(window == nil) {
 
-		ar = [[ARController alloc] init];
-		map = [[MapController alloc] init];
-		detail = [[DetailController alloc] init];
-		profile = [[ProfileController alloc] init];
+//		ar = [[ARController alloc] init];
+//		map = [[MapController alloc] init];
+//		detail = [[DetailController alloc] init];
+//		globe = [[GlobeController alloc] init];
+//		profile = [[ProfileController alloc] init];
 		profiles = [[ProfilesController alloc] init];
+		profilenew = [[ProfileNewController alloc] init];
 		nav = [[UINavigationController alloc] initWithRootViewController:profiles];
 
 		// application.statusBarHidden = YES;
@@ -38,11 +43,15 @@ ProfilesController *profiles;
 		window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 		window.backgroundColor = [UIColor redColor];
 
-		[nav pushViewController:ar animated:YES];	
-
 		[window addSubview:nav.view];
 		[window makeKeyAndVisible];
 
+	} else if([name isEqualToString:@"ProfileNew"]) {
+		[nav pushViewController:profilenew animated:YES];
+	} else if([name isEqualToString:@"profiles_from_profile_new"]) {
+		[nav popViewControllerAnimated:YES];
+//		[[(UITableViewController *)[nav topViewController] tableView] reloadData];
+		[profiles.tableView reloadData];
 	}
 }
 
@@ -52,7 +61,7 @@ ProfilesController *profiles;
 	db = [DB sharedDB];
 	
 	// Make one of the controllers take over
-	[self setActiveViewController:@""];
+	[self setActiveViewController:@"Profiles"];
 
 }
 
