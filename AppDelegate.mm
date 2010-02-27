@@ -2,14 +2,16 @@
 #import <UIKit/UIKit.h>
 #import "AppDelegate.h"
 
+#import "DB.h"
+
 #import "ARController.h"
+#import "MapController.h"
 #import "GlobeController.h"
 #import "DetailController.h"
 #import "ProfileController.h"
 #import "ProfilesController.h"
 #import "ProfileNewController.h"
-#import "MapController.h"
-#import "DB.h"
+#import "OAuthTwitterDemoViewController.h"
 
 @implementation AppDelegate
 @synthesize db;
@@ -24,6 +26,7 @@ DetailController *detail;
 ProfileController *profile;
 ProfilesController *profiles;
 ProfileNewController *profilenew;
+OAuthTwitterDemoViewController *oauth;
 
 - (void)setActiveViewController:(NSString *)name {
 
@@ -48,6 +51,11 @@ ProfileNewController *profilenew;
 
 	} else if([name isEqualToString:@"ProfileNew"]) {
 		[nav pushViewController:profilenew animated:YES];
+	} else if([name isEqualToString:@"TwitterAuth"]) {
+		if(!oauth) {
+			oauth = [[OAuthTwitterDemoViewController alloc] init];
+		}
+		[nav pushViewController:oauth animated:YES];
 	} else if([name isEqualToString:@"profiles_from_profile_new"]) {
 		[nav popViewControllerAnimated:YES];
 //		[[(UITableViewController *)[nav topViewController] tableView] reloadData];

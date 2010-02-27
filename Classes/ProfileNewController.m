@@ -17,6 +17,12 @@
 	[ super loadView ];
 }
 
+-(void) connectToTwitter:(UIButton*)sender {
+	NSLog(@"button pressed");
+	AppDelegate *d = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+	[d setActiveViewController:@"TwitterAuth"];
+}
+
 -(void) saveAction:(id) sender {
 
 	// - connect to twitter right now and validate this account
@@ -72,7 +78,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     switch (section) {
 		case(0):
-			return 2;
+			return 3;
 			break;
 		case(1):
 			return 6;
@@ -151,7 +157,7 @@
 						//playerPasswordField.borderStyle = UITextBorderStyleLine;
 						playerPasswordField.autocorrectionType = UITextAutocorrectionTypeNo; // no auto correction support
 						playerPasswordField.autocapitalizationType = UITextAutocapitalizationTypeNone; // no auto capitalization support
-						playerPasswordField.textAlignment = UITextAlignmentLeft;
+						playerPasswordField.adjustsFontSizeToFitWidth = YES;
 						playerPasswordField.keyboardType = UIKeyboardTypeDefault; // use the default type input method (entire keyboard)
 						playerPasswordField.returnKeyType = UIReturnKeyDone;
 						playerPasswordField.tag = 0;
@@ -165,6 +171,36 @@
 						[cell.textLabel setText:@"Password"];
 						[playerPasswordField release];
 						//[playerPasswordField becomeFirstResponder];
+						break;
+					}
+					case(2):
+					{
+						// http://developer.apple.com/iphone/library/documentation/UserExperience/Conceptual/TableView_iPhone/TableViewCells/TableViewCells.html
+
+						UIButton *button = [[UIButton buttonWithType:UIButtonTypeRoundedRect] retain];
+						button.frame = CGRectMake(60, 6, 200, 35);
+						//[button setFrame: CGRectMake(120,10,100,10)];
+						//button.backgroundColor = [UIColor blueColor];
+						[button setTitle:@"Connect to Twitter" forState:UIControlStateNormal];
+						[button addTarget:self action:@selector(connectToTwitter:) forControlEvents:UIControlEventTouchUpInside];
+
+						//button.center = self.center;
+						//[cell.textLabel setText:@"Role"];
+
+						//[button setCenter:CGPointMake(120, 10)];
+
+					//	[button setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+					//	[button setTitleColor:[UIColor blackColor] forState:UIControlEventTouchDown];
+					//	button.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+					//	button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;						
+
+						UIView *transparentBackground = [[UIView alloc] initWithFrame:CGRectZero];
+						transparentBackground.backgroundColor = [UIColor clearColor];
+						cell.backgroundView = transparentBackground;
+						//cell.contentView.backgroundColor = [UIColor blueColor];
+						
+						[cell addSubview:button ];
+						[button release];
 						break;
 					}
 				}
