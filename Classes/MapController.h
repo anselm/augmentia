@@ -1,7 +1,14 @@
 #import <MapKit/MapKit.h>
-@interface MapController : UIViewController <MKMapViewDelegate> {
+@class Note;
+@interface MapController : UIViewController <MKMapViewDelegate, CLLocationManagerDelegate, UIAccelerometerDelegate> {
 	MKMapView *mapview;
+	CLLocationManager *lm;
+	Note* profile;
+	NSMutableDictionary* notes;
 }
 @property (nonatomic, retain) MKMapView *mapview;
-- (void)setPositionLatitude:(float)latitude withLongitude:(float)longitude;
+@property (nonatomic, retain) Note* profile;
+@property (nonatomic, retain) NSMutableDictionary* notes;
+- (id)initWithProfile:(Note*)profileParam;
+
 @end

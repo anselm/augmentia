@@ -1,17 +1,15 @@
-//
-// Application kick off point
-//
-// Globals are registered here for convenience
-//
-//
+
+#import <UIKit/UIKit.h>
+#import <CoreLocation/CoreLocation.h>
 
 @class DB;
 @class UIWindow;
-@interface AppDelegate : NSObject  <UIApplicationDelegate> {
+@interface AppDelegate : NSObject <UIApplicationDelegate,UIAccelerometerDelegate,CLLocationManagerDelegate> {
 	DB *db;
 	UIWindow *window;
+	UINavigationController *nav;
 }
 @property (nonatomic, retain) DB *db;
 @property (nonatomic, retain) UIWindow *window;
-- (void)setActiveViewController:(NSString *)name;
+@property (nonatomic, retain) UINavigationController *nav;
 @end

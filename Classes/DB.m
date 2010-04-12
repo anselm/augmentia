@@ -1,12 +1,6 @@
-//
-// Database - implemented as a singleton class
-//
-// Also will shroud network access to make everything appear local and to cache it
-//
-// http://iphone.galloway.me.uk/iphone-sdktutorials/singleton-classes/
-// http://www.mulle-kybernetik.com/artikel/Optimization/opti-2.html
-//
 
+#import "EXContainer.h"
+#import "EXPredicateEqualText.h"
 #import <sqlite3.h>
 
 #import "Note.h"
@@ -16,11 +10,9 @@
 static DB *db = nil;
 
 @implementation DB
-@synthesize notes;
-@synthesize cursor;
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
-// SETUP
+// boilerplate for singletons
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 + (id)sharedDB {
@@ -62,27 +54,76 @@ static DB *db = nil;
 	return self;
 }
 
--(void) setupDB {
-	BOOL success;
-	NSArray *documentPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-	NSString *documentsDir = [documentPaths objectAtIndex:0];
-	databaseName = @"db.sql";
-	databasePath = [documentsDir stringByAppendingPathComponent:databaseName];
-	NSFileManager *fileManager = [NSFileManager defaultManager];
-	success = [fileManager fileExistsAtPath:databasePath];
-	if(success) return;
-	NSString *databasePathFromApp = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:databaseName];
-	//printf("old database path is %s\n",[databasePathFromApp cString]);
-	//printf("new database path is %s\n",[databasePath cString]);
-	[fileManager copyItemAtPath:databasePathFromApp toPath:databasePath error:nil];	
-	[fileManager release];
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+// init
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+EXFile* file;
+EXContainer* container;
+
+-(id) init {
+	if(!self) {
+		[super init];
+	}
+	NSArray* paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+	NSString* documentsDirectory = [paths objectAtIndex: 0];
+	NSString* dbFileName = [documentsDirectory stringByAppendingFormat: @"/db3.db"];
+	file = [EXFile fileWithName: dbFileName];
+	container = [[EXContainer alloc] initWithFile: file];
+	db = self;
+	return self;
 }
 
--(void) readDB {
+- (void) dealloc {
+	if(container) {
+		[container release];
+	}
+	db = nil;
+	[super dealloc];
+}
+
+-(NSArray*) getNotes:(NSString*)kind {
+	if(container!=nil && kind!=nil) {
+		EXPredicate* predicate = [[[EXPredicateEqualText alloc] initWithFieldName: @"kind" value: kind] autorelease];
+		NSArray* resultSet = [container queryWithClass: [Note class] predicate: predicate];
+		[resultSet retain]; // TODO I seem to be losing these... paranoia... examine.
+		return resultSet;
+	}
+	return nil;
+}
+
+-(Note*) getNote:(NSString *)kind Title:(NSString *)title {
+	if(container != nil && title != nil) {
+		EXPredicate* predicate = [[[EXPredicateEqualText alloc] initWithFieldName: @"kind" value: kind] autorelease];
+		NSArray* resultSet = [container queryWithClass: [Note class] predicate: predicate];
+		for(Note* key in resultSet) {
+			if([key->title isEqualToString: title]) {
+				return key;
+			}
+		}
+	}
+	return nil;
+}
+
+-(void) updateNote:(NSString *)k Title:(NSString *)t Description:(NSString *)d Image:(NSString*)i {
+	if(container != nil && t!=nil) {
+		Note *note = [[Note alloc] init:k title:t description:d image:i];
+		[container storeObject: note];
+	}
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+// unused
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/*
+ -(Note*) getNote:(NSString *)kind Title:(NSString *)title {
+
+	Note* note = nil;
+ 
 	sqlite3 *database;
-	self.notes = [[NSMutableArray alloc] init];
 	if(sqlite3_open([databasePath UTF8String], &database) == SQLITE_OK) {
-		const char *sqlStatement = "select title,description,image from note;";
+		const char *sqlStatement = "SELECT title,description,image FROM note WHERE kind = TODO and title = TODO limit 1;";
 		sqlite3_stmt *compiledStatement;
 		if(sqlite3_prepare_v2(database, sqlStatement, -1, &compiledStatement, NULL) == SQLITE_OK) {
 			while(sqlite3_step(compiledStatement) == SQLITE_ROW) {
@@ -90,7 +131,7 @@ static DB *db = nil;
 					NSString *t = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 0)];
 					NSString *d = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 1)];
 					NSString *i = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 2)];
-					Note *note = [[Note alloc] init:t description:d image:i];
+					note = [[Note alloc] init:t description:d image:i];
 					[notes addObject:note];
 					[note release];
 				}
@@ -103,84 +144,111 @@ static DB *db = nil;
 		sqlite3_finalize(compiledStatement);
 	}
 	sqlite3_close(database);
+
+	return note;
 }
 
--(id) init {
-	[self setupDB];
-	[self readDB];
-	return self;
-}
+-(void) updateNote:(NSString *)kind Title:(NSString *)title Description:(NSString *)description {
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
-// FETCH STUFF FROM TWITTER AND MY SERVER
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
+	BOOL update = false;
 
-//
-// Given a user account and password fetch their recent activity
-// This can be used to validate the account as well
-//
-- (void)twitterGetActivity {
-	NSURL *path = [NSURL URLWithString:@"http://twitter.com/users/anselm.json"];
-}
+	// Look in cache for a note similar to the one wish to have exist and make it if not found
+	Note* note = [self getNote:kind Title:title];
+	if( note != nil ) {
+		note.description = description;
+		update = true;
 
-- (void)jsonLoad {
-	
-	NSError *error = NULL;
-	NSURL *path = [NSURL URLWithString:@"http://twitter.com/users/anselm.json"];
-	//NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:path]];
-	//NSString *json = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-	NSString *json = [[NSString alloc] initWithContentsOfURL:path encoding:NSUTF8StringEncoding error:&error];
-	if (json == nil) {
-		NSLog(@"Error reading file at %@\n%@", path, [error localizedFailureReason]);
-		return;
-	}
-	
-	NSData *json_as_data = [json dataUsingEncoding:NSUTF32BigEndianStringEncoding];
-	NSDictionary *dictionary = [[CJSONDeserializer deserializer] deserializeAsDictionary:json_as_data error:nil];
+//		id customObject = [[CustomObject alloc] init];
+//		[container storeObject: customObject];
+//		[customObject release];
 
-	
-	NSLog(@"Error: %@", error);
-}
+		// Write through to the database persistently
+		sqlite3 *database;
+		if(sqlite3_open([databasePath UTF8String], &database) == SQLITE_OK) {
+			const char *sqlStatement = "UPDATE note SET description = ? WHERE kind = ? AND title = ?;";
+			sqlite3_stmt *compiledStatement;
+			if(sqlite3_prepare_v2(database, sqlStatement, -1, &compiledStatement, NULL) == SQLITE_OK) {
+				// if we found a statement matching the update then
+				// update note set description = ? where id = x
+				// else
+				// insert into note (title,description) values ( ?, ? ) ", title, description
+			}
+			//printf( "any errors? yes no?: %s\n", sqlite3_errmsg(database) ); 
+			sqlite3_finalize(compiledStatement);
+		}
+		sqlite3_close(database);
+		
+		
+	} else {
+		note = [[Note alloc] init:title description:description image:nil];
+//		[notes addObject:note];
+		[note release];
 
--(void) getFriends {
-
-	NSError *error = NULL;
-	NSURL *path = [NSURL URLWithString:@"http://wayfaring.makerlab.org/users/anselm.json"];
-	//NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:path]];
-	//NSString *json = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-	NSString *json = [[NSString alloc] initWithContentsOfURL:path encoding:NSUTF8StringEncoding error:&error];
-	if (json == nil) {
-		NSLog(@"Error reading file at %@\n%@", path, [error localizedFailureReason]);
-		return;
-	}
-
-	NSData *json_as_data = [json dataUsingEncoding:NSUTF32BigEndianStringEncoding];
-	NSDictionary *dictionary = [[CJSONDeserializer deserializer] deserializeAsDictionary:json_as_data error:nil];
-
-	NSString *key;
-	for (key in dictionary) {
-		NSString *value = [dictionary valueForKey:key];
-		NSLog(@"Name1: %@, Value: %@", key, value);
-	}
-
-	NSLog(@"showing statuses");
-	NSDictionary *status = [dictionary objectForKey:@"status"];
-	for (key in status) {
-		NSString *value = [dictionary valueForKey:key];
-		NSLog(@"Name2: %@, Value: %@", key, value);		
+		// Write through to the database persistently
+		sqlite3 *database;
+		if(sqlite3_open([databasePath UTF8String], &database) == SQLITE_OK) {
+			const char *sqlStatement = "select title,description,image from note;";
+			sqlite3_stmt *compiledStatement;
+			if(sqlite3_prepare_v2(database, sqlStatement, -1, &compiledStatement, NULL) == SQLITE_OK) {
+				// if we found a statement matching the update then
+				// update note set description = ? where id = x
+				// else
+				// insert into note (title,description) values ( ?, ? ) ", title, description
+			}
+			//printf( "any errors? yes no?: %s\n", sqlite3_errmsg(database) ); 
+			sqlite3_finalize(compiledStatement);
+		}
+		sqlite3_close(database);
+		
+		
 	}
 
 }
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
-// SAVE STUFF
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
-
--(void) addProfile:(NSString *)title Password:(NSString *)password {
-	NSString *i = @"http://a1.twimg.com/profile_images/684498210/snowmon_bigger.jpg";
-	Note *note = [[Note alloc] init:title description:password image:i];
-	[notes addObject:note];
-	[note release];
+-(void) readDB {
+	 sqlite3 *database;
+	 if(sqlite3_open([databasePath UTF8String], &database) == SQLITE_OK) {
+	 const char *sqlStatement = "select title,description,image from note;";
+	 sqlite3_stmt *compiledStatement;
+	 if(sqlite3_prepare_v2(database, sqlStatement, -1, &compiledStatement, NULL) == SQLITE_OK) {
+	 while(sqlite3_step(compiledStatement) == SQLITE_ROW) {
+	 @try {
+	 NSString *t = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 0)];
+	 NSString *d = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 1)];
+	 NSString *i = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 2)];
+	 Note *note = [[Note alloc] init:t description:d image:i];
+	 [notes addObject:note];
+	 [note release];
+	 }
+	 @catch(id e) {
+	 printf("oops");
+	 }
+	 }
+	 }
+	 //printf( "any errors? yes no?: %s\n", sqlite3_errmsg(database) ); 
+	 sqlite3_finalize(compiledStatement);
+	 }
+	 sqlite3_close(database);
 }
+
+-(void) setupDB {
+	 BOOL success;
+	 self.notes = [[NSMutableArray alloc] init];
+	 NSArray *documentPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+	 NSString *documentsDir = [documentPaths objectAtIndex:0];
+	 databaseName = @"db.sql";
+	 databasePath = [documentsDir stringByAppendingPathComponent:databaseName];
+	 NSFileManager *fileManager = [NSFileManager defaultManager];
+	 success = [fileManager fileExistsAtPath:databasePath];
+	 if(!success) {
+	 // TODO must deal with errors
+	 NSString *databasePathFromApp = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:databaseName];
+	 //printf("old database path is %s\n",[databasePathFromApp cString]);
+	 //printf("new database path is %s\n",[databasePath cString]);
+	 [fileManager copyItemAtPath:databasePathFromApp toPath:databasePath error:nil];	
+	 [fileManager release];
+	 }
+}
+*/
 
 @end

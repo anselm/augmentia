@@ -21,6 +21,38 @@
 		430D307710B39A55002950F6 /* CJSONDeserializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 430D306D10B39A55002950F6 /* CJSONDeserializer.m */; };
 		430D307810B39A55002950F6 /* CJSONScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 430D306F10B39A55002950F6 /* CJSONScanner.m */; };
 		430D307910B39A55002950F6 /* CJSONSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 430D307110B39A55002950F6 /* CJSONSerializer.m */; };
+		4338EC2F115AC6C100A9C7A4 /* EXContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4338EBF0115AC6C100A9C7A4 /* EXContainer.m */; };
+		4338EC30115AC6C100A9C7A4 /* EXContainerUniqueIdentifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 4338EBF2115AC6C100A9C7A4 /* EXContainerUniqueIdentifier.m */; };
+		4338EC31115AC6C100A9C7A4 /* EXDecomposer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4338EBF4115AC6C100A9C7A4 /* EXDecomposer.m */; };
+		4338EC32115AC6C100A9C7A4 /* EXDrainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4338EBF6115AC6C100A9C7A4 /* EXDrainer.m */; };
+		4338EC33115AC6C100A9C7A4 /* EXException.m in Sources */ = {isa = PBXBuildFile; fileRef = 4338EBF8115AC6C100A9C7A4 /* EXException.m */; };
+		4338EC34115AC6C100A9C7A4 /* EXFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 4338EBFA115AC6C100A9C7A4 /* EXFile.m */; };
+		4338EC35115AC6C100A9C7A4 /* EXGlobalSyncInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 4338EBFC115AC6C100A9C7A4 /* EXGlobalSyncInfo.m */; };
+		4338EC36115AC6C100A9C7A4 /* EXMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 4338EBFE115AC6C100A9C7A4 /* EXMessage.m */; };
+		4338EC37115AC6C100A9C7A4 /* EXMessageRelay.m in Sources */ = {isa = PBXBuildFile; fileRef = 4338EC00115AC6C100A9C7A4 /* EXMessageRelay.m */; };
+		4338EC38115AC6C100A9C7A4 /* EXMessenger.m in Sources */ = {isa = PBXBuildFile; fileRef = 4338EC02115AC6C100A9C7A4 /* EXMessenger.m */; };
+		4338EC39115AC6C100A9C7A4 /* EXObjectProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 4338EC04115AC6C100A9C7A4 /* EXObjectProxy.m */; };
+		4338EC3A115AC6C100A9C7A4 /* EXPersistentMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 4338EC06115AC6C100A9C7A4 /* EXPersistentMessage.m */; };
+		4338EC3B115AC6C100A9C7A4 /* EXPersistentObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 4338EC08115AC6C100A9C7A4 /* EXPersistentObject.m */; };
+		4338EC3C115AC6C100A9C7A4 /* EXPredicate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4338EC0A115AC6C100A9C7A4 /* EXPredicate.m */; };
+		4338EC3D115AC6C100A9C7A4 /* EXPredicateEqualInt.m in Sources */ = {isa = PBXBuildFile; fileRef = 4338EC0C115AC6C100A9C7A4 /* EXPredicateEqualInt.m */; };
+		4338EC3E115AC6C100A9C7A4 /* EXPredicateEqualInt64.m in Sources */ = {isa = PBXBuildFile; fileRef = 4338EC0E115AC6C100A9C7A4 /* EXPredicateEqualInt64.m */; };
+		4338EC3F115AC6C100A9C7A4 /* EXPredicateEqualText.m in Sources */ = {isa = PBXBuildFile; fileRef = 4338EC10115AC6C100A9C7A4 /* EXPredicateEqualText.m */; };
+		4338EC40115AC6C100A9C7A4 /* EXProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 4338EC12115AC6C100A9C7A4 /* EXProxy.m */; };
+		4338EC41115AC6C100A9C7A4 /* EXReferringElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 4338EC14115AC6C100A9C7A4 /* EXReferringElement.m */; };
+		4338EC42115AC6C100A9C7A4 /* EXRemoteInvocationException.m in Sources */ = {isa = PBXBuildFile; fileRef = 4338EC16115AC6C100A9C7A4 /* EXRemoteInvocationException.m */; };
+		4338EC43115AC6C100A9C7A4 /* EXServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4338EC18115AC6C100A9C7A4 /* EXServer.m */; };
+		4338EC44115AC6C100A9C7A4 /* EXSharedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 4338EC1A115AC6C100A9C7A4 /* EXSharedObject.m */; };
+		4338EC45115AC6C100A9C7A4 /* EXSorting.m in Sources */ = {isa = PBXBuildFile; fileRef = 4338EC1C115AC6C100A9C7A4 /* EXSorting.m */; };
+		4338EC46115AC6C100A9C7A4 /* EXSyncInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 4338EC1E115AC6C100A9C7A4 /* EXSyncInfo.m */; };
+		4338EC47115AC6C100A9C7A4 /* EXSyncInMessageObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 4338EC20115AC6C100A9C7A4 /* EXSyncInMessageObject.m */; };
+		4338EC48115AC6C100A9C7A4 /* EXSyncOutMessageObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 4338EC22115AC6C100A9C7A4 /* EXSyncOutMessageObject.m */; };
+		4338EC49115AC6C100A9C7A4 /* EXTransaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 4338EC24115AC6C100A9C7A4 /* EXTransaction.m */; };
+		4338EC4A115AC6C100A9C7A4 /* EXUpdateRequestReply.m in Sources */ = {isa = PBXBuildFile; fileRef = 4338EC26115AC6C100A9C7A4 /* EXUpdateRequestReply.m */; };
+		4338EC4B115AC6C100A9C7A4 /* EXUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 4338EC28115AC6C100A9C7A4 /* EXUtils.m */; };
+		4338EC4C115AC6C100A9C7A4 /* info.txt in Resources */ = {isa = PBXBuildFile; fileRef = 4338EC29115AC6C100A9C7A4 /* info.txt */; };
+		4338EC4D115AC6C100A9C7A4 /* LXSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 4338EC2B115AC6C100A9C7A4 /* LXSocket.m */; };
+		4338EC4E115AC6C100A9C7A4 /* NSObject_iPhone_cat.m in Sources */ = {isa = PBXBuildFile; fileRef = 4338EC2D115AC6C100A9C7A4 /* NSObject_iPhone_cat.m */; };
 		43BF52A210AC222500C116BD /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43BF52A110AC222500C116BD /* CoreLocation.framework */; };
 		43D501A5112B5FDE00F9216D /* ARView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 43D501A1112B5FDE00F9216D /* ARView.mm */; };
 		43D501A6112B5FDE00F9216D /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 43D501A3112B5FDE00F9216D /* AppDelegate.mm */; };
@@ -63,8 +95,8 @@
 		43D5081B1138846B00F9216D /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D508091138846B00F9216D /* NSData+Base64.m */; };
 		43D5081C1138846B00F9216D /* NSString+UUID.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D5080B1138846B00F9216D /* NSString+UUID.m */; };
 		43D5082711389A2E00F9216D /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43D5082611389A2E00F9216D /* libxml2.dylib */; };
-		43D5082F11389A9300F9216D /* OAuthTwitterDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D5082E11389A9300F9216D /* OAuthTwitterDemoViewController.m */; };
 		43E472B210D5BCD60017E9C9 /* README in Resources */ = {isa = PBXBuildFile; fileRef = 43E472B110D5BCD60017E9C9 /* README */; };
+		43F3CC95116C8203008C90B4 /* PostsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F3CC94116C8203008C90B4 /* PostsController.m */; };
 		E04BBA43100D5B280078A39E /* sio2_action.cc in Sources */ = {isa = PBXBuildFile; fileRef = E04BB9FE100D5B280078A39E /* sio2_action.cc */; };
 		E04BBA44100D5B280078A39E /* sio2_camera.cc in Sources */ = {isa = PBXBuildFile; fileRef = E04BBA00100D5B280078A39E /* sio2_camera.cc */; };
 		E04BBA45100D5B280078A39E /* sio2_emitter.cc in Sources */ = {isa = PBXBuildFile; fileRef = E04BBA03100D5B280078A39E /* sio2_emitter.cc */; };
@@ -386,6 +418,70 @@
 		430D306F10B39A55002950F6 /* CJSONScanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJSONScanner.m; sourceTree = "<group>"; };
 		430D307010B39A55002950F6 /* CJSONSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJSONSerializer.h; sourceTree = "<group>"; };
 		430D307110B39A55002950F6 /* CJSONSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJSONSerializer.m; sourceTree = "<group>"; };
+		4338EBEF115AC6C100A9C7A4 /* EXContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXContainer.h; sourceTree = "<group>"; };
+		4338EBF0115AC6C100A9C7A4 /* EXContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXContainer.m; sourceTree = "<group>"; };
+		4338EBF1115AC6C100A9C7A4 /* EXContainerUniqueIdentifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXContainerUniqueIdentifier.h; sourceTree = "<group>"; };
+		4338EBF2115AC6C100A9C7A4 /* EXContainerUniqueIdentifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXContainerUniqueIdentifier.m; sourceTree = "<group>"; };
+		4338EBF3115AC6C100A9C7A4 /* EXDecomposer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXDecomposer.h; sourceTree = "<group>"; };
+		4338EBF4115AC6C100A9C7A4 /* EXDecomposer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXDecomposer.m; sourceTree = "<group>"; };
+		4338EBF5115AC6C100A9C7A4 /* EXDrainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXDrainer.h; sourceTree = "<group>"; };
+		4338EBF6115AC6C100A9C7A4 /* EXDrainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXDrainer.m; sourceTree = "<group>"; };
+		4338EBF7115AC6C100A9C7A4 /* EXException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXException.h; sourceTree = "<group>"; };
+		4338EBF8115AC6C100A9C7A4 /* EXException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXException.m; sourceTree = "<group>"; };
+		4338EBF9115AC6C100A9C7A4 /* EXFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXFile.h; sourceTree = "<group>"; };
+		4338EBFA115AC6C100A9C7A4 /* EXFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXFile.m; sourceTree = "<group>"; };
+		4338EBFB115AC6C100A9C7A4 /* EXGlobalSyncInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXGlobalSyncInfo.h; sourceTree = "<group>"; };
+		4338EBFC115AC6C100A9C7A4 /* EXGlobalSyncInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXGlobalSyncInfo.m; sourceTree = "<group>"; };
+		4338EBFD115AC6C100A9C7A4 /* EXMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXMessage.h; sourceTree = "<group>"; };
+		4338EBFE115AC6C100A9C7A4 /* EXMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXMessage.m; sourceTree = "<group>"; };
+		4338EBFF115AC6C100A9C7A4 /* EXMessageRelay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXMessageRelay.h; sourceTree = "<group>"; };
+		4338EC00115AC6C100A9C7A4 /* EXMessageRelay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXMessageRelay.m; sourceTree = "<group>"; };
+		4338EC01115AC6C100A9C7A4 /* EXMessenger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXMessenger.h; sourceTree = "<group>"; };
+		4338EC02115AC6C100A9C7A4 /* EXMessenger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXMessenger.m; sourceTree = "<group>"; };
+		4338EC03115AC6C100A9C7A4 /* EXObjectProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXObjectProxy.h; sourceTree = "<group>"; };
+		4338EC04115AC6C100A9C7A4 /* EXObjectProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXObjectProxy.m; sourceTree = "<group>"; };
+		4338EC05115AC6C100A9C7A4 /* EXPersistentMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXPersistentMessage.h; sourceTree = "<group>"; };
+		4338EC06115AC6C100A9C7A4 /* EXPersistentMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXPersistentMessage.m; sourceTree = "<group>"; };
+		4338EC07115AC6C100A9C7A4 /* EXPersistentObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXPersistentObject.h; sourceTree = "<group>"; };
+		4338EC08115AC6C100A9C7A4 /* EXPersistentObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXPersistentObject.m; sourceTree = "<group>"; };
+		4338EC09115AC6C100A9C7A4 /* EXPredicate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXPredicate.h; sourceTree = "<group>"; };
+		4338EC0A115AC6C100A9C7A4 /* EXPredicate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXPredicate.m; sourceTree = "<group>"; };
+		4338EC0B115AC6C100A9C7A4 /* EXPredicateEqualInt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXPredicateEqualInt.h; sourceTree = "<group>"; };
+		4338EC0C115AC6C100A9C7A4 /* EXPredicateEqualInt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXPredicateEqualInt.m; sourceTree = "<group>"; };
+		4338EC0D115AC6C100A9C7A4 /* EXPredicateEqualInt64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXPredicateEqualInt64.h; sourceTree = "<group>"; };
+		4338EC0E115AC6C100A9C7A4 /* EXPredicateEqualInt64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXPredicateEqualInt64.m; sourceTree = "<group>"; };
+		4338EC0F115AC6C100A9C7A4 /* EXPredicateEqualText.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXPredicateEqualText.h; sourceTree = "<group>"; };
+		4338EC10115AC6C100A9C7A4 /* EXPredicateEqualText.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXPredicateEqualText.m; sourceTree = "<group>"; };
+		4338EC11115AC6C100A9C7A4 /* EXProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXProxy.h; sourceTree = "<group>"; };
+		4338EC12115AC6C100A9C7A4 /* EXProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXProxy.m; sourceTree = "<group>"; };
+		4338EC13115AC6C100A9C7A4 /* EXReferringElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXReferringElement.h; sourceTree = "<group>"; };
+		4338EC14115AC6C100A9C7A4 /* EXReferringElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXReferringElement.m; sourceTree = "<group>"; };
+		4338EC15115AC6C100A9C7A4 /* EXRemoteInvocationException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXRemoteInvocationException.h; sourceTree = "<group>"; };
+		4338EC16115AC6C100A9C7A4 /* EXRemoteInvocationException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXRemoteInvocationException.m; sourceTree = "<group>"; };
+		4338EC17115AC6C100A9C7A4 /* EXServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXServer.h; sourceTree = "<group>"; };
+		4338EC18115AC6C100A9C7A4 /* EXServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXServer.m; sourceTree = "<group>"; };
+		4338EC19115AC6C100A9C7A4 /* EXSharedObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXSharedObject.h; sourceTree = "<group>"; };
+		4338EC1A115AC6C100A9C7A4 /* EXSharedObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXSharedObject.m; sourceTree = "<group>"; };
+		4338EC1B115AC6C100A9C7A4 /* EXSorting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXSorting.h; sourceTree = "<group>"; };
+		4338EC1C115AC6C100A9C7A4 /* EXSorting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXSorting.m; sourceTree = "<group>"; };
+		4338EC1D115AC6C100A9C7A4 /* EXSyncInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXSyncInfo.h; sourceTree = "<group>"; };
+		4338EC1E115AC6C100A9C7A4 /* EXSyncInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXSyncInfo.m; sourceTree = "<group>"; };
+		4338EC1F115AC6C100A9C7A4 /* EXSyncInMessageObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXSyncInMessageObject.h; sourceTree = "<group>"; };
+		4338EC20115AC6C100A9C7A4 /* EXSyncInMessageObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXSyncInMessageObject.m; sourceTree = "<group>"; };
+		4338EC21115AC6C100A9C7A4 /* EXSyncOutMessageObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXSyncOutMessageObject.h; sourceTree = "<group>"; };
+		4338EC22115AC6C100A9C7A4 /* EXSyncOutMessageObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXSyncOutMessageObject.m; sourceTree = "<group>"; };
+		4338EC23115AC6C100A9C7A4 /* EXTransaction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXTransaction.h; sourceTree = "<group>"; };
+		4338EC24115AC6C100A9C7A4 /* EXTransaction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXTransaction.m; sourceTree = "<group>"; };
+		4338EC25115AC6C100A9C7A4 /* EXUpdateRequestReply.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXUpdateRequestReply.h; sourceTree = "<group>"; };
+		4338EC26115AC6C100A9C7A4 /* EXUpdateRequestReply.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXUpdateRequestReply.m; sourceTree = "<group>"; };
+		4338EC27115AC6C100A9C7A4 /* EXUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXUtils.h; sourceTree = "<group>"; };
+		4338EC28115AC6C100A9C7A4 /* EXUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXUtils.m; sourceTree = "<group>"; };
+		4338EC29115AC6C100A9C7A4 /* info.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = info.txt; sourceTree = "<group>"; };
+		4338EC2A115AC6C100A9C7A4 /* LXSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LXSocket.h; sourceTree = "<group>"; };
+		4338EC2B115AC6C100A9C7A4 /* LXSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LXSocket.m; sourceTree = "<group>"; };
+		4338EC2C115AC6C100A9C7A4 /* NSObject_iPhone_cat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSObject_iPhone_cat.h; sourceTree = "<group>"; };
+		4338EC2D115AC6C100A9C7A4 /* NSObject_iPhone_cat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSObject_iPhone_cat.m; sourceTree = "<group>"; };
+		4338EC2E115AC6C100A9C7A4 /* sqlite3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sqlite3.h; sourceTree = "<group>"; };
 		43BF52A110AC222500C116BD /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		43D501A1112B5FDE00F9216D /* ARView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ARView.mm; sourceTree = SOURCE_ROOT; };
 		43D501A2112B5FDE00F9216D /* ARView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ARView.h; sourceTree = SOURCE_ROOT; };
@@ -483,10 +579,10 @@
 		43D5080A1138846B00F9216D /* NSString+UUID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+UUID.h"; sourceTree = "<group>"; };
 		43D5080B1138846B00F9216D /* NSString+UUID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+UUID.m"; sourceTree = "<group>"; };
 		43D5082611389A2E00F9216D /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
-		43D5082D11389A9300F9216D /* OAuthTwitterDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OAuthTwitterDemoViewController.h; sourceTree = "<group>"; };
-		43D5082E11389A9300F9216D /* OAuthTwitterDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OAuthTwitterDemoViewController.m; sourceTree = "<group>"; };
 		43D5083011389AB500F9216D /* secrets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = secrets.h; sourceTree = "<group>"; };
 		43E472B110D5BCD60017E9C9 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
+		43F3CC93116C8203008C90B4 /* PostsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostsController.h; sourceTree = "<group>"; };
+		43F3CC94116C8203008C90B4 /* PostsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostsController.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E04BB9FE100D5B280078A39E /* sio2_action.cc */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = sio2_action.cc; path = sio2/sio2_action.cc; sourceTree = SOURCE_ROOT; };
 		E04BB9FF100D5B280078A39E /* sio2_action.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = sio2_action.h; path = sio2/sio2_action.h; sourceTree = SOURCE_ROOT; };
@@ -1098,10 +1194,10 @@
 		080E96DDFE201D6D7F000001 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				43D5082D11389A9300F9216D /* OAuthTwitterDemoViewController.h */,
-				43D5082E11389A9300F9216D /* OAuthTwitterDemoViewController.m */,
 				E0E310860E5EA3C300F6D25F /* main.h */,
 				29B97316FDCFA39411CA2CEA /* main.mm */,
+				43D501A3112B5FDE00F9216D /* AppDelegate.mm */,
+				43D501A4112B5FDE00F9216D /* AppDelegate.h */,
 				43D50344112C715600F9216D /* Texture2D.h */,
 				43D50345112C715600F9216D /* Texture2D.m */,
 				43D503B0112C772A00F9216D /* ASyncImage.h */,
@@ -1114,24 +1210,24 @@
 				43D503B4112C773D00F9216D /* ListController.m */,
 				43D503B5112C773D00F9216D /* ProfilesController.h */,
 				43D503B6112C773D00F9216D /* ProfilesController.m */,
-				43D503B7112C773D00F9216D /* ProfileController.h */,
-				43D503B8112C773D00F9216D /* ProfileController.m */,
 				43D505601137644A00F9216D /* ProfileNewController.h */,
 				43D505611137644A00F9216D /* ProfileNewController.m */,
-				43D503B9112C773D00F9216D /* DetailController.h */,
-				43D503BA112C773D00F9216D /* DetailController.m */,
+				43D503B7112C773D00F9216D /* ProfileController.h */,
+				43D503B8112C773D00F9216D /* ProfileController.m */,
 				43D503AA112C770A00F9216D /* MapController.h */,
 				43D503AB112C770A00F9216D /* MapController.m */,
 				43D5035F112C716E00F9216D /* HUDController.h */,
 				43D50360112C716E00F9216D /* HUDController.m */,
+				43F3CC93116C8203008C90B4 /* PostsController.h */,
+				43F3CC94116C8203008C90B4 /* PostsController.m */,
 				43D50341112C714B00F9216D /* PostController.h */,
 				43D50342112C714B00F9216D /* PostController.m */,
+				43D503B9112C773D00F9216D /* DetailController.h */,
+				43D503BA112C773D00F9216D /* DetailController.m */,
 				43D501A2112B5FDE00F9216D /* ARView.h */,
 				43D501A1112B5FDE00F9216D /* ARView.mm */,
 				43D5049A112D028A00F9216D /* ARController.h */,
 				43D50499112D028A00F9216D /* ARController.mm */,
-				43D501A3112B5FDE00F9216D /* AppDelegate.mm */,
-				43D501A4112B5FDE00F9216D /* AppDelegate.h */,
 				32CA4F630368D1EE00C91783 /* augmentia_Prefix.pch */,
 				E0E310870E5EA40200F6D25F /* augmentia.h */,
 				E0E310880E5EA40200F6D25F /* augmentia.mm */,
@@ -1152,6 +1248,7 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				4338EBE8115AC6AC00A9C7A4 /* entropydb */,
 				43D507D31138846B00F9216D /* Twitter+OAuth */,
 				43D502FE112C6F4900F9216D /* globe */,
 				43E472B110D5BCD60017E9C9 /* README */,
@@ -1240,6 +1337,85 @@
 				430D307110B39A55002950F6 /* CJSONSerializer.m */,
 			);
 			path = JSON;
+			sourceTree = "<group>";
+		};
+		4338EBE8115AC6AC00A9C7A4 /* entropydb */ = {
+			isa = PBXGroup;
+			children = (
+				4338EBEE115AC6C100A9C7A4 /* stable */,
+			);
+			name = entropydb;
+			sourceTree = "<group>";
+		};
+		4338EBEE115AC6C100A9C7A4 /* stable */ = {
+			isa = PBXGroup;
+			children = (
+				4338EBEF115AC6C100A9C7A4 /* EXContainer.h */,
+				4338EBF0115AC6C100A9C7A4 /* EXContainer.m */,
+				4338EBF1115AC6C100A9C7A4 /* EXContainerUniqueIdentifier.h */,
+				4338EBF2115AC6C100A9C7A4 /* EXContainerUniqueIdentifier.m */,
+				4338EBF3115AC6C100A9C7A4 /* EXDecomposer.h */,
+				4338EBF4115AC6C100A9C7A4 /* EXDecomposer.m */,
+				4338EBF5115AC6C100A9C7A4 /* EXDrainer.h */,
+				4338EBF6115AC6C100A9C7A4 /* EXDrainer.m */,
+				4338EBF7115AC6C100A9C7A4 /* EXException.h */,
+				4338EBF8115AC6C100A9C7A4 /* EXException.m */,
+				4338EBF9115AC6C100A9C7A4 /* EXFile.h */,
+				4338EBFA115AC6C100A9C7A4 /* EXFile.m */,
+				4338EBFB115AC6C100A9C7A4 /* EXGlobalSyncInfo.h */,
+				4338EBFC115AC6C100A9C7A4 /* EXGlobalSyncInfo.m */,
+				4338EBFD115AC6C100A9C7A4 /* EXMessage.h */,
+				4338EBFE115AC6C100A9C7A4 /* EXMessage.m */,
+				4338EBFF115AC6C100A9C7A4 /* EXMessageRelay.h */,
+				4338EC00115AC6C100A9C7A4 /* EXMessageRelay.m */,
+				4338EC01115AC6C100A9C7A4 /* EXMessenger.h */,
+				4338EC02115AC6C100A9C7A4 /* EXMessenger.m */,
+				4338EC03115AC6C100A9C7A4 /* EXObjectProxy.h */,
+				4338EC04115AC6C100A9C7A4 /* EXObjectProxy.m */,
+				4338EC05115AC6C100A9C7A4 /* EXPersistentMessage.h */,
+				4338EC06115AC6C100A9C7A4 /* EXPersistentMessage.m */,
+				4338EC07115AC6C100A9C7A4 /* EXPersistentObject.h */,
+				4338EC08115AC6C100A9C7A4 /* EXPersistentObject.m */,
+				4338EC09115AC6C100A9C7A4 /* EXPredicate.h */,
+				4338EC0A115AC6C100A9C7A4 /* EXPredicate.m */,
+				4338EC0B115AC6C100A9C7A4 /* EXPredicateEqualInt.h */,
+				4338EC0C115AC6C100A9C7A4 /* EXPredicateEqualInt.m */,
+				4338EC0D115AC6C100A9C7A4 /* EXPredicateEqualInt64.h */,
+				4338EC0E115AC6C100A9C7A4 /* EXPredicateEqualInt64.m */,
+				4338EC0F115AC6C100A9C7A4 /* EXPredicateEqualText.h */,
+				4338EC10115AC6C100A9C7A4 /* EXPredicateEqualText.m */,
+				4338EC11115AC6C100A9C7A4 /* EXProxy.h */,
+				4338EC12115AC6C100A9C7A4 /* EXProxy.m */,
+				4338EC13115AC6C100A9C7A4 /* EXReferringElement.h */,
+				4338EC14115AC6C100A9C7A4 /* EXReferringElement.m */,
+				4338EC15115AC6C100A9C7A4 /* EXRemoteInvocationException.h */,
+				4338EC16115AC6C100A9C7A4 /* EXRemoteInvocationException.m */,
+				4338EC17115AC6C100A9C7A4 /* EXServer.h */,
+				4338EC18115AC6C100A9C7A4 /* EXServer.m */,
+				4338EC19115AC6C100A9C7A4 /* EXSharedObject.h */,
+				4338EC1A115AC6C100A9C7A4 /* EXSharedObject.m */,
+				4338EC1B115AC6C100A9C7A4 /* EXSorting.h */,
+				4338EC1C115AC6C100A9C7A4 /* EXSorting.m */,
+				4338EC1D115AC6C100A9C7A4 /* EXSyncInfo.h */,
+				4338EC1E115AC6C100A9C7A4 /* EXSyncInfo.m */,
+				4338EC1F115AC6C100A9C7A4 /* EXSyncInMessageObject.h */,
+				4338EC20115AC6C100A9C7A4 /* EXSyncInMessageObject.m */,
+				4338EC21115AC6C100A9C7A4 /* EXSyncOutMessageObject.h */,
+				4338EC22115AC6C100A9C7A4 /* EXSyncOutMessageObject.m */,
+				4338EC23115AC6C100A9C7A4 /* EXTransaction.h */,
+				4338EC24115AC6C100A9C7A4 /* EXTransaction.m */,
+				4338EC25115AC6C100A9C7A4 /* EXUpdateRequestReply.h */,
+				4338EC26115AC6C100A9C7A4 /* EXUpdateRequestReply.m */,
+				4338EC27115AC6C100A9C7A4 /* EXUtils.h */,
+				4338EC28115AC6C100A9C7A4 /* EXUtils.m */,
+				4338EC29115AC6C100A9C7A4 /* info.txt */,
+				4338EC2A115AC6C100A9C7A4 /* LXSocket.h */,
+				4338EC2B115AC6C100A9C7A4 /* LXSocket.m */,
+				4338EC2C115AC6C100A9C7A4 /* NSObject_iPhone_cat.h */,
+				4338EC2D115AC6C100A9C7A4 /* NSObject_iPhone_cat.m */,
+				4338EC2E115AC6C100A9C7A4 /* sqlite3.h */,
+			);
+			path = stable;
 			sourceTree = "<group>";
 		};
 		43D502FE112C6F4900F9216D /* globe */ = {
@@ -2025,6 +2201,7 @@
 				43E472B210D5BCD60017E9C9 /* README in Resources */,
 				43D503A8112C76F200F9216D /* icon.png in Resources */,
 				43D503A9112C76F200F9216D /* db.sql in Resources */,
+				4338EC4C115AC6C100A9C7A4 /* info.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2368,7 +2545,38 @@
 				43D5081A1138846B00F9216D /* MGTwitterXMLParser.m in Sources */,
 				43D5081B1138846B00F9216D /* NSData+Base64.m in Sources */,
 				43D5081C1138846B00F9216D /* NSString+UUID.m in Sources */,
-				43D5082F11389A9300F9216D /* OAuthTwitterDemoViewController.m in Sources */,
+				4338EC2F115AC6C100A9C7A4 /* EXContainer.m in Sources */,
+				4338EC30115AC6C100A9C7A4 /* EXContainerUniqueIdentifier.m in Sources */,
+				4338EC31115AC6C100A9C7A4 /* EXDecomposer.m in Sources */,
+				4338EC32115AC6C100A9C7A4 /* EXDrainer.m in Sources */,
+				4338EC33115AC6C100A9C7A4 /* EXException.m in Sources */,
+				4338EC34115AC6C100A9C7A4 /* EXFile.m in Sources */,
+				4338EC35115AC6C100A9C7A4 /* EXGlobalSyncInfo.m in Sources */,
+				4338EC36115AC6C100A9C7A4 /* EXMessage.m in Sources */,
+				4338EC37115AC6C100A9C7A4 /* EXMessageRelay.m in Sources */,
+				4338EC38115AC6C100A9C7A4 /* EXMessenger.m in Sources */,
+				4338EC39115AC6C100A9C7A4 /* EXObjectProxy.m in Sources */,
+				4338EC3A115AC6C100A9C7A4 /* EXPersistentMessage.m in Sources */,
+				4338EC3B115AC6C100A9C7A4 /* EXPersistentObject.m in Sources */,
+				4338EC3C115AC6C100A9C7A4 /* EXPredicate.m in Sources */,
+				4338EC3D115AC6C100A9C7A4 /* EXPredicateEqualInt.m in Sources */,
+				4338EC3E115AC6C100A9C7A4 /* EXPredicateEqualInt64.m in Sources */,
+				4338EC3F115AC6C100A9C7A4 /* EXPredicateEqualText.m in Sources */,
+				4338EC40115AC6C100A9C7A4 /* EXProxy.m in Sources */,
+				4338EC41115AC6C100A9C7A4 /* EXReferringElement.m in Sources */,
+				4338EC42115AC6C100A9C7A4 /* EXRemoteInvocationException.m in Sources */,
+				4338EC43115AC6C100A9C7A4 /* EXServer.m in Sources */,
+				4338EC44115AC6C100A9C7A4 /* EXSharedObject.m in Sources */,
+				4338EC45115AC6C100A9C7A4 /* EXSorting.m in Sources */,
+				4338EC46115AC6C100A9C7A4 /* EXSyncInfo.m in Sources */,
+				4338EC47115AC6C100A9C7A4 /* EXSyncInMessageObject.m in Sources */,
+				4338EC48115AC6C100A9C7A4 /* EXSyncOutMessageObject.m in Sources */,
+				4338EC49115AC6C100A9C7A4 /* EXTransaction.m in Sources */,
+				4338EC4A115AC6C100A9C7A4 /* EXUpdateRequestReply.m in Sources */,
+				4338EC4B115AC6C100A9C7A4 /* EXUtils.m in Sources */,
+				4338EC4D115AC6C100A9C7A4 /* LXSocket.m in Sources */,
+				4338EC4E115AC6C100A9C7A4 /* NSObject_iPhone_cat.m in Sources */,
+				43F3CC95116C8203008C90B4 /* PostsController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

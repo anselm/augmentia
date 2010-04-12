@@ -3,32 +3,88 @@
 #import "AppDelegate.h"
 #import "db.h"
 
+#import "SA_OAuthTwitterEngine.h"
+#import "secrets.h"
+
 @implementation ProfileNewController
 
-- (id) init {
-	self = [ super initWithStyle: UITableViewStyleGrouped ];
-	if (self != nil) {
-		self.title = @"Settings";
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+// twitter oauth
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+- (void) storeCachedTwitterOAuthData: (NSString *) data forUsername: (NSString *) username {
+	if(false) {
+		// Save the oauth key in application preferences bundle
+		NSUserDefaults	*defaults = [NSUserDefaults standardUserDefaults];
+		[defaults setObject: data forKey: username];
+		[defaults synchronize];
+	} else {
+		// Save the oauth key in database
+		[[DB sharedDB] updateNote:@"profile" Title:username Description:data Image:@"nil"];		
 	}
-	return self;
 }
 
-- (void) loadView {
-	[ super loadView ];
+- (NSString *) cachedTwitterOAuthDataForUsername: (NSString *) username {
+	if(false) {
+		// Get the oauth key from the preferences bundle
+		return [[NSUserDefaults standardUserDefaults] objectForKey: username ];
+	} else {
+		// Get oauth from database
+		Note *note = [[DB sharedDB] getNote:@"profile" Title:username];
+		if( note != nil ) {
+			return [note description];
+		}
+	}
+	return nil;
+}
+
+- (void) OAuthTwitterController: (SA_OAuthTwitterController *) controller authenticatedWithUsername: (NSString *) username {
+	NSLog(@"Authentication succeeded for %@", username);
+	[self.navigationController popViewControllerAnimated:true];
+}
+
+- (void) OAuthTwitterControllerFailed: (SA_OAuthTwitterController *) controller {
+	NSLog(@"Authentication Failed!");
+	// TODO print an alert
+}
+
+- (void) OAuthTwitterControllerCanceled: (SA_OAuthTwitterController *) controller {
+	NSLog(@"Authentication Canceled.");
+}
+
+- (void) requestSucceeded: (NSString *) requestIdentifier {
+	NSLog(@"Request %@ succeeded", requestIdentifier);
+	// this appears to just be for us internally? TODO what is diff with above - breakpoint based test
+}
+
+- (void) requestFailed: (NSString *) requestIdentifier withError: (NSError *) error {
+	NSLog(@"Request %@ failed with error: %@", requestIdentifier, error);
+	// show an alert TODO
 }
 
 -(void) connectToTwitter:(UIButton*)sender {
-	NSLog(@"button pressed");
-	AppDelegate *d = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-	[d setActiveViewController:@"TwitterAuth"];
+	if (!twitter_engine) {
+		twitter_engine = [[SA_OAuthTwitterEngine alloc] initOAuthWithDelegate: self];
+		twitter_engine.consumerKey = kOAuthConsumerKey;
+		twitter_engine.consumerSecret = kOAuthConsumerSecret;
+		UIViewController *controller = [SA_OAuthTwitterController controllerToEnterCredentialsWithTwitterEngine: twitter_engine delegate: self];
+		if (controller)  {
+			[self presentModalViewController: controller animated: YES];
+		} else {
+			NSLog(@"hmm, authenticated already ...");
+			// TODO it is unclear if this controller will simply not come up in some cases.
+			// TODO say something nice like this account is already validated
+			//[twitter_engine sendUpdate: [NSString stringWithFormat: @"Testing... %@", [NSDate date]]];
+		}
+	}
 }
 
+/* unused - we used to have a save button but now we just do a twitter oauth
+ 
 -(void) saveAction:(id) sender {
-
-	// - connect to twitter right now and validate this account
-
+	
 	if( FALSE ) {
-		// Advise of problem		
+		// Advise of problem TODO
 		NSString *str = [[NSString alloc] initWithFormat:playerNameField.text];
 		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Difficulty validating account!" 
 														message:str delegate:self 
@@ -44,20 +100,33 @@
 		[d setActiveViewController:@"profiles_from_profile_new"];
 	}
 }
+*/
 
--(void) textFieldDoneEditing : (id) sender {
-	//name = @"sss";
-	//password = @"aaaa";
-	[sender resignFirstResponder];
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+// boilerplate setup
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+- (id) init {
+	self = [ super initWithStyle: UITableViewStyleGrouped ];
+	if (self != nil) {
+		self.title = @"Profile New";
+	}
+	return self;
+}
+
+- (void) loadView {
+	[ super loadView ];
 }
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	UIBarButtonItem *addButton = [[UIBarButtonItem alloc]
-                                  initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(saveAction:)];
-	self.navigationItem.rightBarButtonItem = addButton;
-}	
 
+	// TODO obsolete remove - we used to have a save button but now we just do a twitter oauth
+	//
+	//	UIBarButtonItem *addButton = [[UIBarButtonItem alloc]
+	//                                  initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(saveAction:)];
+	//	self.navigationItem.rightBarButtonItem = addButton;
+}	
 
 - (BOOL)shouldAutorotateToInterfaceOrientation: (UIInterfaceOrientation)interfaceOrientation {
 	return (interfaceOrientation == UIInterfaceOrientationPortrait);
@@ -68,17 +137,71 @@
 }
 
 - (void)dealloc {
+	[twitter_engine release];
 	[ super dealloc ];
 }
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+// boilerplate event handling
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+-(void) textFieldDoneEditing : (id) sender {
+	//name = @"sss";
+	//password = @"aaaa";
+	[sender resignFirstResponder];
+}
+
+- (void)segmentAction:(UISegmentedControl*)sender {
+    if ([activeTextField canResignFirstResponder])
+		[activeTextField resignFirstResponder];
+	
+    NSLog(@"segmentAction: sender = %d, segment = %d", [sender tag], [sender selectedSegmentIndex]);
+}
+
+- (void)sliderAction:(UISlider*)sender {
+    if ([activeTextField canResignFirstResponder])
+		[activeTextField resignFirstResponder];
+	NSLog(@"sliderAction: sender = %d, value = %.1f", [sender tag], [sender value]);
+}
+
+- (void)switchAction:(UISwitch*)sender {
+    if ([activeTextField canResignFirstResponder])
+		[activeTextField resignFirstResponder];
+    NSLog(@"switchAction: sender = %d, isOn %d", [sender tag], [sender isOn]);
+}
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    activeTextField = textField;
+    NSLog(@"textFieldShouldBeginEditing: sender = %d, %@", [textField tag], [textField text]);
+    return YES;
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+    NSLog(@"textFieldDidEndEditing: sender = %d, %@", [textField tag], [textField text]);
+	// test scrap
+	//AppDelegate *app = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+	//[app showGlobe];
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    NSLog(@"textFieldShouldReturn: sender = %d, %@", [textField tag], [textField text]);
+    activeTextField = nil;
+    [textField resignFirstResponder];
+    return YES;
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+// view
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	return 3;
+	return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     switch (section) {
 		case(0):
-			return 3;
+			return 1;
 			break;
 		case(1):
 			return 6;
@@ -94,7 +217,7 @@
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     switch (section) {
 		case(0):
-			return @"Profile Settings";
+			return @"Login";
 			break;
 		case(1):
 			return @"Game Settings";
@@ -105,6 +228,8 @@
     }
     return nil;
 }
+
+// http://developer.apple.com/iphone/library/documentation/UserExperience/Conceptual/TableView_iPhone/TableViewCells/TableViewCells.html
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString *CellIdentifier = [ NSString stringWithFormat: @"%d:%d", [ indexPath indexAtPosition: 0 ], [ indexPath indexAtPosition:1 ]];
@@ -120,6 +245,34 @@
 			case(0):
 				switch ([ indexPath indexAtPosition: 1 ]) {
 					case(0):
+					{						
+						UIButton *button = [[UIButton buttonWithType:UIButtonTypeRoundedRect] retain];
+						button.frame = CGRectMake(60, 6, 200, 35);
+						//[button setFrame: CGRectMake(120,10,100,10)];
+						//button.backgroundColor = [UIColor blueColor];
+						[button setTitle:@"Connect to Twitter" forState:UIControlStateNormal];
+						[button addTarget:self action:@selector(connectToTwitter:) forControlEvents:UIControlEventTouchUpInside];
+
+						//button.center = self.center;
+						//[cell.textLabel setText:@"Role"];
+						
+						//[button setCenter:CGPointMake(120, 10)];
+						
+						//	[button setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+						//	[button setTitleColor:[UIColor blackColor] forState:UIControlEventTouchDown];
+						//	button.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+						//	button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;						
+						
+						UIView *transparentBackground = [[UIView alloc] initWithFrame:CGRectZero];
+						transparentBackground.backgroundColor = [UIColor clearColor];
+						cell.backgroundView = transparentBackground;
+						//cell.contentView.backgroundColor = [UIColor blueColor];
+						
+						[cell addSubview:button ];
+						[button release];
+						break;
+					}						
+					case(1):
 					{
 						playerNameField = [ [ UITextField alloc ] initWithFrame: CGRectMake(120, 12, 145, 28) ];
 						playerNameField.adjustsFontSizeToFitWidth = YES;
@@ -146,7 +299,7 @@
 						[playerNameField becomeFirstResponder];
 						break;
 					}
-					case(1):
+					case(2):
 					{
 						playerPasswordField = [ [ UITextField alloc ] initWithFrame: CGRectMake(120, 12, 145, 28) ];
 						playerPasswordField.adjustsFontSizeToFitWidth = YES;
@@ -171,36 +324,6 @@
 						[cell.textLabel setText:@"Password"];
 						[playerPasswordField release];
 						//[playerPasswordField becomeFirstResponder];
-						break;
-					}
-					case(2):
-					{
-						// http://developer.apple.com/iphone/library/documentation/UserExperience/Conceptual/TableView_iPhone/TableViewCells/TableViewCells.html
-
-						UIButton *button = [[UIButton buttonWithType:UIButtonTypeRoundedRect] retain];
-						button.frame = CGRectMake(60, 6, 200, 35);
-						//[button setFrame: CGRectMake(120,10,100,10)];
-						//button.backgroundColor = [UIColor blueColor];
-						[button setTitle:@"Connect to Twitter" forState:UIControlStateNormal];
-						[button addTarget:self action:@selector(connectToTwitter:) forControlEvents:UIControlEventTouchUpInside];
-
-						//button.center = self.center;
-						//[cell.textLabel setText:@"Role"];
-
-						//[button setCenter:CGPointMake(120, 10)];
-
-					//	[button setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-					//	[button setTitleColor:[UIColor blackColor] forState:UIControlEventTouchDown];
-					//	button.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-					//	button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;						
-
-						UIView *transparentBackground = [[UIView alloc] initWithFrame:CGRectZero];
-						transparentBackground.backgroundColor = [UIColor clearColor];
-						cell.backgroundView = transparentBackground;
-						//cell.contentView.backgroundColor = [UIColor blueColor];
-						
-						[cell addSubview:button ];
-						[button release];
 						break;
 					}
 				}
@@ -313,45 +436,5 @@
 	
     return cell;
 }
-
-- (void)segmentAction:(UISegmentedControl*)sender {
-    if ([activeTextField canResignFirstResponder])
-		[activeTextField resignFirstResponder];
-	
-    NSLog(@"segmentAction: sender = %d, segment = %d", [sender tag], [sender selectedSegmentIndex]);
-}
-
-- (void)sliderAction:(UISlider*)sender {
-    if ([activeTextField canResignFirstResponder])
-		[activeTextField resignFirstResponder];
-	NSLog(@"sliderAction: sender = %d, value = %.1f", [sender tag], [sender value]);
-}
-
-- (void)switchAction:(UISwitch*)sender {
-    if ([activeTextField canResignFirstResponder])
-		[activeTextField resignFirstResponder];
-    NSLog(@"switchAction: sender = %d, isOn %d", [sender tag], [sender isOn]);
-}
-
-- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
-    activeTextField = textField;
-    NSLog(@"textFieldShouldBeginEditing: sender = %d, %@", [textField tag], [textField text]);
-    return YES;
-}
-
-- (void)textFieldDidEndEditing:(UITextField *)textField {
-    NSLog(@"textFieldDidEndEditing: sender = %d, %@", [textField tag], [textField text]);
-	// test scrap
-	//AppDelegate *app = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-	//[app showGlobe];
-}
-
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    NSLog(@"textFieldShouldReturn: sender = %d, %@", [textField tag], [textField text]);
-    activeTextField = nil;
-    [textField resignFirstResponder];
-    return YES;
-}
-
 
 @end

@@ -1,25 +1,33 @@
 
 #import <MapKit/MapKit.h>
 
+// http://cocoadevcentral.com/d/learn_objectivec/
+// http://www.cocoacast.com/?q=node/103
+
 @interface Note : NSObject <MKAnnotation> {
-	int id;
-	NSString *kind;
-	NSString *title;
-    NSString *subtitle;
-	NSString *description;
-	NSString *image;
-	NSString *secret;
-	float lat;
-	float lon;
-	int favorite;
-	NSString *owner;
-	NSString *uuid;
-	CLLocationCoordinate2D coordinate;
+	@public NSString *key;
+	@public NSString *kind;
+	@public NSString *title;
+    @public NSString *subtitle;
+	@public NSString *description;
+	@public NSString *image;
+	@public NSString *secret;
+	@public float lat;
+	@public float lon;
+	@public int favorite;
+	@public NSString *owner;
+	@public NSString *uuid;
+	@public CLLocationCoordinate2D coordinate;
+	@public BOOL dirty;
 }
-@property (nonatomic, retain) NSString *title;
-@property (nonatomic, retain) NSString *subtitle;
-@property (nonatomic, retain) NSString *description;
-@property (nonatomic, retain) NSString *image;
+
+@property (nonatomic, retain, readwrite ) NSString *kind;
+@property (nonatomic, retain, readwrite ) NSString *title;
+@property (nonatomic, retain, readwrite ) NSString *subtitle;
+@property (nonatomic, retain, readwrite ) NSString *description;
+@property (nonatomic, retain, readwrite ) NSString *image;
 @property (nonatomic, assign) CLLocationCoordinate2D coordinate;
--(id)init:(NSString *)t description:(NSString *)d image:(NSString *)i;
+-(id)init:(NSString*)k title:(NSString *)t description:(NSString *)d image:(NSString *)i;
+-(void) print;
+-(void) dealloc;
 @end

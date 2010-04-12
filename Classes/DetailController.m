@@ -39,9 +39,9 @@
 	[gameVolumeControl addTarget:self action:@selector(sliderAction:) forControlEvents:UIControlEventValueChanged];
 	[self.view addSubview: gameVolumeControl ];
 	[ gameVolumeControl release ];
-	
+
 	AppDelegate *d = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-	Note* note = d.db.cursor;
+	Note* note = nil; // XXX TODO d.db.cursor;
 
 	NSData *file = [NSData dataWithContentsOfURL:[NSURL URLWithString:[note image]]];
 	UIImage *uiimage = [[UIImage alloc] initWithData:file];

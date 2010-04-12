@@ -27,6 +27,7 @@ extern int ar_create_request;
 extern float ar_create_lat;
 extern float ar_create_lon;
 extern char* ar_create_name;
+
 void augmentiaAddObject(int uuid,float lat, float lon, float heading);
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

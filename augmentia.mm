@@ -58,6 +58,9 @@ vec3 target = { 0,0,0 };
 // also you can drive the view around with your finger independent of actually physically moving
 //
 //
+
+extern float xfilter,yfilter,zfilter;
+
 void augmentiaCamera() {
 
 	SIO2camera *camera = sio2->_SIO2camera;
@@ -77,13 +80,14 @@ void augmentiaCamera() {
 	}
 
 	float speed = window->d_time;
-
+	float angle = atan2(xfilter, yfilter) + M_PI / 2.0;
+	
 	// camera apply local forces to camera and set camera heading; this snaps no ease in
 	camera_rotation += camera_angular;
 	camera_orientation = (heading - first_heading) + camera_rotation;
 	camera->_SIO2transform->dir->x = cosf(camera_orientation*3.1459/180);
 	camera->_SIO2transform->dir->y = -sinf(camera_orientation*3.1459/180);
-	camera->_SIO2transform->dir->z = 0.0;
+	camera->_SIO2transform->dir->z = yfilter * 3.1459;
 
 	// apply any thrust to camera along heading
 	if( camera_thrust ) {

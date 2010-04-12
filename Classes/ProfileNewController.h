@@ -1,10 +1,16 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ProfileNewController: UITableViewController <UITextFieldDelegate> {
+
+#import "SA_OAuthTwitterController.h"
+
+@class SA_OAuthTwitterEngine;
+
+@interface ProfileNewController: UITableViewController <UITextFieldDelegate, SA_OAuthTwitterControllerDelegate> {
 	UITextField *activeTextField;
 	UITextField *playerNameField;
 	UITextField *playerPasswordField;
+	SA_OAuthTwitterEngine *twitter_engine;
 }
 - (id) init;
 - (void) dealloc;
