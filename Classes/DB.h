@@ -13,7 +13,9 @@
 @interface DB : NSObject {
 	NSString *databaseName;
 	NSString *databasePath;
+	NSMutableDictionary *notes;
 }
+@property (nonatomic, retain) NSMutableDictionary* notes;
 + (id)sharedDB;
 - (void) updateNote:(NSString *)k Title:(NSString *)t Description:(NSString *)d Image:(NSString *)i;
 - (Note*) getNote:(NSString *)kind Title:(NSString *)title;

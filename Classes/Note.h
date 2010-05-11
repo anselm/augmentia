@@ -18,8 +18,12 @@
 	@public NSString *owner;
 	@public NSString *uuid;
 	@public CLLocationCoordinate2D coordinate;
-	@public BOOL dirty;
+	@public int flags;
 }
+
+#define NOTE_DIRTY		1
+#define NOTE_UNRENDERED	2
+#define NOTE_OBSOLETE	4
 
 @property (nonatomic, retain, readwrite ) NSString *kind;
 @property (nonatomic, retain, readwrite ) NSString *title;

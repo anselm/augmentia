@@ -7,13 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1D60589B0D05DD56006BFB54 /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.mm */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		28FD15000DC6FC520079059D /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28FD14FF0DC6FC520079059D /* OpenGLES.framework */; };
 		28FD15080DC6FC5B0079059D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28FD15070DC6FC5B0079059D /* QuartzCore.framework */; };
 		430D2DB610B330D7002950F6 /* shadowland.sio2 in Resources */ = {isa = PBXBuildFile; fileRef = 430D2DB510B330D7002950F6 /* shadowland.sio2 */; };
-		430D307210B39A55002950F6 /* CDataScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 430D306110B39A55002950F6 /* CDataScanner.m */; };
 		430D307310B39A55002950F6 /* CDataScanner_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 430D306410B39A55002950F6 /* CDataScanner_Extensions.m */; };
 		430D307410B39A55002950F6 /* NSCharacterSet_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 430D306610B39A55002950F6 /* NSCharacterSet_Extensions.m */; };
 		430D307510B39A55002950F6 /* NSDictionary_JSONExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 430D306810B39A55002950F6 /* NSDictionary_JSONExtensions.m */; };
@@ -53,9 +51,14 @@
 		4338EC4C115AC6C100A9C7A4 /* info.txt in Resources */ = {isa = PBXBuildFile; fileRef = 4338EC29115AC6C100A9C7A4 /* info.txt */; };
 		4338EC4D115AC6C100A9C7A4 /* LXSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 4338EC2B115AC6C100A9C7A4 /* LXSocket.m */; };
 		4338EC4E115AC6C100A9C7A4 /* NSObject_iPhone_cat.m in Sources */ = {isa = PBXBuildFile; fileRef = 4338EC2D115AC6C100A9C7A4 /* NSObject_iPhone_cat.m */; };
+		43AF6AE81177D75D001EB8B0 /* Sensor.m in Sources */ = {isa = PBXBuildFile; fileRef = 43AF6AE71177D75D001EB8B0 /* Sensor.m */; };
 		43BF52A210AC222500C116BD /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43BF52A110AC222500C116BD /* CoreLocation.framework */; };
-		43D501A5112B5FDE00F9216D /* ARView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 43D501A1112B5FDE00F9216D /* ARView.mm */; };
-		43D501A6112B5FDE00F9216D /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 43D501A3112B5FDE00F9216D /* AppDelegate.mm */; };
+		43D482C6119915F500C72988 /* ARView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 43D482C0119915F500C72988 /* ARView.mm */; };
+		43D482C7119915F500C72988 /* ARController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 43D482C2119915F500C72988 /* ARController.mm */; };
+		43D482C8119915F500C72988 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 43D482C4119915F500C72988 /* AppDelegate.mm */; };
+		43D482CB1199162100C72988 /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = 43D482C91199162100C72988 /* main.mm */; };
+		43D482CE1199166A00C72988 /* augmentia.mm in Sources */ = {isa = PBXBuildFile; fileRef = 43D482CC1199166A00C72988 /* augmentia.mm */; };
+		43D482D1119916B300C72988 /* CDataScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D482CF119916B300C72988 /* CDataScanner.m */; };
 		43D5027A112B73FB00F9216D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43D50279112B73FB00F9216D /* CoreGraphics.framework */; };
 		43D5032B112C707E00F9216D /* GlobeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D50324112C707E00F9216D /* GlobeController.m */; };
 		43D5032C112C707E00F9216D /* globe.c in Sources */ = {isa = PBXBuildFile; fileRef = 43D50327112C707E00F9216D /* globe.c */; };
@@ -75,7 +78,6 @@
 		43D503BE112C773D00F9216D /* DetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D503BA112C773D00F9216D /* DetailController.m */; };
 		43D503C1112C774B00F9216D /* Note.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D503C0112C774B00F9216D /* Note.m */; };
 		43D50471112D010400F9216D /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43D50470112D010400F9216D /* MapKit.framework */; };
-		43D5049B112D028A00F9216D /* ARController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 43D50499112D028A00F9216D /* ARController.mm */; };
 		43D505621137644A00F9216D /* ProfileNewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D505611137644A00F9216D /* ProfileNewController.m */; };
 		43D5080C1138846B00F9216D /* libOAuth.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 43D507D51138846B00F9216D /* libOAuth.a */; };
 		43D5080D1138846B00F9216D /* SA_OAuthTwitterEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D507D71138846B00F9216D /* SA_OAuthTwitterEngine.m */; };
@@ -258,7 +260,6 @@
 		E0A9FB180EC420F10077F188 /* info.c in Sources */ = {isa = PBXBuildFile; fileRef = E0A9FB080EC420F10077F188 /* info.c */; };
 		E0A9FB190EC420F10077F188 /* idct.c in Sources */ = {isa = PBXBuildFile; fileRef = E0A9FB0A0EC420F10077F188 /* idct.c */; };
 		E0E30D6B0E5EA2FA00F6D25F /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0E30D6A0E5EA2FA00F6D25F /* OpenAL.framework */; };
-		E0E310890E5EA40200F6D25F /* augmentia.mm in Sources */ = {isa = PBXBuildFile; fileRef = E0E310880E5EA40200F6D25F /* augmentia.mm */; };
 		E0E312CB0E5EA54A00F6D25F /* zutil.c in Sources */ = {isa = PBXBuildFile; fileRef = E0E310E10E5EA54900F6D25F /* zutil.c */; };
 		E0E312CC0E5EA54A00F6D25F /* uncompr.c in Sources */ = {isa = PBXBuildFile; fileRef = E0E310E20E5EA54900F6D25F /* uncompr.c */; };
 		E0E312CD0E5EA54A00F6D25F /* unzip.c in Sources */ = {isa = PBXBuildFile; fileRef = E0E310E30E5EA54900F6D25F /* unzip.c */; };
@@ -399,11 +400,8 @@
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		28FD14FF0DC6FC520079059D /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		28FD15070DC6FC5B0079059D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		29B97316FDCFA39411CA2CEA /* main.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = main.mm; path = ../main.mm; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* augmentia_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = augmentia_Prefix.pch; path = ../augmentia_Prefix.pch; sourceTree = "<group>"; };
 		430D2DB510B330D7002950F6 /* shadowland.sio2 */ = {isa = PBXFileReference; lastKnownFileType = file; path = shadowland.sio2; sourceTree = "<group>"; };
-		430D306010B39A55002950F6 /* CDataScanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDataScanner.h; sourceTree = "<group>"; };
-		430D306110B39A55002950F6 /* CDataScanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDataScanner.m; sourceTree = "<group>"; };
 		430D306310B39A55002950F6 /* CDataScanner_Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDataScanner_Extensions.h; sourceTree = "<group>"; };
 		430D306410B39A55002950F6 /* CDataScanner_Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDataScanner_Extensions.m; sourceTree = "<group>"; };
 		430D306510B39A55002950F6 /* NSCharacterSet_Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSCharacterSet_Extensions.h; sourceTree = "<group>"; };
@@ -482,11 +480,21 @@
 		4338EC2C115AC6C100A9C7A4 /* NSObject_iPhone_cat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSObject_iPhone_cat.h; sourceTree = "<group>"; };
 		4338EC2D115AC6C100A9C7A4 /* NSObject_iPhone_cat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSObject_iPhone_cat.m; sourceTree = "<group>"; };
 		4338EC2E115AC6C100A9C7A4 /* sqlite3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sqlite3.h; sourceTree = "<group>"; };
+		43AF6AE61177D75D001EB8B0 /* Sensor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sensor.h; sourceTree = "<group>"; };
+		43AF6AE71177D75D001EB8B0 /* Sensor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Sensor.m; sourceTree = "<group>"; };
 		43BF52A110AC222500C116BD /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
-		43D501A1112B5FDE00F9216D /* ARView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ARView.mm; sourceTree = SOURCE_ROOT; };
-		43D501A2112B5FDE00F9216D /* ARView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ARView.h; sourceTree = SOURCE_ROOT; };
-		43D501A3112B5FDE00F9216D /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = SOURCE_ROOT; };
-		43D501A4112B5FDE00F9216D /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = SOURCE_ROOT; };
+		43D482C0119915F500C72988 /* ARView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ARView.mm; sourceTree = "<group>"; };
+		43D482C1119915F500C72988 /* ARView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ARView.h; sourceTree = "<group>"; };
+		43D482C2119915F500C72988 /* ARController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ARController.mm; sourceTree = "<group>"; };
+		43D482C3119915F500C72988 /* ARController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ARController.h; sourceTree = "<group>"; };
+		43D482C4119915F500C72988 /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
+		43D482C5119915F500C72988 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		43D482C91199162100C72988 /* main.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = main.mm; sourceTree = "<group>"; };
+		43D482CA1199162100C72988 /* main.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = main.h; sourceTree = "<group>"; };
+		43D482CC1199166A00C72988 /* augmentia.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = augmentia.mm; sourceTree = "<group>"; };
+		43D482CD1199166A00C72988 /* augmentia.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = augmentia.h; sourceTree = "<group>"; };
+		43D482CF119916B300C72988 /* CDataScanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDataScanner.m; path = JSON/CDataScanner.m; sourceTree = "<group>"; };
+		43D482D0119916B300C72988 /* CDataScanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CDataScanner.h; path = JSON/CDataScanner.h; sourceTree = "<group>"; };
 		43D50279112B73FB00F9216D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		43D50323112C707E00F9216D /* math.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = math.h; path = globe/math.h; sourceTree = "<group>"; };
 		43D50324112C707E00F9216D /* GlobeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GlobeController.m; path = globe/GlobeController.m; sourceTree = "<group>"; };
@@ -522,8 +530,6 @@
 		43D503BF112C774B00F9216D /* Note.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Note.h; sourceTree = "<group>"; };
 		43D503C0112C774B00F9216D /* Note.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Note.m; sourceTree = "<group>"; };
 		43D50470112D010400F9216D /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		43D50499112D028A00F9216D /* ARController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ARController.mm; sourceTree = SOURCE_ROOT; };
-		43D5049A112D028A00F9216D /* ARController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ARController.h; sourceTree = SOURCE_ROOT; };
 		43D505601137644A00F9216D /* ProfileNewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileNewController.h; sourceTree = "<group>"; };
 		43D505611137644A00F9216D /* ProfileNewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileNewController.m; sourceTree = "<group>"; };
 		43D507D51138846B00F9216D /* libOAuth.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libOAuth.a; sourceTree = "<group>"; };
@@ -957,9 +963,6 @@
 		E0A9FB0B0EC420F10077F188 /* dct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = dct.h; path = theora/dct.h; sourceTree = SOURCE_ROOT; };
 		E0A9FB0C0EC420F10077F188 /* ocintrin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ocintrin.h; path = theora/ocintrin.h; sourceTree = SOURCE_ROOT; };
 		E0E30D6A0E5EA2FA00F6D25F /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
-		E0E310860E5EA3C300F6D25F /* main.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = main.h; path = ../main.h; sourceTree = "<group>"; };
-		E0E310870E5EA40200F6D25F /* augmentia.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = augmentia.h; path = ../augmentia.h; sourceTree = "<group>"; };
-		E0E310880E5EA40200F6D25F /* augmentia.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = augmentia.mm; path = ../augmentia.mm; sourceTree = "<group>"; };
 		E0E310DF0E5EA54900F6D25F /* zconf.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.c; fileEncoding = 4; name = zconf.h; path = zlib/zconf.h; sourceTree = SOURCE_ROOT; };
 		E0E310E00E5EA54900F6D25F /* zlib.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.c; fileEncoding = 4; name = zlib.h; path = zlib/zlib.h; sourceTree = SOURCE_ROOT; };
 		E0E310E10E5EA54900F6D25F /* zutil.c */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.c; fileEncoding = 4; name = zutil.c; path = zlib/zutil.c; sourceTree = SOURCE_ROOT; };
@@ -1191,49 +1194,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		080E96DDFE201D6D7F000001 /* src */ = {
+		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				E0E310860E5EA3C300F6D25F /* main.h */,
-				29B97316FDCFA39411CA2CEA /* main.mm */,
-				43D501A3112B5FDE00F9216D /* AppDelegate.mm */,
-				43D501A4112B5FDE00F9216D /* AppDelegate.h */,
-				43D50344112C715600F9216D /* Texture2D.h */,
-				43D50345112C715600F9216D /* Texture2D.m */,
-				43D503B0112C772A00F9216D /* ASyncImage.h */,
-				43D503B1112C772A00F9216D /* ASyncImage.m */,
-				43D503BF112C774B00F9216D /* Note.h */,
-				43D503C0112C774B00F9216D /* Note.m */,
-				43D503AC112C770A00F9216D /* DB.h */,
-				43D503AD112C770A00F9216D /* DB.m */,
-				43D503B3112C773D00F9216D /* ListController.h */,
-				43D503B4112C773D00F9216D /* ListController.m */,
-				43D503B5112C773D00F9216D /* ProfilesController.h */,
-				43D503B6112C773D00F9216D /* ProfilesController.m */,
-				43D505601137644A00F9216D /* ProfileNewController.h */,
-				43D505611137644A00F9216D /* ProfileNewController.m */,
-				43D503B7112C773D00F9216D /* ProfileController.h */,
-				43D503B8112C773D00F9216D /* ProfileController.m */,
-				43D503AA112C770A00F9216D /* MapController.h */,
-				43D503AB112C770A00F9216D /* MapController.m */,
-				43D5035F112C716E00F9216D /* HUDController.h */,
-				43D50360112C716E00F9216D /* HUDController.m */,
-				43F3CC93116C8203008C90B4 /* PostsController.h */,
-				43F3CC94116C8203008C90B4 /* PostsController.m */,
-				43D50341112C714B00F9216D /* PostController.h */,
-				43D50342112C714B00F9216D /* PostController.m */,
-				43D503B9112C773D00F9216D /* DetailController.h */,
-				43D503BA112C773D00F9216D /* DetailController.m */,
-				43D501A2112B5FDE00F9216D /* ARView.h */,
-				43D501A1112B5FDE00F9216D /* ARView.mm */,
-				43D5049A112D028A00F9216D /* ARController.h */,
-				43D50499112D028A00F9216D /* ARController.mm */,
+				43D482DC119917A400C72988 /* Core */,
+				43D482DD119917BF00C72988 /* Model */,
+				43D482DE119917DA00C72988 /* Utilities */,
+				43D482DB1199178D00C72988 /* 3d */,
+				43D482D91199175000C72988 /* Navigation */,
+				43D482DF1199180000C72988 /* Profile */,
 				32CA4F630368D1EE00C91783 /* augmentia_Prefix.pch */,
-				E0E310870E5EA40200F6D25F /* augmentia.h */,
-				E0E310880E5EA40200F6D25F /* augmentia.mm */,
-				43D5083011389AB500F9216D /* secrets.h */,
 			);
-			name = src;
 			path = Classes;
 			sourceTree = "<group>";
 		};
@@ -1261,7 +1232,7 @@
 				E0E310FA0E5EA54900F6D25F /* vorbis */,
 				E0E310DE0E5EA54900F6D25F /* zlib */,
 				E0E310AC0E5EA54900F6D25F /* sio2 */,
-				080E96DDFE201D6D7F000001 /* src */,
+				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
@@ -1303,8 +1274,8 @@
 		430D305A10B39A15002950F6 /* json */ = {
 			isa = PBXGroup;
 			children = (
-				430D306010B39A55002950F6 /* CDataScanner.h */,
-				430D306110B39A55002950F6 /* CDataScanner.m */,
+				43D482CF119916B300C72988 /* CDataScanner.m */,
+				43D482D0119916B300C72988 /* CDataScanner.h */,
 				430D306210B39A55002950F6 /* Extensions */,
 				430D306B10B39A55002950F6 /* JSON */,
 			);
@@ -1416,6 +1387,87 @@
 				4338EC2E115AC6C100A9C7A4 /* sqlite3.h */,
 			);
 			path = stable;
+			sourceTree = "<group>";
+		};
+		43D482D91199175000C72988 /* Navigation */ = {
+			isa = PBXGroup;
+			children = (
+				43D503AA112C770A00F9216D /* MapController.h */,
+				43D503AB112C770A00F9216D /* MapController.m */,
+				43F3CC93116C8203008C90B4 /* PostsController.h */,
+				43F3CC94116C8203008C90B4 /* PostsController.m */,
+				43D50341112C714B00F9216D /* PostController.h */,
+				43D50342112C714B00F9216D /* PostController.m */,
+				43D503B9112C773D00F9216D /* DetailController.h */,
+				43D503BA112C773D00F9216D /* DetailController.m */,
+			);
+			name = Navigation;
+			sourceTree = "<group>";
+		};
+		43D482DB1199178D00C72988 /* 3d */ = {
+			isa = PBXGroup;
+			children = (
+				43D482CD1199166A00C72988 /* augmentia.h */,
+				43D482CC1199166A00C72988 /* augmentia.mm */,
+				43D482C3119915F500C72988 /* ARController.h */,
+				43D482C2119915F500C72988 /* ARController.mm */,
+				43D482C1119915F500C72988 /* ARView.h */,
+				43D482C0119915F500C72988 /* ARView.mm */,
+				43D5035F112C716E00F9216D /* HUDController.h */,
+				43D50360112C716E00F9216D /* HUDController.m */,
+			);
+			name = 3d;
+			sourceTree = "<group>";
+		};
+		43D482DC119917A400C72988 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				43D5083011389AB500F9216D /* secrets.h */,
+				43D482CA1199162100C72988 /* main.h */,
+				43D482C91199162100C72988 /* main.mm */,
+				43D482C5119915F500C72988 /* AppDelegate.h */,
+				43D482C4119915F500C72988 /* AppDelegate.mm */,
+			);
+			name = Core;
+			sourceTree = "<group>";
+		};
+		43D482DD119917BF00C72988 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				43D503BF112C774B00F9216D /* Note.h */,
+				43D503C0112C774B00F9216D /* Note.m */,
+				43D503AC112C770A00F9216D /* DB.h */,
+				43D503AD112C770A00F9216D /* DB.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		43D482DE119917DA00C72988 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				43AF6AE61177D75D001EB8B0 /* Sensor.h */,
+				43AF6AE71177D75D001EB8B0 /* Sensor.m */,
+				43D503B3112C773D00F9216D /* ListController.h */,
+				43D503B4112C773D00F9216D /* ListController.m */,
+				43D50344112C715600F9216D /* Texture2D.h */,
+				43D50345112C715600F9216D /* Texture2D.m */,
+				43D503B0112C772A00F9216D /* ASyncImage.h */,
+				43D503B1112C772A00F9216D /* ASyncImage.m */,
+			);
+			name = Utilities;
+			sourceTree = "<group>";
+		};
+		43D482DF1199180000C72988 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				43D503B5112C773D00F9216D /* ProfilesController.h */,
+				43D503B6112C773D00F9216D /* ProfilesController.m */,
+				43D505601137644A00F9216D /* ProfileNewController.h */,
+				43D505611137644A00F9216D /* ProfileNewController.m */,
+				43D503B7112C773D00F9216D /* ProfileController.h */,
+				43D503B8112C773D00F9216D /* ProfileController.m */,
+			);
+			name = Profile;
 			sourceTree = "<group>";
 		};
 		43D502FE112C6F4900F9216D /* globe */ = {
@@ -2212,8 +2264,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1D60589B0D05DD56006BFB54 /* main.mm in Sources */,
-				E0E310890E5EA40200F6D25F /* augmentia.mm in Sources */,
 				E0E312CB0E5EA54A00F6D25F /* zutil.c in Sources */,
 				E0E312CC0E5EA54A00F6D25F /* uncompr.c in Sources */,
 				E0E312CD0E5EA54A00F6D25F /* unzip.c in Sources */,
@@ -2503,7 +2553,6 @@
 				E04BBBE1100D5B4A0078A39E /* btVoronoiSimplexSolver.cpp in Sources */,
 				E04BBBE2100D5B4A0078A39E /* btWheelInfo.cpp in Sources */,
 				E04BBBE3100D5B4A0078A39E /* SphereTriangleDetector.cpp in Sources */,
-				430D307210B39A55002950F6 /* CDataScanner.m in Sources */,
 				430D307310B39A55002950F6 /* CDataScanner_Extensions.m in Sources */,
 				430D307410B39A55002950F6 /* NSCharacterSet_Extensions.m in Sources */,
 				430D307510B39A55002950F6 /* NSDictionary_JSONExtensions.m in Sources */,
@@ -2511,8 +2560,6 @@
 				430D307710B39A55002950F6 /* CJSONDeserializer.m in Sources */,
 				430D307810B39A55002950F6 /* CJSONScanner.m in Sources */,
 				430D307910B39A55002950F6 /* CJSONSerializer.m in Sources */,
-				43D501A5112B5FDE00F9216D /* ARView.mm in Sources */,
-				43D501A6112B5FDE00F9216D /* AppDelegate.mm in Sources */,
 				43D5032B112C707E00F9216D /* GlobeController.m in Sources */,
 				43D5032C112C707E00F9216D /* globe.c in Sources */,
 				43D5032D112C707E00F9216D /* arcball.c in Sources */,
@@ -2527,7 +2574,6 @@
 				43D503BD112C773D00F9216D /* ProfileController.m in Sources */,
 				43D503BE112C773D00F9216D /* DetailController.m in Sources */,
 				43D503C1112C774B00F9216D /* Note.m in Sources */,
-				43D5049B112D028A00F9216D /* ARController.mm in Sources */,
 				43D505621137644A00F9216D /* ProfileNewController.m in Sources */,
 				43D5080D1138846B00F9216D /* SA_OAuthTwitterEngine.m in Sources */,
 				43D5080E1138846B00F9216D /* SA_OAuthTwitterController.m in Sources */,
@@ -2577,6 +2623,13 @@
 				4338EC4D115AC6C100A9C7A4 /* LXSocket.m in Sources */,
 				4338EC4E115AC6C100A9C7A4 /* NSObject_iPhone_cat.m in Sources */,
 				43F3CC95116C8203008C90B4 /* PostsController.m in Sources */,
+				43AF6AE81177D75D001EB8B0 /* Sensor.m in Sources */,
+				43D482C6119915F500C72988 /* ARView.mm in Sources */,
+				43D482C7119915F500C72988 /* ARController.mm in Sources */,
+				43D482C8119915F500C72988 /* AppDelegate.mm in Sources */,
+				43D482CB1199162100C72988 /* main.mm in Sources */,
+				43D482CE1199166A00C72988 /* augmentia.mm in Sources */,
+				43D482D1119916B300C72988 /* CDataScanner.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -35,17 +35,6 @@
 	return nil;
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-}
-
-- (void)viewDidLoad {
-	[super viewDidLoad];
-}
-
-- (void)didReceiveMemoryWarning {
-	[ super didReceiveMemoryWarning ];
-}
-
 - (BOOL)shouldAutorotateToInterfaceOrientation: (UIInterfaceOrientation)interfaceOrientation {
 	return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
@@ -59,7 +48,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 
-	// allocate cell
+	// allocate cell once only - CManagedTableViewController could do this TODO
     static NSString *CellIdentifier = @"ImageCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
@@ -69,7 +58,7 @@
 		[oldImage removeFromSuperview];
     }
 
-	// fetch note from array
+	// look at note
 	Note *note = (Note*)[notes objectAtIndex:indexPath.row];
 
 	// print note title
@@ -92,16 +81,8 @@
 		// http://www.markj.net/iphone-asynchronous-table-image/
 		//[NSURLRequest initWithURL: url ... timeoutInterval:60.0];	
 	}
-
+	
     return cell;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	//Note *note = (Note*)[notes objectAtIndex:indexPath.row];
-}
-
-- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
-	//NSLog(@"accessoryButtonTappedForRowWithIndexPath: row=%d", indexPath.row);
 }
 
 @end

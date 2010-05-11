@@ -8,39 +8,27 @@
 
 @implementation ProfilesController
 
-- (void)viewWillAppear:(BOOL)animated {
-	[super viewWillAppear:animated];
-	if(notes) {
-		[notes release];
-		notes = nil;
-	}
-	notes = [[DB sharedDB] getNotes:@"profile"];
-	if(!notes || [notes count] < 1 ) {
-		// TODO remove hack.
-		NSLog(@"hmmm");
-		Note *note = [[Note alloc] init:@"profile" title:@"me" description:@"and" image:@"icon.png"];
-		[note retain];
-		notes = [NSArray arrayWithObjects:note, nil ];
-		[notes retain];
-	}
-	[self.tableView reloadData];
-}
-
 - (void)viewDidLoad {
 	[super viewDidLoad];
+	// add a navigation element
+	NSLog(@"ProfilesController:viewWillAppear called again");
 	if(true) {
 		UIBarButtonItem* addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addAction:)];
 		self.navigationItem.rightBarButtonItem = addButton;
 		[addButton release];
 	}
+	if(notes) {
+		[notes release];
+		notes = nil;
+	}
+	notes = [[DB sharedDB] getNotes:@"profile"];
+	[self.tableView reloadData];
 }
-
-//- (void)viewDidUnload {
-//}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	Note *note = [self getNoteAt:indexPath.row];
 	if(note) {
+		// TODO should i allocate this with autorelease?
 		ProfileController* profile = [[ProfileController alloc] initWithProfile:note];
 		[self.navigationController pushViewController:profile animated:true];
 		[profile release];
