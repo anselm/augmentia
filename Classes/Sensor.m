@@ -10,6 +10,9 @@
 
 @implementation Sensor
 
+@synthesize sensor_latitude;
+@synthesize sensor_longitude;
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // SENSOR CODE - GPS AND ACCELEROMETER
@@ -139,8 +142,8 @@ float zfilter = 0;
 #endif
 		{
 			attempts = 0;
-			latitude = newLocation.coordinate.latitude;
-			longitude = newLocation.coordinate.longitude;
+			sensor_latitude = latitude = newLocation.coordinate.latitude;
+			sensor_longitude = longitude = newLocation.coordinate.longitude;
 			if(!goodLocation) {
 				first_latitude = latitude;
 				first_longitude = longitude;
@@ -172,6 +175,7 @@ float zfilter = 0;
     }
 }
 
+/*
 - (void) locationManager: (CLLocationManager *) manager didFailWithError: (NSError *) error {
     NSString *msg = [[NSString alloc] initWithString:@"Error obtaining location"];
     UIAlertView *alert = [[UIAlertView alloc]
@@ -184,6 +188,7 @@ float zfilter = 0;
     [msg release];
     [alert release];
 }
+*/
 
 - (void) sensorStart {
 	// Start Sensors

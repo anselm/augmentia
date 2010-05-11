@@ -10,8 +10,6 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	// add a navigation element
-	NSLog(@"ProfilesController:viewWillAppear called again");
 	if(true) {
 		UIBarButtonItem* addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addAction:)];
 		self.navigationItem.rightBarButtonItem = addButton;

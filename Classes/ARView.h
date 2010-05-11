@@ -18,3 +18,4 @@
 - (void)stopAnimation;
 - (void)drawView;
 @end
+

@@ -1,7 +1,6 @@
 
 #include "ARView.h"
 #include "ARController.h"
-#include "sio2.h"
 
 @implementation ARController
 
@@ -10,6 +9,17 @@
 #define CAMERA_TRANSFORM_Y 1.12412
 
 @synthesize arview;
+
+- (ARController *) init {
+	[super init];
+	self.title = @"AR View";
+	return self;
+}
+
+- (void)dealloc {
+	[arview release];
+	[super dealloc];
+}
 
 - (void)loadView {
 	if(arview == NULL) {
@@ -29,7 +39,7 @@
 - (void) viewDidAppear:(BOOL)animated { 
 
 #ifndef __i386__
-	// CAMERA OVERLAY
+	// Show a camera overlay if on real hardware (not on a simulator)
 	UIImagePickerController *picker = [[UIImagePickerController alloc] init];
 	picker.sourceType = UIImagePickerControllerSourceTypeCamera;
 	picker.showsCameraControls = NO;
@@ -41,7 +51,6 @@
 	[picker release];
 #endif
 
-	// KICK OFF VIEW
 	arview.animationInterval = 1.0 / 60.0;
 	[arview startAnimation];
 
@@ -54,18 +63,6 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
 	arview.animationInterval = 1.0 / 60.0;
-}
-
-- (void)dealloc {
-	[arview release];
-	[super dealloc];
-}
-
-- (ARController *) init {
-	[super init];
-	NSLog(@"ARController: init called");
-	self.title = @"ARController";
-	return self;
 }
 
 @end

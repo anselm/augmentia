@@ -8,7 +8,7 @@
 	@public NSString *key;
 	@public NSString *kind;
 	@public NSString *title;
-    @public NSString *subtitle;
+	@public NSString *subtitle;
 	@public NSString *description;
 	@public NSString *image;
 	@public NSString *secret;

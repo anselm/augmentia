@@ -20,13 +20,16 @@
 - (void) loadView {
 	[super loadView];
 
+	// http://edwardbenson.com/uitabbarcontroller-example
+	// http://www.iphonemusings.com/2009/01/iphone-programming-tutorial-creating.html
+
 	MapController* map = [[MapController alloc] initWithProfile:profile];
 	map.title = map.navigationItem.title = @"explore";
-	map.tabBarItem.image = [UIImage imageNamed:@"icon.png"];
+	map.tabBarItem.image = [UIImage imageNamed:@"one.png"];
 
 	PostsController* posts = [[PostsController alloc] init];
 	posts.title = posts.navigationItem.title = @"collected";
-	posts.tabBarItem.image = [UIImage imageNamed:@"icon.png"];
+	posts.tabBarItem.image = [UIImage imageNamed:@"one.png"];
 
 	self.viewControllers = [NSArray arrayWithObjects:map, posts, nil ];
 

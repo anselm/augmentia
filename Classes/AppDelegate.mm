@@ -3,6 +3,7 @@
 #import "AppDelegate.h"
 
 #import "DB.h"
+#import "Sensor.h"
 #import "ProfilesController.h"
 
 @implementation AppDelegate
@@ -11,8 +12,16 @@
 @synthesize nav;
 @synthesize window;
 
+Sensor *sensor;
+
 - (void)applicationDidFinishLaunching:(UIApplication *)application {
 
+	//
+	
+	sensor = [[Sensor alloc] init];
+	[sensor sensorStart];
+
+	
 	// Start DB
 	db = [DB sharedDB];
 
@@ -34,6 +43,7 @@
 }
 
 - (void)dealloc {
+	[sensor sensorStop];
 	[window release];
 	[super dealloc];
 }

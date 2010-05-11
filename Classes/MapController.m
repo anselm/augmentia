@@ -1,33 +1,25 @@
-#import "MapController.h"
-#import "PostController.h"
-#import "Sensor.h"
+
 #import "Note.h"
+#import "Sensor.h"
+#import "MapController.h"
 
 @implementation MapController
+
+extern Sensor* sensor;
 
 @synthesize mapview;
 @synthesize profile;
 
-Sensor *sensor;
-
 - (id)initWithProfile:(Note*)profileParam {
-
-	if(self = [super init ]) {
-		self.title = @"";
-	}
-
+	self = [super init ];
+	self.title = @"world";
 	self.profile = profileParam;
-	sensor = [[Sensor alloc] init];
-	[sensor sensorStart];
 	return self;
 }
 
 - (void)dealloc {
-	[sensor sensorStop];
-	if(mapview) {
-		[mapview release];
-		mapview = nil;
-	}
+	[mapview release];
+	mapview = nil;
 	[super dealloc];
 }
 
@@ -47,8 +39,8 @@ Sensor *sensor;
 
 -(void) viewDidLoad {
 	[super viewDidLoad];
-	float latitude = [sensor latitude];
-	float longitude = [sensor longitude];
+	float latitude = [sensor sensor_latitude];
+	float longitude = [sensor sensor_longitude];
 
 	// Add Map
 	[mapview setMapType:MKMapTypeStandard];
@@ -57,16 +49,18 @@ Sensor *sensor;
 	MKCoordinateRegion region = { {0.0, 0.0 }, { 0.0, 0.0 } };
 	region.center.latitude = latitude;
 	region.center.longitude = longitude;
-	region.span.longitudeDelta = 0.01f;
-	region.span.latitudeDelta = 0.01f;
+	region.span.longitudeDelta = 10.0f;
+	region.span.latitudeDelta = 10.0f;
 	[mapview setRegion:region animated:YES];
 	[mapview setShowsUserLocation:YES];
 	[mapview setDelegate:self];
 
 	// Add controls to the nav bar
-	
+
+	// UIBarButtonItem* addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItem target:self action:@selector(addAction:)];
+
 	//NSArray *segmentTextContent = [NSArray arrayWithObjects:[UIImage imageNamed:@"arrow-dice.png"], [UIImage imageNamed:@"arrow-up.png"], [UIImage imageNamed:@"arrow-down.png"], nil];
-	NSArray *items = [NSArray arrayWithObjects: @"C", @"U", @"+", nil];
+	NSArray *items = [NSArray arrayWithObjects: @"Center", @"Update",nil];
 	UISegmentedControl *segments = [[UISegmentedControl alloc] initWithItems:items];
 	//segments.frame = CGRectMake(145, 5, 150, 35);
 	//segments.selectedSegmentIndex = 1;
@@ -74,31 +68,22 @@ Sensor *sensor;
 	segments.momentary = YES;
 	segments.segmentedControlStyle = UISegmentedControlStyleBar;
 	[segments addTarget:self action:@selector(segmentAction:) forControlEvents:UIControlEventValueChanged];
-
-	// UIBarButtonItem* addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItem target:self action:@selector(addAction:)];
 	UIBarButtonItem *segment = [[UIBarButtonItem alloc] initWithCustomView:segments];
+	self.parentViewController.navigationItem.rightBarButtonItem = segment;
 	//[segments release];
 
-	// self.navigationItem.rightBarButtonItem = segment;
-	//self.navigationItem.rightBarButtonItem.title = @"x";
-	//self.navigationItem.rightBarButtonItem.customView.hidden = NO;
-
-	self.parentViewController.navigationItem.rightBarButtonItem = segment;
-	self.title = @"";
-	self.parentViewController.title = @"w";
-	
-	//[actionControl release];
+	self.title = @"world";
+	self.parentViewController.title = @"world";
 
 }
 
 - (void)segmentAction:(UISegmentedControl*)sender {
-	float latitude = [sensor latitude];
-	float longitude = [sensor longitude];
+	float latitude = [sensor sensor_latitude];
+	float longitude = [sensor sensor_longitude];
 	switch ([sender selectedSegmentIndex]) {
 		case 0:
 		{
-			// Move map to where user is - TODO make async
-			NSLog(@"setPositionLatitude! %u x %u", latitude, longitude);
+			// RECENTER
 			MKCoordinateRegion region = { {0.0, 0.0 }, { 0.0, 0.0 } };
 			region.center.latitude = latitude;
 			region.center.longitude = longitude;
@@ -106,24 +91,14 @@ Sensor *sensor;
 			region.span.latitudeDelta = 0.1f;
 			[mapview setRegion:region animated:YES];
 			[mapview setShowsUserLocation:YES];
-			// Get data where user is - TODO make async - TODO block duplicate requests or throw away the old one
-			[self serverQuery:profile.title withLatitude:latitude withLongitude:longitude];			
-			break;
+			// FALL THROUGH
 		}
 		case 1:
 		{
-			// Get where map is
+			// LOAD DATA HERE
 			MKCoordinateRegion current = mapview.region;
 			// Get data where user is - TODO make async - TODO block duplicate requests or throw away the old one
-			[self serverQuery:profile.title withLatitude:current.center.latitude withLongitude:current.center.longitude];			
-			break;
-		}
-		case 2:
-		{
-			// Bring up a view for making a new post
-			PostController* post = [[PostController alloc] init];
-			[self.navigationController pushViewController:post animated:true];
-			[post release];
+	//		[self serverQuery:profile.title withLatitude:current.center.latitude withLongitude:current.center.longitude];			
 			break;
 		}
 		default:
