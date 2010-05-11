@@ -57,15 +57,14 @@
 		43D482C7119915F500C72988 /* ARController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 43D482C2119915F500C72988 /* ARController.mm */; };
 		43D482C8119915F500C72988 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 43D482C4119915F500C72988 /* AppDelegate.mm */; };
 		43D482CB1199162100C72988 /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = 43D482C91199162100C72988 /* main.mm */; };
-		43D482CE1199166A00C72988 /* augmentia.mm in Sources */ = {isa = PBXBuildFile; fileRef = 43D482CC1199166A00C72988 /* augmentia.mm */; };
 		43D482D1119916B300C72988 /* CDataScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D482CF119916B300C72988 /* CDataScanner.m */; };
+		43D483761199236900C72988 /* ProfileController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D483741199236900C72988 /* ProfileController.m */; };
 		43D5027A112B73FB00F9216D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43D50279112B73FB00F9216D /* CoreGraphics.framework */; };
 		43D5032B112C707E00F9216D /* GlobeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D50324112C707E00F9216D /* GlobeController.m */; };
 		43D5032C112C707E00F9216D /* globe.c in Sources */ = {isa = PBXBuildFile; fileRef = 43D50327112C707E00F9216D /* globe.c */; };
 		43D5032D112C707E00F9216D /* arcball.c in Sources */ = {isa = PBXBuildFile; fileRef = 43D5032A112C707E00F9216D /* arcball.c */; };
 		43D50343112C714B00F9216D /* PostController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D50342112C714B00F9216D /* PostController.m */; };
 		43D50346112C715600F9216D /* Texture2D.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D50345112C715600F9216D /* Texture2D.m */; };
-		43D50361112C716E00F9216D /* HUDController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D50360112C716E00F9216D /* HUDController.m */; };
 		43D50366112C721200F9216D /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43D50365112C721200F9216D /* libsqlite3.0.dylib */; };
 		43D503A8112C76F200F9216D /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 43D503A6112C76F200F9216D /* icon.png */; };
 		43D503A9112C76F200F9216D /* db.sql in Resources */ = {isa = PBXBuildFile; fileRef = 43D503A7112C76F200F9216D /* db.sql */; };
@@ -74,7 +73,6 @@
 		43D503B2112C772A00F9216D /* ASyncImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D503B1112C772A00F9216D /* ASyncImage.m */; };
 		43D503BB112C773D00F9216D /* ListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D503B4112C773D00F9216D /* ListController.m */; };
 		43D503BC112C773D00F9216D /* ProfilesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D503B6112C773D00F9216D /* ProfilesController.m */; };
-		43D503BD112C773D00F9216D /* ProfileController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D503B8112C773D00F9216D /* ProfileController.m */; };
 		43D503BE112C773D00F9216D /* DetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D503BA112C773D00F9216D /* DetailController.m */; };
 		43D503C1112C774B00F9216D /* Note.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D503C0112C774B00F9216D /* Note.m */; };
 		43D50471112D010400F9216D /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43D50470112D010400F9216D /* MapKit.framework */; };
@@ -491,10 +489,10 @@
 		43D482C5119915F500C72988 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		43D482C91199162100C72988 /* main.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = main.mm; sourceTree = "<group>"; };
 		43D482CA1199162100C72988 /* main.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = main.h; sourceTree = "<group>"; };
-		43D482CC1199166A00C72988 /* augmentia.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = augmentia.mm; sourceTree = "<group>"; };
-		43D482CD1199166A00C72988 /* augmentia.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = augmentia.h; sourceTree = "<group>"; };
 		43D482CF119916B300C72988 /* CDataScanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDataScanner.m; path = JSON/CDataScanner.m; sourceTree = "<group>"; };
 		43D482D0119916B300C72988 /* CDataScanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CDataScanner.h; path = JSON/CDataScanner.h; sourceTree = "<group>"; };
+		43D483741199236900C72988 /* ProfileController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileController.m; sourceTree = "<group>"; };
+		43D483751199236900C72988 /* ProfileController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileController.h; sourceTree = "<group>"; };
 		43D50279112B73FB00F9216D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		43D50323112C707E00F9216D /* math.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = math.h; path = globe/math.h; sourceTree = "<group>"; };
 		43D50324112C707E00F9216D /* GlobeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GlobeController.m; path = globe/GlobeController.m; sourceTree = "<group>"; };
@@ -508,8 +506,6 @@
 		43D50342112C714B00F9216D /* PostController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostController.m; sourceTree = "<group>"; };
 		43D50344112C715600F9216D /* Texture2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Texture2D.h; sourceTree = "<group>"; };
 		43D50345112C715600F9216D /* Texture2D.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Texture2D.m; sourceTree = "<group>"; };
-		43D5035F112C716E00F9216D /* HUDController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HUDController.h; sourceTree = "<group>"; };
-		43D50360112C716E00F9216D /* HUDController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HUDController.m; sourceTree = "<group>"; };
 		43D50365112C721200F9216D /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		43D503A6112C76F200F9216D /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		43D503A7112C76F200F9216D /* db.sql */ = {isa = PBXFileReference; lastKnownFileType = file; path = db.sql; sourceTree = "<group>"; };
@@ -523,8 +519,6 @@
 		43D503B4112C773D00F9216D /* ListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListController.m; sourceTree = "<group>"; };
 		43D503B5112C773D00F9216D /* ProfilesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfilesController.h; sourceTree = "<group>"; };
 		43D503B6112C773D00F9216D /* ProfilesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfilesController.m; sourceTree = "<group>"; };
-		43D503B7112C773D00F9216D /* ProfileController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileController.h; sourceTree = "<group>"; };
-		43D503B8112C773D00F9216D /* ProfileController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileController.m; sourceTree = "<group>"; };
 		43D503B9112C773D00F9216D /* DetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailController.h; sourceTree = "<group>"; };
 		43D503BA112C773D00F9216D /* DetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailController.m; sourceTree = "<group>"; };
 		43D503BF112C774B00F9216D /* Note.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Note.h; sourceTree = "<group>"; };
@@ -1392,6 +1386,8 @@
 		43D482D91199175000C72988 /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
+				43D483751199236900C72988 /* ProfileController.h */,
+				43D483741199236900C72988 /* ProfileController.m */,
 				43D503AA112C770A00F9216D /* MapController.h */,
 				43D503AB112C770A00F9216D /* MapController.m */,
 				43F3CC93116C8203008C90B4 /* PostsController.h */,
@@ -1407,14 +1403,10 @@
 		43D482DB1199178D00C72988 /* 3d */ = {
 			isa = PBXGroup;
 			children = (
-				43D482CD1199166A00C72988 /* augmentia.h */,
-				43D482CC1199166A00C72988 /* augmentia.mm */,
-				43D482C3119915F500C72988 /* ARController.h */,
-				43D482C2119915F500C72988 /* ARController.mm */,
 				43D482C1119915F500C72988 /* ARView.h */,
 				43D482C0119915F500C72988 /* ARView.mm */,
-				43D5035F112C716E00F9216D /* HUDController.h */,
-				43D50360112C716E00F9216D /* HUDController.m */,
+				43D482C3119915F500C72988 /* ARController.h */,
+				43D482C2119915F500C72988 /* ARController.mm */,
 			);
 			name = 3d;
 			sourceTree = "<group>";
@@ -1422,7 +1414,6 @@
 		43D482DC119917A400C72988 /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				43D5083011389AB500F9216D /* secrets.h */,
 				43D482CA1199162100C72988 /* main.h */,
 				43D482C91199162100C72988 /* main.mm */,
 				43D482C5119915F500C72988 /* AppDelegate.h */,
@@ -1460,12 +1451,11 @@
 		43D482DF1199180000C72988 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				43D5083011389AB500F9216D /* secrets.h */,
 				43D503B5112C773D00F9216D /* ProfilesController.h */,
 				43D503B6112C773D00F9216D /* ProfilesController.m */,
 				43D505601137644A00F9216D /* ProfileNewController.h */,
 				43D505611137644A00F9216D /* ProfileNewController.m */,
-				43D503B7112C773D00F9216D /* ProfileController.h */,
-				43D503B8112C773D00F9216D /* ProfileController.m */,
 			);
 			name = Profile;
 			sourceTree = "<group>";
@@ -2565,13 +2555,11 @@
 				43D5032D112C707E00F9216D /* arcball.c in Sources */,
 				43D50343112C714B00F9216D /* PostController.m in Sources */,
 				43D50346112C715600F9216D /* Texture2D.m in Sources */,
-				43D50361112C716E00F9216D /* HUDController.m in Sources */,
 				43D503AE112C770A00F9216D /* MapController.m in Sources */,
 				43D503AF112C770A00F9216D /* DB.m in Sources */,
 				43D503B2112C772A00F9216D /* ASyncImage.m in Sources */,
 				43D503BB112C773D00F9216D /* ListController.m in Sources */,
 				43D503BC112C773D00F9216D /* ProfilesController.m in Sources */,
-				43D503BD112C773D00F9216D /* ProfileController.m in Sources */,
 				43D503BE112C773D00F9216D /* DetailController.m in Sources */,
 				43D503C1112C774B00F9216D /* Note.m in Sources */,
 				43D505621137644A00F9216D /* ProfileNewController.m in Sources */,
@@ -2628,8 +2616,8 @@
 				43D482C7119915F500C72988 /* ARController.mm in Sources */,
 				43D482C8119915F500C72988 /* AppDelegate.mm in Sources */,
 				43D482CB1199162100C72988 /* main.mm in Sources */,
-				43D482CE1199166A00C72988 /* augmentia.mm in Sources */,
 				43D482D1119916B300C72988 /* CDataScanner.m in Sources */,
+				43D483761199236900C72988 /* ProfileController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
