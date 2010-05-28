@@ -3,6 +3,7 @@
 #import "MapController.h"
 #import "PostsController.h"
 #import "ProfileController.h"
+#import "ARController.h"
 #import "Note.h"
 #import "DB.h"
 
@@ -31,7 +32,10 @@
 	posts.title = posts.navigationItem.title = @"collected";
 	posts.tabBarItem.image = [UIImage imageNamed:@"one.png"];
 
-	self.viewControllers = [NSArray arrayWithObjects:map, posts, nil ];
+	ARController* ar = [[ARController alloc] init];
+	ar.tabBarItem.image = [UIImage imageNamed:@"one.png"];
+
+	self.viewControllers = [NSArray arrayWithObjects:map, posts, ar, nil ];
 
 	// TODO these are not released and waste memory every time we come here.
 }

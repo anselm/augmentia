@@ -398,7 +398,7 @@
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		28FD14FF0DC6FC520079059D /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		28FD15070DC6FC5B0079059D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		32CA4F630368D1EE00C91783 /* augmentia_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = augmentia_Prefix.pch; path = ../augmentia_Prefix.pch; sourceTree = "<group>"; };
+		32CA4F630368D1EE00C91783 /* augmentia_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = augmentia_Prefix.pch; sourceTree = "<group>"; };
 		430D2DB510B330D7002950F6 /* shadowland.sio2 */ = {isa = PBXFileReference; lastKnownFileType = file; path = shadowland.sio2; sourceTree = "<group>"; };
 		430D306310B39A55002950F6 /* CDataScanner_Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDataScanner_Extensions.h; sourceTree = "<group>"; };
 		430D306410B39A55002950F6 /* CDataScanner_Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDataScanner_Extensions.m; sourceTree = "<group>"; };
@@ -1188,20 +1188,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		080E96DDFE201D6D7F000001 /* Classes */ = {
-			isa = PBXGroup;
-			children = (
-				43D482DC119917A400C72988 /* Core */,
-				43D482DD119917BF00C72988 /* Model */,
-				43D482DE119917DA00C72988 /* Utilities */,
-				43D482DB1199178D00C72988 /* 3d */,
-				43D482D91199175000C72988 /* Navigation */,
-				43D482DF1199180000C72988 /* Profile */,
-				32CA4F630368D1EE00C91783 /* augmentia_Prefix.pch */,
-			);
-			path = Classes;
-			sourceTree = "<group>";
-		};
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -1213,20 +1199,16 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
-				4338EBE8115AC6AC00A9C7A4 /* entropydb */,
-				43D507D31138846B00F9216D /* Twitter+OAuth */,
-				43D502FE112C6F4900F9216D /* globe */,
+				43D482DD119917BF00C72988 /* Model */,
+				43D482D91199175000C72988 /* Navigation */,
+				43D482DF1199180000C72988 /* Profile */,
+				43D482DB1199178D00C72988 /* AR */,
+				43D502FE112C6F4900F9216D /* Globe */,
+				43D482DE119917DA00C72988 /* Utilities */,
+				43D482DC119917A400C72988 /* Bootup */,
+				435949A711AF72BD009D3AF6 /* ThirdParty */,
 				43E472B110D5BCD60017E9C9 /* README */,
-				430D305A10B39A15002950F6 /* json */,
-				E0F6AECC0F24090F00DA0338 /* png */,
-				E0E311BC0E5EA54900F6D25F /* bullet */,
-				E0E311830E5EA54900F6D25F /* jpeg */,
-				E0E3114A0E5EA54900F6D25F /* lua */,
-				E0E3112A0E5EA54900F6D25F /* theora */,
-				E0E310FA0E5EA54900F6D25F /* vorbis */,
-				E0E310DE0E5EA54900F6D25F /* zlib */,
-				E0E310AC0E5EA54900F6D25F /* sio2 */,
-				080E96DDFE201D6D7F000001 /* Classes */,
+				32CA4F630368D1EE00C91783 /* augmentia_Prefix.pch */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
@@ -1307,12 +1289,12 @@
 		4338EBE8115AC6AC00A9C7A4 /* entropydb */ = {
 			isa = PBXGroup;
 			children = (
-				4338EBEE115AC6C100A9C7A4 /* stable */,
+				4338EBEE115AC6C100A9C7A4 /* entropydb */,
 			);
 			name = entropydb;
 			sourceTree = "<group>";
 		};
-		4338EBEE115AC6C100A9C7A4 /* stable */ = {
+		4338EBEE115AC6C100A9C7A4 /* entropydb */ = {
 			isa = PBXGroup;
 			children = (
 				4338EBEF115AC6C100A9C7A4 /* EXContainer.h */,
@@ -1380,14 +1362,30 @@
 				4338EC2D115AC6C100A9C7A4 /* NSObject_iPhone_cat.m */,
 				4338EC2E115AC6C100A9C7A4 /* sqlite3.h */,
 			);
-			path = stable;
+			path = entropydb;
+			sourceTree = "<group>";
+		};
+		435949A711AF72BD009D3AF6 /* ThirdParty */ = {
+			isa = PBXGroup;
+			children = (
+				E0E310AC0E5EA54900F6D25F /* sio2 */,
+				E0E310DE0E5EA54900F6D25F /* zlib */,
+				E0E310FA0E5EA54900F6D25F /* vorbis */,
+				E0E3112A0E5EA54900F6D25F /* theora */,
+				E0E3114A0E5EA54900F6D25F /* lua */,
+				E0E311830E5EA54900F6D25F /* jpeg */,
+				E0E311BC0E5EA54900F6D25F /* bullet */,
+				E0F6AECC0F24090F00DA0338 /* png */,
+				430D305A10B39A15002950F6 /* json */,
+				43D507D31138846B00F9216D /* Twitter+OAuth */,
+				4338EBE8115AC6AC00A9C7A4 /* entropydb */,
+			);
+			name = ThirdParty;
 			sourceTree = "<group>";
 		};
 		43D482D91199175000C72988 /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
-				43D483751199236900C72988 /* ProfileController.h */,
-				43D483741199236900C72988 /* ProfileController.m */,
 				43D503AA112C770A00F9216D /* MapController.h */,
 				43D503AB112C770A00F9216D /* MapController.m */,
 				43F3CC93116C8203008C90B4 /* PostsController.h */,
@@ -1398,9 +1396,10 @@
 				43D503BA112C773D00F9216D /* DetailController.m */,
 			);
 			name = Navigation;
+			path = Classes;
 			sourceTree = "<group>";
 		};
-		43D482DB1199178D00C72988 /* 3d */ = {
+		43D482DB1199178D00C72988 /* AR */ = {
 			isa = PBXGroup;
 			children = (
 				43D482C1119915F500C72988 /* ARView.h */,
@@ -1408,10 +1407,11 @@
 				43D482C3119915F500C72988 /* ARController.h */,
 				43D482C2119915F500C72988 /* ARController.mm */,
 			);
-			name = 3d;
+			name = AR;
+			path = Classes;
 			sourceTree = "<group>";
 		};
-		43D482DC119917A400C72988 /* Core */ = {
+		43D482DC119917A400C72988 /* Bootup */ = {
 			isa = PBXGroup;
 			children = (
 				43D482CA1199162100C72988 /* main.h */,
@@ -1419,7 +1419,8 @@
 				43D482C5119915F500C72988 /* AppDelegate.h */,
 				43D482C4119915F500C72988 /* AppDelegate.mm */,
 			);
-			name = Core;
+			name = Bootup;
+			path = Classes;
 			sourceTree = "<group>";
 		};
 		43D482DD119917BF00C72988 /* Model */ = {
@@ -1431,6 +1432,7 @@
 				43D503AD112C770A00F9216D /* DB.m */,
 			);
 			name = Model;
+			path = Classes;
 			sourceTree = "<group>";
 		};
 		43D482DE119917DA00C72988 /* Utilities */ = {
@@ -1446,21 +1448,25 @@
 				43D503B1112C772A00F9216D /* ASyncImage.m */,
 			);
 			name = Utilities;
+			path = Classes;
 			sourceTree = "<group>";
 		};
 		43D482DF1199180000C72988 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
 				43D5083011389AB500F9216D /* secrets.h */,
+				43D483751199236900C72988 /* ProfileController.h */,
+				43D483741199236900C72988 /* ProfileController.m */,
 				43D503B5112C773D00F9216D /* ProfilesController.h */,
 				43D503B6112C773D00F9216D /* ProfilesController.m */,
 				43D505601137644A00F9216D /* ProfileNewController.h */,
 				43D505611137644A00F9216D /* ProfileNewController.m */,
 			);
 			name = Profile;
+			path = Classes;
 			sourceTree = "<group>";
 		};
-		43D502FE112C6F4900F9216D /* globe */ = {
+		43D502FE112C6F4900F9216D /* Globe */ = {
 			isa = PBXGroup;
 			children = (
 				43D50323112C707E00F9216D /* math.h */,
@@ -1472,7 +1478,7 @@
 				43D50329112C707E00F9216D /* arcball.h */,
 				43D5032A112C707E00F9216D /* arcball.c */,
 			);
-			name = globe;
+			name = Globe;
 			sourceTree = "<group>";
 		};
 		43D507D31138846B00F9216D /* Twitter+OAuth */ = {
@@ -2684,6 +2690,7 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = three20/src;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = (
 					"-fno-regmove",

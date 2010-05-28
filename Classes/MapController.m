@@ -128,3 +128,9 @@ extern Sensor* sensor;
 }
 
 @end
+
+// - to show data
+//		- the server takes my name
+//		- and loads my friends up - there's a query for that
+//		- and returns it to me synchronously
+
