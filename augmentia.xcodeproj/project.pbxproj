@@ -51,6 +51,8 @@
 		4338EC4C115AC6C100A9C7A4 /* info.txt in Resources */ = {isa = PBXBuildFile; fileRef = 4338EC29115AC6C100A9C7A4 /* info.txt */; };
 		4338EC4D115AC6C100A9C7A4 /* LXSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 4338EC2B115AC6C100A9C7A4 /* LXSocket.m */; };
 		4338EC4E115AC6C100A9C7A4 /* NSObject_iPhone_cat.m in Sources */ = {isa = PBXBuildFile; fileRef = 4338EC2D115AC6C100A9C7A4 /* NSObject_iPhone_cat.m */; };
+		43594A1811AF7C64009D3AF6 /* libThree20.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 43594A1511AF7C4F009D3AF6 /* libThree20.a */; };
+		43594A2E11AF7DA6009D3AF6 /* Three20.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 43594A2D11AF7DA6009D3AF6 /* Three20.bundle */; };
 		43AF6AE81177D75D001EB8B0 /* Sensor.m in Sources */ = {isa = PBXBuildFile; fileRef = 43AF6AE71177D75D001EB8B0 /* Sensor.m */; };
 		43BF52A210AC222500C116BD /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43BF52A110AC222500C116BD /* CoreLocation.framework */; };
 		43D482C6119915F500C72988 /* ARView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 43D482C0119915F500C72988 /* ARView.mm */; };
@@ -392,6 +394,30 @@
 		E0FCD4150F0DB35F00C9E6A7 /* print.c in Sources */ = {isa = PBXBuildFile; fileRef = E0FCD3F50F0DB35F00C9E6A7 /* print.c */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		43594A1411AF7C4F009D3AF6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 435949E711AF7C4E009D3AF6 /* Three20.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BEF31F3A0F352DF5000DE5D2 /* libThree20.a */;
+			remoteInfo = Three20;
+		};
+		43594A1611AF7C4F009D3AF6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 435949E711AF7C4E009D3AF6 /* Three20.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = EB9E6C6210B6A8F800DE563C /* UnitTests.octest */;
+			remoteInfo = UnitTests;
+		};
+		43594A2911AF7D6A009D3AF6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 435949E711AF7C4E009D3AF6 /* Three20.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = BEF31F390F352DF5000DE5D2 /* Three20 */;
+			remoteInfo = Three20;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D6058910D05DD3D006BFB54 /* augmentia.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = augmentia.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -478,6 +504,8 @@
 		4338EC2C115AC6C100A9C7A4 /* NSObject_iPhone_cat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSObject_iPhone_cat.h; sourceTree = "<group>"; };
 		4338EC2D115AC6C100A9C7A4 /* NSObject_iPhone_cat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSObject_iPhone_cat.m; sourceTree = "<group>"; };
 		4338EC2E115AC6C100A9C7A4 /* sqlite3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sqlite3.h; sourceTree = "<group>"; };
+		435949E711AF7C4E009D3AF6 /* Three20.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Three20.xcodeproj; path = Externals/three20/src/Three20/Three20.xcodeproj; sourceTree = SOURCE_ROOT; };
+		43594A2D11AF7DA6009D3AF6 /* Three20.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Three20.bundle; path = Externals/three20/src/Three20.bundle; sourceTree = SOURCE_ROOT; };
 		43AF6AE61177D75D001EB8B0 /* Sensor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sensor.h; sourceTree = "<group>"; };
 		43AF6AE71177D75D001EB8B0 /* Sensor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Sensor.m; sourceTree = "<group>"; };
 		43BF52A110AC222500C116BD /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -1182,6 +1210,7 @@
 				43D50471112D010400F9216D /* MapKit.framework in Frameworks */,
 				43D5080C1138846B00F9216D /* libOAuth.a in Frameworks */,
 				43D5082711389A2E00F9216D /* libxml2.dylib in Frameworks */,
+				43594A1811AF7C64009D3AF6 /* libThree20.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1199,6 +1228,8 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				43594A2D11AF7DA6009D3AF6 /* Three20.bundle */,
+				435949E711AF7C4E009D3AF6 /* Three20.xcodeproj */,
 				43D482DD119917BF00C72988 /* Model */,
 				43D482D91199175000C72988 /* Navigation */,
 				43D482DF1199180000C72988 /* Profile */,
@@ -1206,7 +1237,7 @@
 				43D502FE112C6F4900F9216D /* Globe */,
 				43D482DE119917DA00C72988 /* Utilities */,
 				43D482DC119917A400C72988 /* Bootup */,
-				435949A711AF72BD009D3AF6 /* ThirdParty */,
+				435949A711AF72BD009D3AF6 /* Externals */,
 				43E472B110D5BCD60017E9C9 /* README */,
 				32CA4F630368D1EE00C91783 /* augmentia_Prefix.pch */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -1365,7 +1396,7 @@
 			path = entropydb;
 			sourceTree = "<group>";
 		};
-		435949A711AF72BD009D3AF6 /* ThirdParty */ = {
+		435949A711AF72BD009D3AF6 /* Externals */ = {
 			isa = PBXGroup;
 			children = (
 				E0E310AC0E5EA54900F6D25F /* sio2 */,
@@ -1380,7 +1411,16 @@
 				43D507D31138846B00F9216D /* Twitter+OAuth */,
 				4338EBE8115AC6AC00A9C7A4 /* entropydb */,
 			);
-			name = ThirdParty;
+			name = Externals;
+			sourceTree = "<group>";
+		};
+		43594A1011AF7C4F009D3AF6 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				43594A1511AF7C4F009D3AF6 /* libThree20.a */,
+				43594A1711AF7C4F009D3AF6 /* UnitTests.octest */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		43D482D91199175000C72988 /* Navigation */ = {
@@ -2216,6 +2256,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				43594A2A11AF7D6A009D3AF6 /* PBXTargetDependency */,
 			);
 			name = augmentia;
 			productName = augmentia;
@@ -2232,12 +2273,35 @@
 			hasScannedForEncodings = 1;
 			mainGroup = 29B97314FDCFA39411CA2CEA /* CustomTemplate */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 43594A1011AF7C4F009D3AF6 /* Products */;
+					ProjectRef = 435949E711AF7C4E009D3AF6 /* Three20.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				1D6058900D05DD3D006BFB54 /* augmentia */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		43594A1511AF7C4F009D3AF6 /* libThree20.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libThree20.a;
+			remoteRef = 43594A1411AF7C4F009D3AF6 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		43594A1711AF7C4F009D3AF6 /* UnitTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = UnitTests.octest;
+			remoteRef = 43594A1611AF7C4F009D3AF6 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		1D60588D0D05DD3D006BFB54 /* Resources */ = {
@@ -2250,6 +2314,7 @@
 				43D503A8112C76F200F9216D /* icon.png in Resources */,
 				43D503A9112C76F200F9216D /* db.sql in Resources */,
 				4338EC4C115AC6C100A9C7A4 /* info.txt in Resources */,
+				43594A2E11AF7DA6009D3AF6 /* Three20.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2629,6 +2694,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		43594A2A11AF7D6A009D3AF6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Three20;
+			targetProxy = 43594A2911AF7D6A009D3AF6 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
 		1D6058940D05DD3E006BFB54 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -2690,13 +2763,17 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = three20/src;
+				HEADER_SEARCH_PATHS = Externals/three20/Build/Products/three20;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = (
 					"-fno-regmove",
 					"-Wno-write-strings",
 					"-falign-loops=16",
 					"-fvisibility=default",
+				);
+				OTHER_LDFLAGS = (
+					"-all_load",
+					"-ObjC",
 				);
 				PREBINDING = NO;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "1F6FE509-7958-416C-BE78-85AB68141A9F";
